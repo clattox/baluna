@@ -586,7 +586,10 @@ body.consent-open { overflow: hidden; }
 .consent-panel {
   position: fixed;
   inset: 0;
-  z-index: 70;
+  /* 80 = capa superior del sitio: por encima del botón flotante de WhatsApp
+     (z-index 70) y del banner (.consent, z-index 60), para que el modal no
+     quede nunca debajo del CTA flotante. */
+  z-index: 80;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -754,16 +757,23 @@ body.consent-open { overflow: hidden; }
    Botón flotante de WhatsApp (solo index.html)
    Ícono genérico de burbuja de chat: no se usa el logo oficial
    de WhatsApp/Meta como asset propio.
-   El banner de cookies ocupa todo el ancho del borde inferior
-   (z-index 60, por encima de este botón), así que script.js le
-   pasa la altura real del banner en --consent-offset y el botón
-   se corre hacia arriba mientras el banner está visible.
+   El banner de cookies (.consent, z-index 60) ocupa todo el ancho
+   del borde inferior, así que script.js le pasa su altura real en
+   --consent-offset y el botón se corre hacia arriba mientras el
+   banner está visible. Como red de seguridad el botón queda por
+   ENCIMA del banner (z-index 70): si el JS no llegara a setear
+   --consent-offset, el botón se solapa con el banner pero se sigue
+   viendo, en vez de quedar escondido detrás. El panel de
+   personalización (.consent-panel) queda en z-index 80 para seguir
+   siendo la capa superior cuando está abierto.
    =========================================================== */
 .whatsapp-float {
   position: fixed;
   right: 24px;
   bottom: calc(24px + var(--consent-offset, 0px));
-  z-index: 40;
+  /* 70 = por encima del banner de cookies (.consent, z-index 60) y por debajo
+     del panel de personalización (.consent-panel, z-index 80). */
+  z-index: 70;
   display: flex;
   align-items: center;
   justify-content: center;
