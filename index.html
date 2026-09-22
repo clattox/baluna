@@ -233,10 +233,92 @@
       <a href="#cobertura">Cobertura</a>
       <a href="#portafolio">Portafolio</a>
       <a href="#contacto">Contacto</a>
+      <a href="privacidad.html">Privacidad</a>
+      <button type="button" class="footer-link" data-consent="customize">Gestionar cookies</button>
     </nav>
     <span class="copy" id="copyYear">© 2026 Baluna. Todos los derechos reservados.</span>
   </div>
 </footer>
+
+<!-- ============ CONSENTIMIENTO DE COOKIES (Ley N°21.719) ============ -->
+<!--
+  Banner de primera visita + panel de preferencias. Se apoya en
+  window.balunaConsent (script.js): guarda la elección en localStorage
+  bajo la clave baluna_cookie_consent y avisa a los callbacks registrados,
+  para que cualquier script de análisis o marketing que se agregue más
+  adelante se cargue solo si hay consentimiento.
+
+  Los toggles de análisis y marketing parten desactivados a propósito: la
+  ley pide consentimiento libre e inequívoco, no opt-out. Las necesarias
+  van fijas y deshabilitadas.
+
+  Si se agrega una página nueva, copiar este bloque completo y el footer:
+  el banner aparece solo cuando no hay una elección guardada.
+-->
+<div class="consent" id="cookieBanner" role="dialog" aria-modal="false" aria-labelledby="cookieBannerTitle" aria-describedby="cookieBannerText" hidden>
+  <div class="consent__card">
+    <div class="consent__text">
+      <h2 class="consent__title" id="cookieBannerTitle">Cookies y privacidad</h2>
+      <p id="cookieBannerText">Hoy este sitio no carga cookies de análisis ni de marketing: guardamos tu elección en tu navegador para no volver a preguntarte en cada visita. Si más adelante sumamos herramientas de análisis o marketing, se activarán solo si nos das tu consentimiento, y podrás cambiarlo cuando quieras. Ver <a href="privacidad.html">política de privacidad</a>.</p>
+    </div>
+    <div class="consent__actions">
+      <button type="button" class="consent__btn" data-consent="reject">Rechazar no esenciales</button>
+      <button type="button" class="consent__btn" data-consent="customize">Personalizar</button>
+      <button type="button" class="consent__btn consent__btn--primary" data-consent="accept">Aceptar todas</button>
+    </div>
+  </div>
+</div>
+
+<!-- Panel de personalización por categoría: se abre con "Personalizar" del
+     banner o con el botón "Gestionar cookies" del pie del sitio. -->
+<div class="consent-panel" id="cookiePanel" role="dialog" aria-modal="true" aria-labelledby="cookiePanelTitle" hidden>
+  <div class="consent-panel__overlay" data-consent="close"></div>
+  <div class="consent-panel__dialog" tabindex="-1">
+    <div class="consent-panel__head">
+      <h2 class="consent-panel__title" id="cookiePanelTitle">Preferencias de cookies</h2>
+      <button type="button" class="consent-panel__close" data-consent="close" aria-label="Cerrar">&times;</button>
+    </div>
+    <p class="consent-panel__intro">Elige qué categorías autorizas. Las necesarias no se pueden desactivar porque el sitio no funcionaría sin ellas.</p>
+    <ul class="consent-cat-list">
+      <li class="consent-cat">
+        <div class="consent-cat__text">
+          <h3 id="cookieNecessaryTitle">Necesarias <span class="consent-cat__badge">Siempre activas</span></h3>
+          <p id="cookieNecessaryDesc">Permiten que el sitio cargue y recuerdan tu elección de cookies. No se usan para perfilarte ni para medir tu navegación.</p>
+        </div>
+        <label class="consent-switch">
+          <input type="checkbox" id="consentNecessary" checked disabled aria-labelledby="cookieNecessaryTitle" aria-describedby="cookieNecessaryDesc" />
+          <span class="consent-switch__track" aria-hidden="true"></span>
+        </label>
+      </li>
+      <li class="consent-cat">
+        <div class="consent-cat__text">
+          <h3 id="cookieAnalyticsTitle">Análisis</h3>
+          <p id="cookieAnalyticsDesc">Medición de uso del sitio (por ejemplo, Google Analytics). Hoy no hay ninguna herramienta de este tipo instalada. Desactivada por defecto.</p>
+        </div>
+        <label class="consent-switch">
+          <input type="checkbox" id="consentAnalytics" aria-labelledby="cookieAnalyticsTitle" aria-describedby="cookieAnalyticsDesc" />
+          <span class="consent-switch__track" aria-hidden="true"></span>
+        </label>
+      </li>
+      <li class="consent-cat">
+        <div class="consent-cat__text">
+          <h3 id="cookieMarketingTitle">Marketing</h3>
+          <p id="cookieMarketingDesc">Píxeles de redes sociales, publicidad y remarketing. Hoy no hay ninguno instalado. Desactivada por defecto.</p>
+        </div>
+        <label class="consent-switch">
+          <input type="checkbox" id="consentMarketing" aria-labelledby="cookieMarketingTitle" aria-describedby="cookieMarketingDesc" />
+          <span class="consent-switch__track" aria-hidden="true"></span>
+        </label>
+      </li>
+    </ul>
+    <p class="consent-panel__note">Análisis y marketing parten desactivadas: no se activan por visitar el sitio ni por seguir navegando, solo si las marcas y guardas.</p>
+    <div class="consent-panel__actions">
+      <button type="button" class="consent__btn" data-consent="reject">Rechazar no esenciales</button>
+      <button type="button" class="consent__btn consent__btn--primary" data-consent="save">Guardar preferencias</button>
+    </div>
+    <p class="consent-panel__legal">Puedes cambiar esta elección cuando quieras con el botón “Gestionar cookies” del pie del sitio. Más detalle en la <a href="privacidad.html">política de privacidad</a>.</p>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>
