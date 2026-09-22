@@ -93,8 +93,42 @@ window.balunaConsent = (function () {
     toggleMarketing = document.getElementById("consentMarketing");
   }
 
-  function mostrarBanner() { if (banner) banner.hidden = false; }
-  function ocultarBanner() { if (banner) banner.hidden = true; }
+  // El botón flotante de WhatsApp (index.html) se aparta cuando el banner
+  // está visible: el banner cruza todo el ancho del borde inferior y, sin
+  // esto, quedaría encima del botón. Se publica la altura real del banner
+  // como variable CSS (--consent-offset), que .whatsapp-float usa en su
+  // `bottom`.
+  function sincronizarOffset() {
+    const raiz = document.documentElement;
+    if (!raiz || !raiz.style) return;
+    let alto = 0;
+    if (banner && !banner.hidden && typeof banner.getBoundingClientRect === "function") {
+      alto = Math.round(banner.getBoundingClientRect().height) || 0;
+    }
+    raiz.style.setProperty("--consent-offset", alto + "px");
+  }
+
+  function mostrarBanner() {
+    if (banner) banner.hidden = false;
+    sincronizarOffset();
+  }
+
+  function ocultarBanner() {
+    if (banner) banner.hidden = true;
+    sincronizarOffset();
+  }
+
+  // El alto del banner depende del ancho de pantalla, del largo del texto y
+  // de la carga de las fuentes: se recalcula con ResizeObserver y, como
+  // respaldo, con resize/load.
+  function observarBanner() {
+    if (!banner) return;
+    if (typeof window.ResizeObserver === "function") {
+      new ResizeObserver(sincronizarOffset).observe(banner);
+    }
+    window.addEventListener("resize", sincronizarOffset, { passive: true });
+    window.addEventListener("load", sincronizarOffset);
+  }
 
   function abrirPanel() {
     if (!panel) return;
@@ -172,6 +206,7 @@ window.balunaConsent = (function () {
 
   function iniciar() {
     resolverDom();
+    observarBanner();
     if (!leer()) mostrarBanner();
   }
   if (document.readyState === "loading") {

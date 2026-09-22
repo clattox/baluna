@@ -25,7 +25,7 @@
 <header class="navbar" id="navbar">
   <div class="navbar__inner">
     <a href="#inicio" class="navbar__logo">
-      <img src="assets/baluna-logo.png" alt="Baluna" />
+      <img src="assets/baluna-logo-navbar.png" alt="Baluna" />
       <span class="navbar__logo-text">Baluna</span>
     </a>
     <nav class="navbar__links">
@@ -201,6 +201,7 @@
         <div class="contact-links">
           <a href="mailto:contacto@agenciabaluna.cl">contacto@agenciabaluna.cl</a>
           <a href="https://wa.me/56976797346" target="_blank" rel="noopener noreferrer">WhatsApp directo</a>
+          <a href="https://www.instagram.com/agenciabaluna.cl/" target="_blank" rel="noopener noreferrer">Instagram</a>
         </div>
       </div>
       <form class="contact-form" id="contactForm">
@@ -234,6 +235,7 @@
       <a href="#portafolio">Portafolio</a>
       <a href="#contacto">Contacto</a>
       <a href="privacidad.html">Privacidad</a>
+      <a href="https://www.instagram.com/agenciabaluna.cl/" target="_blank" rel="noopener noreferrer">Instagram</a>
       <button type="button" class="footer-link" data-consent="customize">Gestionar cookies</button>
     </nav>
     <span class="copy" id="copyYear">© 2026 Baluna. Todos los derechos reservados.</span>
@@ -259,7 +261,7 @@
   <div class="consent__card">
     <div class="consent__text">
       <h2 class="consent__title" id="cookieBannerTitle">Cookies y privacidad</h2>
-      <p id="cookieBannerText">Hoy este sitio no carga cookies de análisis ni de marketing: guardamos tu elección en tu navegador para no volver a preguntarte en cada visita. Si más adelante sumamos herramientas de análisis o marketing, se activarán solo si nos das tu consentimiento, y podrás cambiarlo cuando quieras. Ver <a href="privacidad.html">política de privacidad</a>.</p>
+      <p id="cookieBannerText"><span class="consent__text-long">Hoy este sitio no carga cookies de análisis ni de marketing: guardamos tu elección en tu navegador para no volver a preguntarte en cada visita. Si más adelante sumamos herramientas de análisis o marketing, se activarán solo si nos das tu consentimiento, y podrás cambiarlo cuando quieras. Ver <a href="privacidad.html">política de privacidad</a>.</span><span class="consent__text-short">No usamos cookies de análisis ni de marketing. Si más adelante las sumamos, se activarán solo con tu consentimiento. Ver <a href="privacidad.html">política de privacidad</a>.</span></p>
     </div>
     <div class="consent__actions">
       <button type="button" class="consent__btn" data-consent="reject">Rechazar no esenciales</button>
@@ -321,5 +323,24 @@
 </div>
 
 <script src="script.js"></script>
+
+<!-- ============ WHATSAPP FLOTANTE ============ -->
+<!--
+  Ícono genérico de burbuja de chat: no se usa el logo oficial de
+  WhatsApp/Meta como asset propio. El número es el real de la agencia.
+  Cuando el banner de cookies está visible, script.js le pasa su altura en
+  la variable CSS --consent-offset para que el botón no quede debajo.
+-->
+<a
+  href="https://wa.me/56976797346"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="whatsapp-float"
+  aria-label="Escríbenos por WhatsApp"
+>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="26" height="26" aria-hidden="true" focusable="false">
+    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+  </svg>
+</a>
 </body>
 </html>

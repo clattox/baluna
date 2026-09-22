@@ -61,16 +61,41 @@ img { max-width: 100%; display: block; }
   max-width: 1152px;
   margin: 0 auto;
   padding: 16px 24px;
+  /* El borde de 1px del navbar deja la barra en 77px, el alto que tenía cuando
+     la imagen del logo medía 44px (16 + 44 + 16). Con el asset recortado el
+     logo mide 28px y el contenido más alto pasa a ser el CTA de escritorio
+     (41px) => 16 + 41 + 16 = 73px, así que sin este mínimo la barra bajaría a
+     73px y el menú móvil abriría a esa altura. Con el mínimo la barra mide 77px
+     en los dos estados (arriba y scrolleado) y el menú arranca siempre a la
+     misma altura; además, mientras el contenido siga por debajo de 44px,
+     cualquier retoque del logo ya no mueve la barra. */
+  min-height: 76px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 .navbar__logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-.navbar__logo img { height: 36px; width: auto; display: none; }
+/* 28px (no 44px): el asset anterior (baluna-logo.png) traía mucho aire -su
+   wordmark ocupaba solo 42,6% del alto y 51,9% del ancho-, así que había que
+   inflar la caja para que se viera del tamaño del texto. El asset nuevo
+   (baluna-logo-navbar.png, 484x191) está recortado al contenido: su tinta
+   ocupa 93,7% del alto y su banda de ascendentes (B y l) va de la fila 6 a la
+   base 148, o sea 74,87% del canvas. A 28px de caja eso son 21,0px de
+   ascendente, contra los 21,16px de tinta que mide "Baluna" en Fraunces
+   italic 400 a 28px: al scrollear, el cambio de texto a logo ya no altera el
+   tamaño de las letras. Medido por píxeles del PNG y con
+   canvas measureText.actualBoundingBoxAscent en Chrome con la fuente cargada. */
+.navbar__logo img { height: 28px; width: auto; display: none; }
 .navbar__logo-text {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 24px;
+  /* Se queda en 28px: es el tamaño con el que la tinta de este texto
+     (ascendentes de 21,16px) coincide con la del logo (28px de caja =>
+     21,0px de ascendentes). La comparación por caja de tinta que usamos antes
+     (ratio 1,39) ya no aplica con el asset recortado: su caja incluye el bucle
+     descendente (18,8% del alto) que este texto no tiene, y llevarla a 1,39
+     dejaría el logo en 40x15px, más chico que el asset original sin recortar. */
+  font-size: 28px;
   color: var(--paper);
 }
 .navbar.scrolled .navbar__logo img, .navbar.open .navbar__logo img { display: block; }
@@ -129,6 +154,15 @@ img { max-width: 100%; display: block; }
 .navbar.open .navbar__toggle span i:first-child { transform: translateY(5px) rotate(45deg); }
 .navbar.open .navbar__toggle span i:last-child { transform: translateY(-5px) rotate(-45deg); }
 
+/* Mientras el navbar está transparente sobre el hero oscuro, el borde y las
+   líneas necesitan un tono claro para tener contraste. Al pasar a .scrolled
+   o .open (fondo claro) vuelven los colores base (--line / --ink), porque
+   estas reglas solo aplican cuando el navbar no tiene ninguna de las dos. */
+.navbar:not(.scrolled):not(.open) .navbar__toggle { border-color: rgba(246, 244, 242, .4); }
+.navbar:not(.scrolled):not(.open) .navbar__toggle span i { background: var(--paper); }
+.navbar:not(.scrolled):not(.open) .navbar__toggle:hover { border-color: rgba(246, 244, 242, .7); }
+.navbar:not(.scrolled):not(.open) .navbar__toggle:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; }
+
 .navbar__mobile {
   display: none;
   border-top: 1px solid var(--line);
@@ -147,6 +181,11 @@ img { max-width: 100%; display: block; }
 }
 .navbar__mobile a:hover { background: var(--paper-warm); color: var(--ink); }
 .navbar__mobile .navbar__cta { display: block; text-align: center; margin-top: 8px; }
+/* El CTA dentro del menú móvil necesita este color explícito: .navbar__mobile a
+   (0,1,1) le gana por especificidad a .navbar__cta (0,1,0) y le dejaba el
+   --ink-soft sobre el --brand del botón (contraste 1,63:1, bajo el 4,5:1 de
+   WCAG AA). Con --paper queda 13:1. */
+.navbar__mobile .navbar__cta { color: var(--paper); }
 
 @media (min-width: 768px) {
   .navbar__links { display: flex; }
@@ -385,6 +424,14 @@ form.contact-form {
   transition: border-color .2s;
 }
 .field input:focus, .field textarea:focus { border-color: var(--brand); }
+
+/* De 800px hacia arriba el formulario vuelve a dos columnas, así que los ítems
+   del grid de contacto y los controles no pueden encogerse por debajo de su
+   ancho intrínseco (min-width: auto por defecto): sin esto el form no respeta
+   el 1fr 1.2fr del grid y se sale de su columna. */
+.contact-grid > * { min-width: 0; }
+.contact-form .field { min-width: 0; }
+.contact-form .field input, .contact-form .field textarea { min-width: 0; width: 100%; }
 .contact-form .col-span-2 { grid-column: span 1; }
 .contact-form button {
   justify-self: start;
@@ -402,6 +449,22 @@ form.contact-form {
 .contact-form button:hover { background: var(--brand-deep); }
 @media (min-width: 640px) { form.contact-form { grid-template-columns: repeat(2, 1fr); padding: 32px; } .contact-form .col-span-2 { grid-column: span 2; } }
 @media (min-width: 768px) { .contact-grid { grid-template-columns: 1fr 1.2fr; } }
+
+/* Por debajo de 1081px el formulario se apila a una columna: con dos columnas
+   de inputs su ancho mínimo interior (dos controles ~198px + gap + padding)
+   superaba el ancho que le da el grid en 768-1080px y provocaba scroll
+   horizontal. En una sola columna el form se adapta al ancho disponible y los
+   inputs pasan a ocupar todo el ancho de la columna. El corte va en 1081px (y
+   no en 800px, ni en 1000px) porque es el primer ancho en que el control de dos
+   columnas deja margen para ver completo un correo largo
+   ("contacto@agenciabaluna.cl" = 188,9px): a 1063px entraba por 0,1px y acá
+   sobran ~4px. Por debajo, un correo se desplaza dentro del campo. Va después
+   de los media queries de 640px y 768px porque tienen la misma especificidad y
+   gana el orden de aparición. */
+@media (max-width: 1080px) {
+  form.contact-form { grid-template-columns: 1fr; }
+  .contact-form .col-span-2 { grid-column: span 1; }
+}
 
 /* ---------- Final CTA ---------- */
 .final-cta { background: var(--brand-deep); color: var(--paper); text-align: center; padding: 96px 24px; }
@@ -460,6 +523,11 @@ body.consent-open { overflow: hidden; }
 .consent__title { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: 20px; color: var(--ink); }
 .consent__text p { margin: 8px 0 0; max-width: 680px; font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
 .consent__text a { color: var(--brand); font-weight: 500; text-decoration: underline; text-decoration-color: var(--blush); text-underline-offset: 3px; }
+/* Dos largos del mismo aviso: mismo contenido, redacción más breve para
+   mobile. Son dos <span> dentro del mismo <p id="cookieBannerText">, así que
+   el aria-describedby del banner sigue apuntando a un elemento visible en
+   los dos casos (el span oculto con display:none no se anuncia). */
+.consent__text-short { display: none; }
 .consent__actions { display: flex; flex-wrap: wrap; gap: 10px; }
 
 .consent__btn {
@@ -482,6 +550,35 @@ body.consent-open { overflow: hidden; }
 @media (min-width: 900px) {
   .consent__card { flex-direction: row; align-items: center; justify-content: space-between; gap: 32px; }
   .consent__actions { flex-shrink: 0; }
+}
+
+/* ---------- Aviso corto del banner: hasta 768px ----------
+   Misma información, redacción más breve, para phones y tablets. Medido en
+   Chrome: en 768x1024 el aviso largo ocupaba 4 líneas (90px) y en tablets
+   chicas (641px) hasta 4-5 líneas de ancho variable; con el corto baja a 2-3
+   líneas. Desde 769px se vuelve al aviso largo (la tarjeta sigue en una
+   columna hasta los 900px, donde pasa a fila). */
+@media (max-width: 768px) {
+  .consent__text-long { display: none; }
+  .consent__text-short { display: inline; }
+}
+
+/* ---------- Banner en mobile: versión compacta (solo phones) ----------
+   Medido en Chrome, el banner llegaba a 396px de alto en 390x844 y a 514px
+   en 320x568 (más de media pantalla, empujando el botón flotante de WhatsApp
+   fuera del viewport). El desglose mostró que el 45% del alto era el párrafo
+   (179px, 11 líneas en 320px) y ~25% los botones que se envolvían en 2-3
+   filas. Por eso, además de mostrar el texto corto (regla de arriba, hasta
+   768px), se ajustan los espaciados y los botones. Los paddings y tamaños
+   compactos se quedan en <=640px: en tablets el banner ya entra bien y no
+   conviene apretar la tipografía. La versión de escritorio no se toca. */
+@media (max-width: 640px) {
+  .consent { padding: 12px 16px; }
+  .consent__card { padding: 16px 18px; gap: 14px; }
+  .consent__title { font-size: 18px; }
+  .consent__text p { margin-top: 6px; font-size: 13.5px; }
+  .consent__actions { gap: 8px; }
+  .consent__btn { padding: 9px 15px; font-size: 13.5px; }
 }
 
 
@@ -651,4 +748,47 @@ body.consent-open { overflow: hidden; }
 /* Resalta los campos pendientes de completar. Al reemplazar el texto por
    el dato real, borrar el <span class="flag"> y dejar el dato suelto. */
 .flag { border-radius: 4px; background: var(--blush-soft); color: var(--brand-deep); padding: 1px 6px; font-size: .92em; font-weight: 600; }
+
+
+/* ===========================================================
+   Botón flotante de WhatsApp (solo index.html)
+   Ícono genérico de burbuja de chat: no se usa el logo oficial
+   de WhatsApp/Meta como asset propio.
+   El banner de cookies ocupa todo el ancho del borde inferior
+   (z-index 60, por encima de este botón), así que script.js le
+   pasa la altura real del banner en --consent-offset y el botón
+   se corre hacia arriba mientras el banner está visible.
+   =========================================================== */
+.whatsapp-float {
+  position: fixed;
+  right: 24px;
+  bottom: calc(24px + var(--consent-offset, 0px));
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background: var(--brand);
+  color: var(--paper);
+  box-shadow: 0 8px 24px rgba(23, 19, 53, 0.25);
+  /* Sin transición en `bottom`: cuando cambia --consent-offset (fuente
+     cargada, resize, banner que aparece) el botón debe saltar directo a su
+     lugar y no quedar un instante debajo del banner. */
+  transition: transform 0.2s, background-color 0.2s;
+}
+.whatsapp-float:hover {
+  background: var(--brand-deep);
+  transform: scale(1.05);
+}
+.whatsapp-float:focus-visible { outline: 2px solid var(--brand-deep); outline-offset: 3px; }
+@media (max-width: 640px) {
+  .whatsapp-float {
+    right: 16px;
+    bottom: calc(16px + var(--consent-offset, 0px));
+    width: 52px;
+    height: 52px;
+  }
+}
 
