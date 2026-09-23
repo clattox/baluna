@@ -203,11 +203,23 @@ img { max-width: 100%; display: block; }
   background: var(--brand-deep);
   padding-top: 112px;
 }
-.hero__texture {
+/*
+  Video provisional del hero (assets/hero.mp4: H.264, sin audio, 30s). Va
+  antes que .hero__scrim en el DOM y los dos son position: absolute sin
+  z-index, así que el scrim se sigue pintando encima y mantiene el contraste
+  del texto. El fondo de .hero (--brand-deep) queda de respaldo mientras el
+  video carga o si el archivo no está.
+  object-fit: cover recorta el video para llenar el hero. Ojo: el master es
+  vertical (480x854), encaja bien en mobile y en desktop se escala ~3x, así
+  que ahí se ablanda — hasta que haya una versión horizontal.
+*/
+.hero__video {
   position: absolute;
   inset: 0;
-  background-color: var(--brand-deep);
-  background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.06) 0px, rgba(255,255,255,.06) 1px, transparent 1px, transparent 14px);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 .hero__scrim {
   position: absolute;

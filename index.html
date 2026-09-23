@@ -19,7 +19,7 @@
      max-age de 7 días). Recalcular las dos huellas cada vez que se toquen.
      Antes se usaba el hash del commit, que obligaba a conocerlo antes de
      subir; la huella del archivo se calcula en local y cambia sola. -->
-<link rel="stylesheet" href="styles.css?v=51bc566" />
+<link rel="stylesheet" href="styles.css?v=dc51469" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -58,7 +58,9 @@
 
   <!-- ============ HERO ============ -->
   <section class="hero" id="inicio">
-    <div class="hero__texture" aria-hidden="true"></div>
+    <video class="hero__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+      <source src="assets/hero.mp4" type="video/mp4" />
+    </video>
     <div class="hero__scrim" aria-hidden="true"></div>
     <div class="hero__content">
       <p class="hero__eyebrow">Agencia BTL — activaciones, eventos y staff promocional</p>
