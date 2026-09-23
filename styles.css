@@ -487,10 +487,13 @@ form.contact-form {
 /* ---------- Footer ---------- */
 footer { background: var(--ink); color: rgba(246,244,242,.7); padding: 48px 24px; }
 .footer-inner { max-width: 1152px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px; }
-/* Mismo lockup oficial que usa el navbar sobre fondo oscuro (chip azul
-   del manual): antes era texto en cursiva como sustituto casero, ahora
-   que existe el asset real se usa el logo de verdad. */
-.footer-logo { height: 32px; width: auto; }
+/*
+  Logotipo color plano (morado sobre transparente) invertido con filter
+  para que se lea sobre el fondo oscuro del footer, sin necesitar un
+  asset adicional. A 32px de alto queda ~84px de ancho (relación 2.63:1
+  del asset), proporcional al resto del footer.
+*/
+.footer-logo { height: 32px; width: auto; filter: brightness(0) invert(1); opacity: .85; }
 .footer-inner nav { display: flex; flex-wrap: wrap; align-items: center; gap: 24px 24px; font-size: 14px; }
 .footer-inner nav a, .footer-inner nav .footer-link { color: inherit; text-decoration: none; }
 .footer-inner nav a:hover, .footer-inner nav .footer-link:hover { color: var(--paper); }
