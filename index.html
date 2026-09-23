@@ -13,10 +13,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<!-- ?v= = hash del commit: al cambiar el CSS cambia la URL y ni el CDN ni el
-     navegador pueden seguir sirviendo la versión anterior (styles.css se
-     sirve con max-age de 7 días). Actualizar el ?v= en cada deploy. -->
-<link rel="stylesheet" href="styles.css?v=ed722a5" />
+<!-- ?v= = huella del archivo (shasum -a 1 styles.css script.js | cut -c1-7):
+     al cambiar el CSS o el JS cambia la URL y ni el CDN ni el navegador
+     pueden seguir sirviendo la versión anterior (styles.css se sirve con
+     max-age de 7 días). Recalcular las dos huellas cada vez que se toquen.
+     Antes se usaba el hash del commit, que obligaba a conocerlo antes de
+     subir; la huella del archivo se calcula en local y cambia sola. -->
+<link rel="stylesheet" href="styles.css?v=51bc566" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -234,6 +237,27 @@
     </div>
   </section>
 
+  <!-- ============ MARCAS ============ -->
+  <!--
+    Banda de logos de clientes. Queda vacía a propósito: los logos se
+    agregan cuando Claudio entregue los archivos y las marcas estén
+    autorizadas a nombrarse. No se inventó ningún placeholder.
+    Va antes del CTA final para que el CTA cierre la página y quede
+    pegado al pie, sin un bloque claro en medio.
+    Cada logo va dentro de #marcasGrid como:
+      <img class="marca-logo" src="assets/marcas/nombre.png" alt="Nombre de la marca" />
+    El CSS (.marca-logo) ya los deja monocromáticos y los enciende al
+    pasar el cursor; ver el bloque "Marcas" en styles.css.
+  -->
+  <section class="marcas">
+    <div class="wrap">
+      <h2 class="marcas__titulo">Marcas que han confiado en nosotros</h2>
+      <div class="marcas__grid" id="marcasGrid">
+        <!-- logos van aquí como <img> con clase .marca-logo -->
+      </div>
+    </div>
+  </section>
+
   <!-- ============ CTA FINAL ============ -->
   <section class="final-cta">
     <h2>Tu próxima experiencia empieza aquí.</h2>
@@ -338,7 +362,7 @@
   </div>
 </div>
 
-<script src="script.js?v=ed722a5"></script>
+<script src="script.js?v=7e07314"></script>
 
 <!-- ============ WHATSAPP FLOTANTE ============ -->
 <!--

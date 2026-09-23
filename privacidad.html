@@ -5,12 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Política de privacidad — Baluna</title>
 <meta name="description" content="Política de privacidad y uso de cookies de Baluna: qué datos recolecta el sitio, con qué finalidad y cómo ejercer tus derechos sobre los datos personales." />
+<!-- Temporal: mientras la política tenga marcadores [COMPLETAR] sin resolver
+     (razón social, RUT, plazos de conservación y procedimiento ARCO), la
+     página no debe indexarse. Quitar este meta cuando el texto legal esté
+     completo y revisado. El aviso se repite dentro del cuerpo, en la nota
+     "PENDIENTE" del encabezado. -->
+<meta name="robots" content="noindex" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<!-- ?v= = hash del commit (ver el comentario en index.html): cambia la URL
-     cuando cambia el CSS, para no depender de purgas del CDN ni de la caché. -->
-<link rel="stylesheet" href="styles.css?v=ed722a5" />
+<!-- ?v= = huella del archivo (ver el comentario en index.html): cambia la URL
+     cuando cambia el CSS o el JS, para no depender de purgas del CDN ni de
+     la caché. -->
+<link rel="stylesheet" href="styles.css?v=51bc566" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -62,7 +69,9 @@
   <!--
     PENDIENTE: todos los campos marcados con <span class="flag">[COMPLETAR]</span>
     necesitan el dato real o la redacción legal definitiva. No se inventó
-    ningún dato de la empresa. Al completarlos, borrar el span .flag.
+    ningún dato de la empresa. Al completarlos, borrar el span .flag y
+    quitar el <meta name="robots" content="noindex"> del <head>, que
+    mantiene la página fuera de los buscadores mientras siga incompleta.
   -->
   <section class="legal">
     <div class="wrap">
@@ -207,6 +216,6 @@
 </div>
 
 
-<script src="script.js?v=ed722a5"></script>
+<script src="script.js?v=7e07314"></script>
 </body>
 </html>

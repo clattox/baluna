@@ -87,11 +87,17 @@ img { max-width: 100%; display: block; }
     el manual define para "logotipo sobre color corporativo", pensado
     para fondos oscuros/de color. Reemplaza el wordmark de texto en
     cursiva que usábamos antes de tener los archivos oficiales.
-  Casi la misma relación de aspecto que el asset recortado a mano
-  anterior (2,63:1 vs 2,53:1), así que el height se mantiene en 28px
-  sin necesidad de remedir.
+  El alto va por lockup y no en la regla común, porque las relaciones de
+  aspecto son distintas: el wordmark conserva los 28px de siempre (casi la
+  misma relación que el asset recortado a mano anterior, 2,63:1 vs 2,53:1,
+  así que no hubo que remedir) y el chip necesita 36px, porque el PNG mide
+  1630x950 (1,72:1) y a 28px el wordmark interno quedaba en ~10px de alto.
+  Ojo con la especificidad: un ".navbar__logo img { height }" es (0,1,1) y
+  le gana a ".navbar__logo-top" (0,1,0), así que el alto no puede vivir ahí.
 */
-.navbar__logo img { height: 28px; width: auto; display: none; }
+.navbar__logo img { width: auto; display: none; }
+.navbar__logo-scrolled { height: 28px; }
+.navbar__logo-top { height: 36px; }
 .navbar.scrolled .navbar__logo-scrolled, .navbar.open .navbar__logo-scrolled { display: block; }
 .navbar:not(.scrolled):not(.open) .navbar__logo-top { display: block; }
 
@@ -484,6 +490,44 @@ form.contact-form {
 .final-cta .btn-primary { margin-top: 36px; display: inline-flex; align-items: center; gap: 8px; }
 @media (min-width: 768px) { .final-cta { padding: 128px 24px; } }
 
+/* ---------- Marcas ---------- */
+/*
+  Banda de logos de clientes, antes del CTA final (así el CTA cierra la
+  página y el pie queda pegado a él, sin un bloque claro en medio). La
+  estructura (título + #marcasGrid) ya está en el HTML: falta solo subir
+  los archivos y agregarlos como <img class="marca-logo" src="assets/marcas/…">,
+  sin tocar el CSS. Mientras el grid esté vacío la sección muestra el
+  título y su respiro, sin placeholders inventados.
+
+  Los logos van en escala de grises al 60% y se encienden a color al pasar
+  el cursor o al enfocarlos con teclado: así la banda no compite con el
+  resto de la página. La altura es fija (32px, la misma del logo del pie)
+  y el ancho lo pone cada archivo, para que logos de distinta proporción
+  se vean del mismo tamaño óptico.
+*/
+.marcas { background: var(--paper-warm); padding: 72px 0; }
+.marcas__titulo { max-width: 560px; }
+/* Los logos arrancan a plomo con el título y con el resto de las secciones
+   (si alguna vez se prefieren centrados, basta justify-content: center). */
+.marcas__grid {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 32px 48px;
+}
+.marca-logo {
+  height: 32px;
+  width: auto;
+  filter: grayscale(1);
+  opacity: .6;
+  transition: filter .25s, opacity .25s;
+}
+.marca-logo:hover, .marca-logo:focus-visible { filter: grayscale(0); opacity: 1; }
+/* Paddings distintos a los de section (96/128px): .marcas los sobreescribe
+   por especificidad, así que el corte necesita su propio media query. */
+@media (min-width: 768px) { .marcas { padding: 96px 0; } }
+
 /* ---------- Footer ---------- */
 footer { background: var(--ink); color: rgba(246,244,242,.7); padding: 48px 24px; }
 .footer-inner { max-width: 1152px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px; }
@@ -492,8 +536,15 @@ footer { background: var(--ink); color: rgba(246,244,242,.7); padding: 48px 24px
   para que se lea sobre el fondo oscuro del footer, sin necesitar un
   asset adicional. A 32px de alto queda ~84px de ancho (relación 2.63:1
   del asset), proporcional al resto del footer.
+
+  align-self: flex-start es imprescindible: por debajo de 640px
+  .footer-inner es un flex en columna y el align-items: stretch que trae
+  por defecto le estiraba el ancho del logo a todo el contenedor (medido
+  con Chrome: 452x32px a 500px de viewport, el wordmark aplastado 5,4
+  veces). Con start el ancho vuelve a ser el intrínseco del PNG y el
+  logo queda a la izquierda, como el resto del pie.
 */
-.footer-logo { height: 32px; width: auto; filter: brightness(0) invert(1); opacity: .85; }
+.footer-logo { height: 32px; width: auto; align-self: flex-start; filter: brightness(0) invert(1); opacity: .85; }
 .footer-inner nav { display: flex; flex-wrap: wrap; align-items: center; gap: 24px 24px; font-size: 14px; }
 .footer-inner nav a, .footer-inner nav .footer-link { color: inherit; text-decoration: none; }
 .footer-inner nav a:hover, .footer-inner nav .footer-link:hover { color: var(--paper); }
@@ -501,7 +552,9 @@ footer { background: var(--ink); color: rgba(246,244,242,.7); padding: 48px 24px
    de los links del pie para no romper la linea visual. */
 .footer-inner nav .footer-link { border: 0; background: none; padding: 0; font: inherit; font-size: 14px; cursor: pointer; }
 .footer-inner .copy { font-size: 14px; color: rgba(246,244,242,.5); }
-@media (min-width: 640px) { .footer-inner { flex-direction: row; align-items: center; justify-content: space-between; } }
+/* En fila el logo vuelve a align-self: auto, para que lo centre el
+   align-items: center del contenedor y no quede pegado arriba. */
+@media (min-width: 640px) { .footer-inner { flex-direction: row; align-items: center; justify-content: space-between; } .footer-logo { align-self: auto; } }
 
 /* ===========================================================
    Consentimiento de cookies y privacidad (Ley N°21.719)
