@@ -1,16 +1,19 @@
 /* ===========================================================
-   Paleta extraida por muestreo de pixeles del logo entregado:
-   - Morado tinta:  rgb(40,35,84)    -> #282354
-   - Rosa acento:   rgb(216,165,166) -> #D8A5A6
+   Paleta oficial, del Manual de Normas Gráficas de Baluna:
+   - Azul profundo: #282353 (CMYK c100 m100 y34 k28 / RGB 40,35,83)
+   - Rosa pastel:   #D7A5A6 (CMYK c15 m41 y27 k2 / RGB 215,165,166)
+   Antes usábamos #282354 / #D8A5A6, sacados por muestreo de píxeles
+   del logo (sin el manual a mano) — la diferencia era de 1 punto por
+   canal, ya no queda ninguna.
    =========================================================== */
 :root {
   --paper: #f6f4f2;
   --paper-warm: #efece6;
   --ink: #17152b;
   --ink-soft: #4b4763;
-  --brand: #282354;
+  --brand: #282353;
   --brand-deep: #171335;
-  --blush: #d8a5a6;
+  --blush: #d7a5a6;
   --blush-soft: #efd9d5;
   --line: #e2ded9;
   --line-dark: rgba(246, 244, 242, 0.16);
@@ -75,31 +78,22 @@ img { max-width: 100%; display: block; }
   justify-content: space-between;
 }
 .navbar__logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-/* 28px (no 44px): el asset anterior (baluna-logo.png) traía mucho aire -su
-   wordmark ocupaba solo 42,6% del alto y 51,9% del ancho-, así que había que
-   inflar la caja para que se viera del tamaño del texto. El asset nuevo
-   (baluna-logo-navbar.png, 484x191) está recortado al contenido: su tinta
-   ocupa 93,7% del alto y su banda de ascendentes (B y l) va de la fila 6 a la
-   base 148, o sea 74,87% del canvas. A 28px de caja eso son 21,0px de
-   ascendente, contra los 21,16px de tinta que mide "Baluna" en Fraunces
-   italic 400 a 28px: al scrollear, el cambio de texto a logo ya no altera el
-   tamaño de las letras. Medido por píxeles del PNG y con
-   canvas measureText.actualBoundingBoxAscent en Chrome con la fuente cargada. */
+/*
+  Dos lockups oficiales del Manual de Normas Gráficas, no un logo +
+  fallback de texto casero:
+  - navbar__logo-scrolled: Logotipo-Baluna.png (color plano, transparente,
+    recortado al 99,9% de tinta) — para navbar con fondo claro.
+  - navbar__logo-top: Logotipo-Baluna-Fondo-Color-Azul.png — el lockup que
+    el manual define para "logotipo sobre color corporativo", pensado
+    para fondos oscuros/de color. Reemplaza el wordmark de texto en
+    cursiva que usábamos antes de tener los archivos oficiales.
+  Casi la misma relación de aspecto que el asset recortado a mano
+  anterior (2,63:1 vs 2,53:1), así que el height se mantiene en 28px
+  sin necesidad de remedir.
+*/
 .navbar__logo img { height: 28px; width: auto; display: none; }
-.navbar__logo-text {
-  font-family: var(--font-display);
-  font-style: italic;
-  /* Se queda en 28px: es el tamaño con el que la tinta de este texto
-     (ascendentes de 21,16px) coincide con la del logo (28px de caja =>
-     21,0px de ascendentes). La comparación por caja de tinta que usamos antes
-     (ratio 1,39) ya no aplica con el asset recortado: su caja incluye el bucle
-     descendente (18,8% del alto) que este texto no tiene, y llevarla a 1,39
-     dejaría el logo en 40x15px, más chico que el asset original sin recortar. */
-  font-size: 28px;
-  color: var(--paper);
-}
-.navbar.scrolled .navbar__logo img, .navbar.open .navbar__logo img { display: block; }
-.navbar.scrolled .navbar__logo-text, .navbar.open .navbar__logo-text { display: none; }
+.navbar.scrolled .navbar__logo-scrolled, .navbar.open .navbar__logo-scrolled { display: block; }
+.navbar:not(.scrolled):not(.open) .navbar__logo-top { display: block; }
 
 .navbar__links { display: none; align-items: center; gap: 32px; }
 .navbar__links a {
@@ -228,7 +222,18 @@ img { max-width: 100%; display: block; }
   font-family: var(--font-display);
   font-weight: 500;
   line-height: .95;
-  font-size: 13vw;
+  /*
+    10vw (antes 13vw) y los breakpoints de abajo (44px/56px, antes
+    60px/72px): el tagline oficial del manual ("Transformamos la
+    presencia en eventos en experiencias de marca memorables.") tiene
+    61% más caracteres que el H1 anterior. A los tamaños viejos pasaba
+    de 2 a 4 líneas en desktop y de 4 a 6 en mobile (altura del bloque
+    274px vs 137px), contra lo que pide el brief ("no sobrecargar el
+    hero"). Medido con Playwright en 375/640/700/768/1280px: estos
+    tamaños devuelven 3-4 líneas y 125-160px de alto, casi el mismo
+    rango que el H1 anterior (137-185px) pese al texto más largo.
+  */
+  font-size: 10vw;
   color: var(--paper);
   text-wrap: balance;
 }
@@ -265,8 +270,8 @@ img { max-width: 100%; display: block; }
 }
 .btn-outline:hover { background: rgba(246,244,242,.1); }
 
-@media (min-width: 640px) { .hero h1 { font-size: 60px; } }
-@media (min-width: 768px) { .hero h1 { font-size: 72px; } }
+@media (min-width: 640px) { .hero h1 { font-size: 44px; } }
+@media (min-width: 768px) { .hero h1 { font-size: 56px; } }
 
 /* ---------- Credibility ---------- */
 .credibility {
@@ -367,14 +372,21 @@ h2 {
 }
 .masonry figure.tall { aspect-ratio: 3 / 4; }
 .masonry figure:not(.tall) { aspect-ratio: 4 / 5; }
-.masonry .media {
+/*
+  Antes .media era un <div> con textura placeholder (sin fotos reales
+  todavía). Ahora las figuras usan <img> directo; estas reglas hacen
+  que la imagen llene el figure (object-fit: cover) y conservan el
+  mismo hover de zoom sutil que tenía el placeholder.
+*/
+.masonry figure img {
   position: absolute;
   inset: 0;
-  background-color: var(--brand-deep);
-  background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.06) 0px, rgba(255,255,255,.06) 1px, transparent 1px, transparent 14px);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: transform .5s;
 }
-.masonry figure:hover .media { transform: scale(1.03); }
+.masonry figure:hover img { transform: scale(1.03); }
 .masonry figcaption {
   position: absolute;
   inset-inline: 0;
@@ -475,7 +487,10 @@ form.contact-form {
 /* ---------- Footer ---------- */
 footer { background: var(--ink); color: rgba(246,244,242,.7); padding: 48px 24px; }
 .footer-inner { max-width: 1152px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px; }
-.footer-inner .brand { font-family: var(--font-display); font-style: italic; font-size: 24px; color: var(--paper); }
+/* Mismo lockup oficial que usa el navbar sobre fondo oscuro (chip azul
+   del manual): antes era texto en cursiva como sustituto casero, ahora
+   que existe el asset real se usa el logo de verdad. */
+.footer-logo { height: 32px; width: auto; }
 .footer-inner nav { display: flex; flex-wrap: wrap; align-items: center; gap: 24px 24px; font-size: 14px; }
 .footer-inner nav a, .footer-inner nav .footer-link { color: inherit; text-decoration: none; }
 .footer-inner nav a:hover, .footer-inner nav .footer-link:hover { color: var(--paper); }
