@@ -66,14 +66,14 @@ img { max-width: 100%; display: block; }
   padding: 16px 24px;
   /* El borde de 1px del navbar deja la barra en 77px, el alto que tenía cuando
      la imagen del logo medía 44px (16 + 44 + 16). Con los assets recortados el
-     contenido más alto son los logos, a 40px, y el CTA de escritorio (41px),
-     es decir 16 + 41 + 16 = 73px: sin este mínimo la barra bajaría a 73px y el
-     menú móvil abriría a esa altura. Con el mínimo la barra mide 77px en los
-     dos estados (arriba y scrolleado) y el menú arranca siempre a la misma
-     altura; además el mínimo reserva 44px de contenido (76 - 16 - 16), así que
-     mientras el contenido siga por debajo de esa medida cualquier retoque del
-     logo ya no mueve la barra. Los logos de 40px entran justo dentro de esos
-     44px, y por eso subirlos no cambia el alto de la barra. */
+     contenido más alto por debajo de esta medida es el CTA de escritorio
+     (41px), es decir 16 + 41 + 16 = 73px: sin este mínimo la barra bajaría a
+     73px y el menú móvil abriría a esa altura. Con el mínimo el contenido que
+     no pase de 44px (76 - 16 - 16) no mueve la barra: es el caso del logo de
+     40px del estado scrolleado y del CTA. Ojo, el logo del estado de arriba
+     mide 48px, así que sí supera esos 44px y en ese estado la barra mide 81px
+     (16 + 48 + 16 + 1): no es un descuido, es lo que cuesta que el wordmark
+     blanco tenga presencia sobre el video del hero. */
   min-height: 76px;
   display: flex;
   align-items: center;
@@ -81,27 +81,39 @@ img { max-width: 100%; display: block; }
 }
 .navbar__logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
 /*
-  Dos lockups oficiales del Manual de Normas Gráficas, no un logo +
-  fallback de texto casero:
-  - navbar__logo-scrolled: Logotipo-Baluna.png (color plano, transparente,
-    recortado al 99,9% de tinta) — para navbar con fondo claro.
-  - navbar__logo-top: Logotipo-Baluna-Fondo-Color-Azul.png — el lockup que
-    el manual define para "logotipo sobre color corporativo", pensado
-    para fondos oscuros/de color. Reemplaza el wordmark de texto en
-    cursiva que usábamos antes de tener los archivos oficiales.
-  Los dos lockups van al mismo alto (40px), así el cambio de estado al hacer
-  scroll no mueve nada dentro de la barra. Las relaciones de aspecto son
-  distintas (2,63:1 el wordmark, 1,72:1 el chip), así que a igual alto el
-  ancho no coincide: unos 105px contra unos 69px. El chip necesitaba más
-  alto que el wordmark para que su wordmark interno no quedara diminuto (a
-  28px bajaba a ~10px de alto) y con los dos en 40px ese problema de paso
-  queda resuelto.
+  Un solo lockup oficial del Manual de Normas Gráficas, el wordmark
+  Logotipo-Baluna.png (color plano, transparente, recortado al 99,9% de
+  tinta), usado en los dos estados del navbar:
+  - navbar__logo-scrolled: tal cual, en color, para el navbar de fondo claro.
+  - navbar__logo-top: el mismo archivo pasado a blanco con un filtro, para el
+    navbar transparente sobre el hero oscuro.
+  Antes el estado de arriba usaba Logotipo-Baluna-Fondo-Color-Azul.png (el
+  lockup con caja azul que el manual define para fondo corporativo), pero
+  sobre el video la caja se leía como un parche y no como logo.
+  La relación de aspecto del wordmark es 2,63:1, así que el ancho sale del
+  alto: 105px a 40px (abajo) y 126px a 48px (arriba).
   Ojo con la especificidad: un ".navbar__logo img { height }" es (0,1,1) y
   le gana a ".navbar__logo-top" (0,1,0), así que el alto no puede vivir ahí.
 */
 .navbar__logo img { width: auto; display: none; }
 .navbar__logo-scrolled { height: 40px; }
-.navbar__logo-top { height: 40px; }
+/*
+  El filtro es lo que pone el wordmark en blanco: brightness(0) lleva todo a
+  negro (incluido el punto rosa del logotipo) e invert(1) lo pasa a blanco,
+  sin tocar el alfa, así que las zonas transparentes del PNG siguen
+  transparentes. Va en la regla base porque este lockup solo se ve en el
+  estado de arriba (la regla de display de más abajo lo oculta en cuanto el
+  navbar es .scrolled o .open), que es siempre sobre fondo oscuro.
+  Mide 48px y no los 40px del de abajo: sin la caja azul, a igual alto el
+  wordmark queda más chico y sobre el video necesita más presencia. La
+  contra es que 48px supera los 44px que reserva el min-height de
+  .navbar__inner, así que en el estado de arriba la barra mide 81px y al
+  hacer scroll baja a 77px (el comentario del min-height lo tiene anotado).
+*/
+.navbar__logo-top {
+  height: 48px;
+  filter: brightness(0) invert(1);
+}
 .navbar.scrolled .navbar__logo-scrolled, .navbar.open .navbar__logo-scrolled { display: block; }
 .navbar:not(.scrolled):not(.open) .navbar__logo-top { display: block; }
 
