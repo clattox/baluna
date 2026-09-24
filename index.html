@@ -19,7 +19,7 @@
      max-age de 7 días). Recalcular las dos huellas cada vez que se toquen.
      Antes se usaba el hash del commit, que obligaba a conocerlo antes de
      subir; la huella del archivo se calcula en local y cambia sola. -->
-<link rel="stylesheet" href="styles.css?v=666f1ca" />
+<link rel="stylesheet" href="styles.css?v=df07a0d" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -150,9 +150,12 @@
 
   <!-- ============ COBERTURA ============ -->
   <!--
-    Mapa real de Chile (assets/mapa-chile.png, 370x697) con las macrozonas
-    norte, centro y sur marcadas. Las zonas viven dentro de la imagen, así
-    que en HTML queda solo el <img>: sin ciudades ni cifras inventadas.
+    Mapa real de Chile (assets/mapa-chile.png, 831x1628, fondo transparente)
+    con las macrozonas norte, centro y sur marcadas. Las zonas viven dentro de
+    la imagen, así que en HTML queda solo el <img>: sin ciudades ni cifras
+    inventadas. El ancho lo pone .coverage-graphic (380px, centrado en su
+    columna) y la sección deja el mapa a la derecha del texto desde 768px,
+    apilado debajo a ancho completo en móvil.
   -->
   <section id="cobertura">
     <div class="wrap coverage-grid">

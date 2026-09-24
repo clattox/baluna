@@ -417,11 +417,12 @@ h2 {
 .coverage-grid p { max-width: 420px; color: var(--ink-soft); margin-top: 24px; text-wrap: balance; }
 .coverage-graphic {
   margin: 0 auto;
-  max-width: 260px;
+  max-width: 380px;
   width: 100%;
 }
-/* El mapa es un PNG de 370x697, así que basta width 100% + height auto:
-   la caja crece sola y no hace falta fijar altura en ningún breakpoint. */
+/* El mapa es un PNG de 831x1628 que trae el país y, a su derecha, las
+   etiquetas de zona con sus líneas guía: basta width 100% + height auto, la
+   caja crece sola y no hace falta fijar altura en ningún breakpoint. */
 .coverage-graphic img {
   width: 100%;
   height: auto;
