@@ -65,13 +65,15 @@ img { max-width: 100%; display: block; }
   margin: 0 auto;
   padding: 16px 24px;
   /* El borde de 1px del navbar deja la barra en 77px, el alto que tenía cuando
-     la imagen del logo medía 44px (16 + 44 + 16). Con el asset recortado el
-     logo mide 28px y el contenido más alto pasa a ser el CTA de escritorio
-     (41px) => 16 + 41 + 16 = 73px, así que sin este mínimo la barra bajaría a
-     73px y el menú móvil abriría a esa altura. Con el mínimo la barra mide 77px
-     en los dos estados (arriba y scrolleado) y el menú arranca siempre a la
-     misma altura; además, mientras el contenido siga por debajo de 44px,
-     cualquier retoque del logo ya no mueve la barra. */
+     la imagen del logo medía 44px (16 + 44 + 16). Con los assets recortados el
+     contenido más alto son los logos, a 40px, y el CTA de escritorio (41px),
+     es decir 16 + 41 + 16 = 73px: sin este mínimo la barra bajaría a 73px y el
+     menú móvil abriría a esa altura. Con el mínimo la barra mide 77px en los
+     dos estados (arriba y scrolleado) y el menú arranca siempre a la misma
+     altura; además el mínimo reserva 44px de contenido (76 - 16 - 16), así que
+     mientras el contenido siga por debajo de esa medida cualquier retoque del
+     logo ya no mueve la barra. Los logos de 40px entran justo dentro de esos
+     44px, y por eso subirlos no cambia el alto de la barra. */
   min-height: 76px;
   display: flex;
   align-items: center;
@@ -87,17 +89,19 @@ img { max-width: 100%; display: block; }
     el manual define para "logotipo sobre color corporativo", pensado
     para fondos oscuros/de color. Reemplaza el wordmark de texto en
     cursiva que usábamos antes de tener los archivos oficiales.
-  El alto va por lockup y no en la regla común, porque las relaciones de
-  aspecto son distintas: el wordmark conserva los 28px de siempre (casi la
-  misma relación que el asset recortado a mano anterior, 2,63:1 vs 2,53:1,
-  así que no hubo que remedir) y el chip necesita 36px, porque el PNG mide
-  1630x950 (1,72:1) y a 28px el wordmark interno quedaba en ~10px de alto.
+  Los dos lockups van al mismo alto (40px), así el cambio de estado al hacer
+  scroll no mueve nada dentro de la barra. Las relaciones de aspecto son
+  distintas (2,63:1 el wordmark, 1,72:1 el chip), así que a igual alto el
+  ancho no coincide: unos 105px contra unos 69px. El chip necesitaba más
+  alto que el wordmark para que su wordmark interno no quedara diminuto (a
+  28px bajaba a ~10px de alto) y con los dos en 40px ese problema de paso
+  queda resuelto.
   Ojo con la especificidad: un ".navbar__logo img { height }" es (0,1,1) y
   le gana a ".navbar__logo-top" (0,1,0), así que el alto no puede vivir ahí.
 */
 .navbar__logo img { width: auto; display: none; }
-.navbar__logo-scrolled { height: 28px; }
-.navbar__logo-top { height: 36px; }
+.navbar__logo-scrolled { height: 40px; }
+.navbar__logo-top { height: 40px; }
 .navbar.scrolled .navbar__logo-scrolled, .navbar.open .navbar__logo-scrolled { display: block; }
 .navbar:not(.scrolled):not(.open) .navbar__logo-top { display: block; }
 
