@@ -19,7 +19,7 @@
      max-age de 7 días). Recalcular las dos huellas cada vez que se toquen.
      Antes se usaba el hash del commit, que obligaba a conocerlo antes de
      subir; la huella del archivo se calcula en local y cambia sola. -->
-<link rel="stylesheet" href="styles.css?v=52498e4" />
+<link rel="stylesheet" href="styles.css?v=b5806f8" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -175,8 +175,13 @@
     Composicion editorial: cada <figure> declara con sus clases cuantas
     columnas y filas ocupa (ver el bloque "Portfolio" en styles.css).
     pf--r34 / pf--r45 son la proporcion real del archivo (6 fotos en 3:4 y
-    7 en 4:5) y definen el alto en mobile, donde la grilla es de una
-    columna y las pf--med van en cuadrado como acento.
+    7 celdas en 4:5, una de ellas el video de Mistro, que conserva el 4:5 de
+    la grilla aunque su master sea vertical 480x854) y definen el alto en
+    mobile, donde la grilla es de una columna y las pf--med van en cuadrado
+    como acento.
+    La celda del video no lleva .pf__btn: el lightbox solo sabe mostrar fotos
+    y esa figura no tiene <img>, asi que script.js salta las figuras sin foto
+    al armar la galeria (ver el bloque del lightbox).
     data-type alimenta el filtro y la primera linea de la leyenda del
     hover; data-kind es la segunda linea (que es cada pieza). Los dos son
     categoria, no dato de cliente: nada inventado.
@@ -211,7 +216,12 @@
         <figure class="pf pf--6x2 pf--r45 pf--med" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/cocacola_equipo.jpg" alt="Activación Coca-Cola en supermercado" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Activación Coca-Cola en supermercado"></button><figcaption><span class="type">Retail</span></figcaption></figure>
         <figure class="pf pf--6x2 pf--r45 pf--med" data-type="Eventos" data-kind="Producción de evento"><img src="assets/portfolio/trama_playa.jpg" alt="Evento TRAMA en playa" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Evento TRAMA en playa"></button><figcaption><span class="type">Eventos</span></figcaption></figure>
         <figure class="pf pf--7x2 pf--r34 pf--feat" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/acalis_super.jpg" alt="Activación Acalis Montahue en supermercado" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Activación Acalis Montahue en supermercado"></button><figcaption><span class="type">Retail</span></figcaption></figure>
-        <figure class="pf pf--5x2 pf--r45 pf--med" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/mistro_degustacion.jpg" alt="Degustación Mistro en supermercado" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Degustación Mistro en supermercado"></button><figcaption><span class="type">Retail</span></figcaption></figure>
+        <figure class="pf pf--5x2 pf--r45 pf--med" data-type="Retail" data-kind="Punto de venta">
+          <video autoplay muted loop playsinline preload="metadata" aria-label="Activación Mistro en supermercado">
+            <source src="assets/portfolio/mistro_video.mp4" type="video/mp4" />
+          </video>
+          <figcaption><span class="type">Retail</span></figcaption>
+        </figure>
         <figure class="pf pf--6x2 pf--r34 pf--med" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/lacustodia_cliente.jpg" alt="Degustación La Custodia en supermercado" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Degustación La Custodia en supermercado"></button><figcaption><span class="type">Retail</span></figcaption></figure>
         <figure class="pf pf--3x1 pf--r34 pf--sm" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/cocacola_jumbo.jpg" alt="Activación Coca-Cola en Jumbo" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Activación Coca-Cola en Jumbo"></button><figcaption><span class="type">Retail</span></figcaption></figure>
         <figure class="pf pf--3x1 pf--r45 pf--sm" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/lacustodia_atencion.jpg" alt="Degustación La Custodia, atención a cliente" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Degustación La Custodia, atención a cliente"></button><figcaption><span class="type">Retail</span></figcaption></figure>
@@ -462,6 +472,6 @@
   el bloque del lightbox resuelve sus elementos al cargar el archivo, así
   que necesita que ese markup ya esté en el DOM.
 -->
-<script src="script.js?v=2adc83c"></script>
+<script src="script.js?v=cd0f464"></script>
 </body>
 </html>

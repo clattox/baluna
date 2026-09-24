@@ -521,6 +521,22 @@ h2 {
 }
 .pf:hover img, .pf:focus-within img { transform: scale(1.03); }
 
+/* La celda del video (Mistro) usa el mismo encuadre que las fotos: absoluta a
+   sangre y recortando al centro. Son las mismas propiedades de .hero__video,
+   y el master también es vertical (480x854), así que object-fit: cover deja el
+   encuadre en el centro. Fuera de la regla del zoom a propósito: agrandar un
+   video en reproducción se ve borroso (el master se escala 1.14x solo para
+   llenar la celda). El velo y la etiqueta del hover van en .pf::before/::after
+   con z-index 1 y 2, así que pasan por encima como con las fotos. */
+.pf video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
 /* Botón que cubre la foto: hace clicable la figura y navegable con
    teclado (una <figure> no recibe foco). Va sobre el velo y la etiqueta. */
 .pf__btn {

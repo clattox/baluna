@@ -348,6 +348,18 @@ if (filters && portfolioFigures.length) {
   });
 }
 
+// ===== Portafolio: el video no arranca solo con menos movimiento =====
+// El bloque global de styles.css apaga animaciones y transiciones, pero eso no
+// neutraliza un video: se pausa desde acá. El del hero se oculta por CSS y
+// deja ver el fondo --brand-deep; ocultar este dejaría la celda del portafolio
+// vacía, así que la preferencia se aplica dejándolo en su primer fotograma.
+const videoPortafolio = document.querySelector("#portfolioGrid video");
+if (videoPortafolio && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  videoPortafolio.autoplay = false;
+  videoPortafolio.removeAttribute("autoplay");
+  videoPortafolio.pause();
+}
+
 // ===== Portafolio: lightbox propio, sin librerías =====
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightboxImg");
@@ -356,11 +368,21 @@ const lightboxClose = document.getElementById("lightboxClose");
 const lightboxPrev = document.getElementById("lightboxPrev");
 const lightboxNext = document.getElementById("lightboxNext");
 
-if (lightbox && lightboxImg && portfolioFigures.length) {
-  const fotos = portfolioFigures.map((fig) => {
-    const img = fig.querySelector("img");
-    return { src: img.getAttribute("src"), alt: img.getAttribute("alt") || "" };
-  });
+// Solo las figuras con <img> entran a la galería: la celda del video no tiene
+// foto que ampliar y, sin este filtro, el querySelector("img") devolvía null y
+// reventaba el bloque entero (y con él el clic de las 12 fotos).
+// indiceEnGaleria guarda la posición real de cada figura dentro de la galería,
+// que desde que existe el video ya no coincide con su posición en la grilla.
+const indiceEnGaleria = new Map();
+const fotos = [];
+portfolioFigures.forEach((fig) => {
+  const img = fig.querySelector("img");
+  if (!img) return;
+  indiceEnGaleria.set(fig, fotos.length);
+  fotos.push({ src: img.getAttribute("src"), alt: img.getAttribute("alt") || "" });
+});
+
+if (lightbox && lightboxImg && fotos.length) {
 
   const controles = [lightboxClose, lightboxPrev, lightboxNext].filter(Boolean);
   let abierto = false;
@@ -393,11 +415,12 @@ if (lightbox && lightboxImg && portfolioFigures.length) {
     if (focoPrevio && typeof focoPrevio.focus === "function") focoPrevio.focus();
   }
 
-  // El lightbox recorre las 13 fotos en el orden del DOM, aunque haya un
-  // filtro activo: es la galería completa, no solo lo visible.
-  portfolioFigures.forEach((fig, i) => {
+  // El lightbox recorre las fotos en el orden del DOM, aunque haya un filtro
+  // activo: es la galería completa, no solo lo visible. La celda del video no
+  // lleva .pf__btn, así que no entra al recorrido ni a la trampa de foco.
+  portfolioFigures.forEach((fig) => {
     const btn = fig.querySelector(".pf__btn");
-    if (btn) btn.addEventListener("click", () => abrirLightbox(i, btn));
+    if (btn) btn.addEventListener("click", () => abrirLightbox(indiceEnGaleria.get(fig), btn));
   });
   if (lightboxPrev) lightboxPrev.addEventListener("click", () => mostrarFoto(indice - 1));
   if (lightboxNext) lightboxNext.addEventListener("click", () => mostrarFoto(indice + 1));
