@@ -371,7 +371,31 @@ h2 {
 @media (min-width: 768px) { .coverage-grid { grid-template-columns: repeat(2, 1fr); } }
 
 /* ---------- Portfolio ---------- */
+/*
+  Grilla editorial explícita (no "columns"): cada foto declara cuántas
+  columnas y filas ocupa. Las 13 fotos son verticales (6 en 3:4 y 7 en
+  4:5), así que la asimetría se logra variando el tamaño de la celda.
+  El alto de cada celda lo dan las filas (grid-auto-rows), no un
+  aspect-ratio: las imágenes van en absoluto para que el contenido no
+  estire la pista y la fila mida exactamente el mínimo de minmax().
+*/
+#portafolio { padding: 72px 0; }
+
 .portfolio-head { display: flex; flex-direction: column; gap: 24px; margin-bottom: 40px; }
+.portfolio-head__lead { max-width: 560px; }
+.portfolio-sub { margin: 16px 0 0; font-size: 15px; line-height: 1.6; color: var(--ink-soft); text-wrap: balance; }
+.portfolio-count {
+  display: inline-block;
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-soft);
+}
+
 .filters { display: flex; flex-wrap: wrap; gap: 8px; }
 .filters button {
   border-radius: 999px;
@@ -387,23 +411,22 @@ h2 {
 .filters button:hover { border-color: var(--brand); color: var(--ink); }
 .filters button.active { border-color: var(--brand); background: var(--brand); color: var(--paper); }
 
-.masonry { columns: 1; column-gap: 20px; }
-.masonry figure {
+.portfolio-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+
+.pf {
   position: relative;
-  margin: 0 0 20px;
-  break-inside: avoid;
+  margin: 0;
   overflow: hidden;
   border-radius: 2px;
+  background: var(--paper-warm);
 }
-.masonry figure.tall { aspect-ratio: 3 / 4; }
-.masonry figure:not(.tall) { aspect-ratio: 4 / 5; }
-/*
-  Antes .media era un <div> con textura placeholder (sin fotos reales
-  todavía). Ahora las figuras usan <img> directo; estas reglas hacen
-  que la imagen llene el figure (object-fit: cover) y conservan el
-  mismo hover de zoom sutil que tenía el placeholder.
-*/
-.masonry figure img {
+/* En mobile una sola columna y el alto lo fija la proporción real del
+   archivo (3:4 o 4:5), así ninguna foto se recorta. */
+@media (max-width: 639px) {
+  .pf--r34 { aspect-ratio: 3 / 4; }
+  .pf--r45 { aspect-ratio: 4 / 5; }
+}
+.pf img {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -411,23 +434,123 @@ h2 {
   object-fit: cover;
   transition: transform .5s;
 }
-.masonry figure:hover img { transform: scale(1.03); }
-.masonry figcaption {
+.pf:hover img, .pf:focus-within img { transform: scale(1.03); }
+
+/* Botón que cubre la foto: hace clicable la figura y navegable con
+   teclado (una <figure> no recibe foco). Va sobre el velo y la etiqueta. */
+.pf__btn {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: zoom-in;
+}
+.pf__btn:focus-visible { outline: 2px solid var(--paper); outline-offset: -4px; }
+
+.pf::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(23, 19, 53, .35);
+  opacity: 0;
+  transition: opacity .3s;
+}
+/* La etiqueta toma el texto del data-type: una sola fuente de verdad. */
+.pf::after {
+  content: attr(data-type);
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--paper);
+  opacity: 0;
+  transition: opacity .3s;
+}
+.pf:hover::before, .pf:hover::after,
+.pf:focus-within::before, .pf:focus-within::after { opacity: 1; }
+
+/* La leyenda del <figure> se conserva (ciudad y año siguen pendientes)
+   pero fuera de la vista: el diseño muestra el tipo en la etiqueta. */
+.pf figcaption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  #portafolio { padding: 96px 0; }
+  .portfolio-grid { grid-template-columns: repeat(6, 1fr); grid-auto-rows: minmax(180px, auto); }
+  .pf--7x2 { grid-column: span 6; grid-row: span 4; }
+  .pf--6x2, .pf--5x2, .pf--4x2 { grid-column: span 3; grid-row: span 2; }
+}
+
+@media (min-width: 1024px) {
+  /* El encabezado pasa a fila solo aquí: entre 640 y 1023 la columna de
+     texto queda muy angosta y el <h2> se parte en cuatro líneas. */
+  .portfolio-head { flex-direction: row; align-items: flex-end; justify-content: space-between; }
+  .portfolio-grid { grid-template-columns: repeat(12, 1fr); grid-auto-rows: minmax(280px, auto); grid-auto-flow: row dense; }
+  .pf--7x2 { grid-column: span 7; grid-row: span 2; }
+  .pf--6x2 { grid-column: span 6; grid-row: span 2; }
+  .pf--5x2 { grid-column: span 5; grid-row: span 2; }
+  .pf--4x2 { grid-column: span 4; grid-row: span 2; }
+}
+
+/* ---------- Lightbox del portafolio ---------- */
+body.lightbox-open { overflow: hidden; }
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, .92);
+}
+.lightbox[hidden] { display: none; }
+.lightbox__img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
+.lightbox__btn {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  border: 0;
+  padding: 12px;
+  background: none;
+  line-height: 0;
+  color: rgba(246, 244, 242, .7);
+  cursor: pointer;
+  transition: color .2s;
+}
+.lightbox__btn:hover { color: var(--paper); }
+.lightbox__btn:focus-visible { outline: 2px solid var(--paper); outline-offset: 4px; }
+.lightbox__close { top: 12px; right: 12px; }
+.lightbox__nav--prev { left: 4px; top: 50%; transform: translateY(-50%); }
+.lightbox__nav--next { right: 4px; top: 50%; transform: translateY(-50%); }
+.lightbox__meta {
   position: absolute;
   inset-inline: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 16px;
-  background: linear-gradient(to top, rgba(23,21,43,.7), transparent);
-  color: var(--paper);
+  bottom: 16px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: .16em;
+  font-variant-numeric: tabular-nums;
+  color: rgba(246, 244, 242, .6);
 }
-.masonry figcaption .type { font-size: 14px; font-weight: 500; }
-.masonry figcaption .meta { font-size: 12px; color: rgba(246,244,242,.7); }
-@media (min-width: 640px) { .masonry { columns: 2; } .portfolio-head { flex-direction: row; align-items: flex-end; justify-content: space-between; } }
-@media (min-width: 1024px) { .masonry { columns: 3; } }
+@media (min-width: 768px) {
+  .lightbox__close { top: 20px; right: 24px; }
+  .lightbox__nav--prev { left: 16px; }
+  .lightbox__nav--next { right: 16px; }
+}
 
 /* ---------- Contact ---------- */
 .contact { background: var(--paper-warm); }

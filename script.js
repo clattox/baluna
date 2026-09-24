@@ -265,11 +265,20 @@ if (navbar && navToggle && navMobile) {
   });
 }
 
-// ===== Portafolio: filtro por categoría (solo index.html) =====
+// ===== Portafolio: filtro por categoría y contador (solo index.html) =====
+// El bloque se salta solo en las páginas que no tienen la sección.
 const filters = document.getElementById("filters");
-const masonryItems = document.querySelectorAll("#masonry figure");
+const portfolioFigures = Array.from(document.querySelectorAll("#portfolioGrid figure"));
+const portfolioCount = document.getElementById("portfolioCount");
 
-if (filters) {
+if (filters && portfolioFigures.length) {
+  const pintarContador = (visibles) => {
+    if (portfolioCount) {
+      portfolioCount.textContent = `01 — ${String(visibles).padStart(2, "0")}`;
+    }
+  };
+  pintarContador(portfolioFigures.length);
+
   filters.addEventListener("click", (e) => {
     const btn = e.target.closest("button[data-filter]");
     if (!btn) return;
@@ -277,11 +286,90 @@ if (filters) {
     filters.querySelectorAll("button").forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
 
-    const filter = btn.dataset.filter;
-    masonryItems.forEach((fig) => {
-      const show = filter === "Todos" || fig.dataset.type === filter;
-      fig.style.display = show ? "" : "none";
+    const filtro = btn.dataset.filter;
+    let visibles = 0;
+    portfolioFigures.forEach((fig) => {
+      const mostrar = filtro === "Todos" || fig.dataset.type === filtro;
+      // hidden (y no display:none en línea) para que la grilla se recomponga sola.
+      fig.hidden = !mostrar;
+      if (mostrar) visibles += 1;
     });
+    pintarContador(visibles);
+  });
+}
+
+// ===== Portafolio: lightbox propio, sin librerías =====
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
+const lightboxCount = document.getElementById("lightboxCount");
+const lightboxClose = document.getElementById("lightboxClose");
+const lightboxPrev = document.getElementById("lightboxPrev");
+const lightboxNext = document.getElementById("lightboxNext");
+
+if (lightbox && lightboxImg && portfolioFigures.length) {
+  const fotos = portfolioFigures.map((fig) => {
+    const img = fig.querySelector("img");
+    return { src: img.getAttribute("src"), alt: img.getAttribute("alt") || "" };
+  });
+
+  const controles = [lightboxClose, lightboxPrev, lightboxNext].filter(Boolean);
+  let abierto = false;
+  let indice = 0;
+  let focoPrevio = null;
+
+  function mostrarFoto(n) {
+    indice = (n + fotos.length) % fotos.length; // navegación circular
+    lightboxImg.src = fotos[indice].src;
+    lightboxImg.alt = fotos[indice].alt;
+    if (lightboxCount) {
+      lightboxCount.textContent =
+        `${String(indice + 1).padStart(2, "0")} / ${String(fotos.length).padStart(2, "0")}`;
+    }
+  }
+
+  function abrirLightbox(n, disparador) {
+    focoPrevio = disparador || document.activeElement;
+    abierto = true;
+    lightbox.hidden = false;
+    document.body.classList.add("lightbox-open");
+    mostrarFoto(n);
+    (lightboxClose || lightbox).focus();
+  }
+
+  function cerrarLightbox() {
+    abierto = false;
+    lightbox.hidden = true;
+    document.body.classList.remove("lightbox-open");
+    if (focoPrevio && typeof focoPrevio.focus === "function") focoPrevio.focus();
+  }
+
+  // El lightbox recorre las 13 fotos en el orden del DOM, aunque haya un
+  // filtro activo: es la galería completa, no solo lo visible.
+  portfolioFigures.forEach((fig, i) => {
+    const btn = fig.querySelector(".pf__btn");
+    if (btn) btn.addEventListener("click", () => abrirLightbox(i, btn));
+  });
+  if (lightboxPrev) lightboxPrev.addEventListener("click", () => mostrarFoto(indice - 1));
+  if (lightboxNext) lightboxNext.addEventListener("click", () => mostrarFoto(indice + 1));
+  if (lightboxClose) lightboxClose.addEventListener("click", cerrarLightbox);
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) cerrarLightbox(); // clic en el fondo oscuro
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!abierto) return;
+    if (e.key === "Escape") { e.preventDefault(); cerrarLightbox(); return; }
+    if (e.key === "ArrowRight") { e.preventDefault(); mostrarFoto(indice + 1); return; }
+    if (e.key === "ArrowLeft") { e.preventDefault(); mostrarFoto(indice - 1); return; }
+    if (e.key !== "Tab" || !controles.length) return;
+
+    // Trampa de foco: Tab circula solo entre los controles del lightbox.
+    const primero = controles[0];
+    const ultimo = controles[controles.length - 1];
+    const activo = document.activeElement;
+    if (!lightbox.contains(activo)) { e.preventDefault(); primero.focus(); return; }
+    if (e.shiftKey && activo === primero) { e.preventDefault(); ultimo.focus(); return; }
+    if (!e.shiftKey && activo === ultimo) { e.preventDefault(); primero.focus(); }
   });
 }
 
