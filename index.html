@@ -19,7 +19,7 @@
      max-age de 7 días). Recalcular las dos huellas cada vez que se toquen.
      Antes se usaba el hash del commit, que obligaba a conocerlo antes de
      subir; la huella del archivo se calcula en local y cambia sola. -->
-<link rel="stylesheet" href="styles.css?v=9e08ddc" />
+<link rel="stylesheet" href="styles.css?v=83ea1e7" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -244,21 +244,25 @@
 
   <!-- ============ MARCAS ============ -->
   <!--
-    Banda de logos de clientes. Queda vacía a propósito: los logos se
-    agregan cuando Claudio entregue los archivos y las marcas estén
-    autorizadas a nombrarse. No se inventó ningún placeholder.
-    Va antes del CTA final para que el CTA cierre la página y quede
-    pegado al pie, sin un bloque claro en medio.
+    Banda de logos de clientes. Va antes del CTA final para que el CTA
+    cierre la página y quede pegado al pie, sin un bloque claro en medio.
+    Los cinco logos son archivos reales entregados por el cliente: se
+    muestran con sus colores originales (sin filtro), atenuados en reposo
+    y a plena opacidad al pasar el cursor o al enfocarlos con teclado.
+    Los PNG vienen a 96px de alto (para pantallas de DPR 2) y el CSS los
+    muestra a 48px, con el ancho que traiga cada archivo.
     Cada logo va dentro de #marcasGrid como:
-      <img class="marca-logo" src="assets/marcas/nombre.png" alt="Nombre de la marca" />
-    El CSS (.marca-logo) ya los deja monocromáticos y los enciende al
-    pasar el cursor; ver el bloque "Marcas" en styles.css.
+      <img class="marca-logo" src="assets/marcas/nombre.png" alt="Nombre de la marca" loading="lazy" />
   -->
   <section class="marcas">
     <div class="wrap">
       <h2 class="marcas__titulo">Marcas que han confiado en nosotros</h2>
       <div class="marcas__grid" id="marcasGrid">
-        <!-- logos van aquí como <img> con clase .marca-logo -->
+        <img src="assets/marcas/quokka.png" alt="Quokka alimentos" class="marca-logo" loading="lazy" />
+        <img src="assets/marcas/1xbet.png" alt="1XBET" class="marca-logo" loading="lazy" />
+        <img src="assets/marcas/clinica_biobio.png" alt="Clínica Biobío" class="marca-logo" loading="lazy" />
+        <img src="assets/marcas/acalis.png" alt="Acalis residencia para personas mayores" class="marca-logo" loading="lazy" />
+        <img src="assets/marcas/lacustodia.png" alt="La Custodia aceite de oliva" class="marca-logo" loading="lazy" />
       </div>
     </div>
   </section>

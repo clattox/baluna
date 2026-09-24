@@ -695,17 +695,14 @@ form.contact-form {
 /* ---------- Marcas ---------- */
 /*
   Banda de logos de clientes, antes del CTA final (así el CTA cierra la
-  página y el pie queda pegado a él, sin un bloque claro en medio). La
-  estructura (título + #marcasGrid) ya está en el HTML: falta solo subir
-  los archivos y agregarlos como <img class="marca-logo" src="assets/marcas/…">,
-  sin tocar el CSS. Mientras el grid esté vacío la sección muestra el
-  título y su respiro, sin placeholders inventados.
-
-  Los logos van en escala de grises al 60% y se encienden a color al pasar
-  el cursor o al enfocarlos con teclado: así la banda no compite con el
-  resto de la página. La altura es fija (32px, la misma del logo del pie)
-  y el ancho lo pone cada archivo, para que logos de distinta proporción
-  se vean del mismo tamaño óptico.
+  página y el pie queda pegado a él, sin un bloque claro en medio).
+  Los cinco logos son archivos reales entregados por el cliente: van con
+  sus colores originales, sin filtro, atenuados en reposo y a plena
+  opacidad al pasar el cursor o al enfocarlos con teclado, para que la
+  banda acompañe sin competir con el resto de la página. La altura es fija
+  (48px: los archivos vienen a 96px, para DPR 2) y el ancho lo pone cada
+  archivo, para que logos de distinta proporción se vean del mismo tamaño
+  óptico.
 */
 .marcas { background: var(--paper-warm); padding: 72px 0; }
 .marcas__titulo { max-width: 560px; }
@@ -719,13 +716,12 @@ form.contact-form {
   gap: 32px 48px;
 }
 .marca-logo {
-  height: 32px;
+  height: 48px;
   width: auto;
-  filter: grayscale(1);
-  opacity: .6;
-  transition: filter .25s, opacity .25s;
+  opacity: .75;
+  transition: opacity .25s;
 }
-.marca-logo:hover, .marca-logo:focus-visible { filter: grayscale(0); opacity: 1; }
+.marca-logo:hover, .marca-logo:focus-visible { opacity: 1; }
 /* Paddings distintos a los de section (96/128px): .marcas los sobreescribe
    por especificidad, así que el corte necesita su propio media query. */
 @media (min-width: 768px) { .marcas { padding: 96px 0; } }
