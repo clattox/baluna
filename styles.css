@@ -413,11 +413,16 @@ h2 {
 @media (min-width: 1024px) { .process-grid { grid-template-columns: repeat(4, 1fr); gap: 32px; } }
 
 /* ---------- Coverage ---------- */
+/* Menos aire que el resto de las secciones (section: 96px, y 128px desde
+   768px) porque el mapa ya aporta mucha altura por sí solo. El id gana por
+   especificidad a la regla de section en los dos cortes, así que no hace
+   falta su propio media query; ver el caso de #portafolio más abajo. */
+#cobertura { padding: 56px 0; }
 .coverage-grid { display: grid; gap: 64px; align-items: center; }
 .coverage-grid p { max-width: 420px; color: var(--ink-soft); margin-top: 24px; text-wrap: balance; }
 .coverage-graphic {
   margin: 0 auto;
-  max-width: 380px;
+  max-width: 480px;
   width: 100%;
 }
 /* El mapa es un PNG de 831x1628 que trae el país y, a su derecha, las
