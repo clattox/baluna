@@ -356,12 +356,19 @@ h2 {
 /* ---------- Coverage ---------- */
 .coverage-grid { display: grid; gap: 64px; align-items: center; }
 .coverage-grid p { max-width: 420px; color: var(--ink-soft); margin-top: 24px; text-wrap: balance; }
-.coverage-graphic { position: relative; margin: 0 auto; height: 288px; width: 100%; max-width: 220px; display: flex; justify-content: center; }
-.coverage-graphic__line { width: 3px; border-radius: 999px; background: linear-gradient(to bottom, var(--brand), var(--blush), var(--brand)); }
-.coverage-graphic .zone { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; white-space: nowrap; }
-.coverage-graphic .zone::before { content: ""; width: 10px; height: 10px; border-radius: 999px; background: var(--blush); flex-shrink: 0; }
-.coverage-graphic .zone span { font-size: 14px; font-weight: 500; color: var(--ink-soft); }
-@media (min-width: 768px) { .coverage-grid { grid-template-columns: repeat(2, 1fr); } .coverage-graphic { height: 384px; } }
+.coverage-graphic {
+  margin: 0 auto;
+  max-width: 260px;
+  width: 100%;
+}
+/* El mapa es un PNG de 370x697, así que basta width 100% + height auto:
+   la caja crece sola y no hace falta fijar altura en ningún breakpoint. */
+.coverage-graphic img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+@media (min-width: 768px) { .coverage-grid { grid-template-columns: repeat(2, 1fr); } }
 
 /* ---------- Portfolio ---------- */
 .portfolio-head { display: flex; flex-direction: column; gap: 24px; margin-bottom: 40px; }
@@ -883,5 +890,13 @@ body.consent-open { overflow: hidden; }
     width: 52px;
     height: 52px;
   }
+}
+
+/* El bloque global de prefers-reduced-motion (arriba, junto a body) apaga
+   animaciones y transiciones, pero no sirve para el video del hero: un loop
+   de 30s no se neutraliza con duraciones cortas. Se oculta y queda el fondo
+   --brand-deep de .hero, que ya es el respaldo mientras el video carga. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__video { display: none; }
 }
 
