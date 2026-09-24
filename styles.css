@@ -419,8 +419,11 @@ h2 {
 /* El número va en --ink-soft y no en --blush: sobre --paper el rosa de la
    marca queda en 1,95:1 (bajo el 4,5:1 de WCAG AA) y axe lo marcaba como
    violación en las cuatro filas. Con --ink-soft sube a 8,04:1. El paso
-   .process-grid .num sí puede seguir en --blush: ahí el fondo es
-   --brand-deep y el rosa da 8,32:1. */
+   .process-grid .num sí puede seguir en --blush: ahí el fondo oscuro del paso
+   deja el rosa sobre 4,5:1. Ojo, ese fondo ya no es --brand-deep plano (desde
+   que .process lleva la imagen con velo): medido contra el píxel más claro que
+   le toca a cada número, el rosa da 4,77:1 en el peor ancho (1216-1280px) y
+   entre 8,2:1 y 8,4:1 en el resto, así que el color se mantuvo. */
 .service-row .num { font-family: var(--font-display); font-size: 18px; color: var(--ink-soft); }
 .service-row h3 { font-family: var(--font-display); font-size: 24px; line-height: 1.3; color: var(--ink); margin: 0; }
 .service-row .desc p { max-width: 360px; color: var(--ink-soft); margin: 0; }
@@ -433,6 +436,44 @@ h2 {
 
 /* ---------- Process ---------- */
 .process { background: var(--brand-deep); color: var(--paper); }
+/*
+  Misma imagen y mismo tratamiento que el CTA final (assets/hero-bg.jpg con un
+  velo de --brand-deep encima), para que las dos secciones oscuras cierren la
+  página con la misma textura. El --brand-deep de arriba queda debajo como
+  respaldo: esta regla no toca background-color.
+  Acá el velo es más crítico que en el CTA, porque esta sección tiene los
+  textos de menor alfa del sitio: los párrafos de cada paso van en --paper al
+  70% y la nota final al 60% (a diferencia del titular, que va en --paper
+  pleno). Además el comentario de .service-row .num justifica el --blush de los
+  números de acá con que "el fondo es --brand-deep y el rosa da 8,32:1": con la
+  imagen ese fondo ya no es plano, así que ese número se volvió a medir (ver las
+  cifras abajo) y sigue por encima del 4,5:1 sin cambiar el color.
+  Medido en Chrome, ocultando el texto y leyendo los píxeles de fondo en los
+  rectángulos exactos de cada línea (Range.getClientRects), contra el píxel más
+  claro bajo cada texto. Ojo con el velo: el .6 del encargo NO alcanzaba.
+  A 375px la sección es alta y angosta (375x1043 contra una imagen de
+  1672x941): cover escala a 1,11 y deja ver apenas 338 de los 1672px de ancho,
+  la banda oscura del centro, así que ahí todo pasa con .6 (peor caso la nota al
+  60%, 6,44:1).
+  Pero desde ~1216px el ancho deja de ser limitante y la imagen entra completa,
+  así que la cinta clara cae justo detrás de la cuarta columna: con .6 el número
+  04 (--blush) quedaba en 3,23:1 y su párrafo en 3,86:1. Barrido de alfas a
+  1280px: .6 → 3,23:1 | .65 → 3,66:1 | .7 → 4,19:1 | .75 → 4,77:1.
+  Quedó el .75 porque es el mínimo que deja los 14 textos de la sección sobre
+  4,5:1 y aguanta la matriz de anchos completa: medido en 320, 375, 480, 640,
+  768, 900, 1024, 1216, 1280, 1440, 1600, 1920 y 2560px, el peor texto va de
+  4,69:1 (num 04 a 1216px) a 6,44:1. Es más velo que el .65 del CTA final y no
+  es un descuido: acá los párrafos van en --paper al 70%, la nota al 60% y los
+  números en --blush (mitad de luminancia que el papel), mientras que allá todo
+  el texto es --paper pleno. Si en algún momento se quiere ver más la imagen, el
+  camino es un velo direccional —más fuerte a la derecha, donde está la cinta—,
+  como el scrim del hero, y no bajar este número.
+*/
+.process {
+  background-image: linear-gradient(rgba(23,19,53,.75), rgba(23,19,53,.75)), url('assets/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+}
 .process h2 { color: var(--paper); max-width: 480px; }
 .process-grid { margin-top: 64px; display: grid; gap: 40px; grid-template-columns: 1fr; }
 .process-grid .step { border-top: 1px solid var(--line-dark); padding-top: 24px; }
