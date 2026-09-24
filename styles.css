@@ -163,6 +163,22 @@ img { max-width: 100%; display: block; }
 .navbar:not(.scrolled):not(.open) .navbar__toggle:hover { border-color: rgba(246, 244, 242, .7); }
 .navbar:not(.scrolled):not(.open) .navbar__toggle:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; }
 
+/* Los enlaces del navbar también van claros mientras la barra está
+   transparente: sobre el hero oscuro (index.html) y sobre el encabezado
+   oscuro de la página legal (privacidad.html) el --ink-soft de base daba
+   2,02:1, bajo el 4,5:1 de WCAG AA. Con --paper queda 16,21:1.
+   La regla lleva dos :not(), así que su especificidad (0,4,1) le gana a
+   .navbar__links a:hover (0,2,1): sin la regla de hover de abajo el enlace
+   no tendría respuesta al pasar el cursor, y el --ink del hover tampoco se
+   vería sobre el fondo oscuro (1,00:1). El tono elegido es el mismo
+   rgba(246,244,242,.7) del toggle (8,32:1). */
+.navbar:not(.scrolled):not(.open) .navbar__links a {
+  color: var(--paper);
+}
+.navbar:not(.scrolled):not(.open) .navbar__links a:hover {
+  color: rgba(246, 244, 242, .7);
+}
+
 .navbar__mobile {
   display: none;
   border-top: 1px solid var(--line);
