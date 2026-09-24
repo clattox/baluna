@@ -743,9 +743,29 @@ form.contact-form {
 }
 .marca-logo:hover { opacity: 1; }
 
+/* La Custodia es un isotipo casi cuadrado (el archivo mide 97x96), así que
+   en la caja de 140x48 queda diminuto: va en una caja propia más alta y el
+   centro de la fila lo alinea con el resto (align-items: center).
+   El selector va por src y no por alt porque la segunda copia de la banda
+   lleva alt="" para los lectores de pantalla, y con [alt="..."] solo se
+   agrandaba una de las dos. */
+.marca-logo[src*="lacustodia"] {
+  width: 72px;
+  height: 72px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marcas__track { animation: none; }
   .marcas__track-wrap { overflow-x: auto; }
+}
+
+/* El título entra en una sola línea desde 1024: a 48px mide 848px y el
+   contenedor da 976px ahí y 1104px desde 1280. Por eso el corte va con
+   media query y no global: más abajo (768, mobile) el texto no cabe en una
+   línea y se saldría de la caja. El max-width: 560px de arriba dejaría el
+   texto pintado fuera de su caja, así que también se anula aquí. */
+@media (min-width: 1024px) {
+  .marcas__titulo { max-width: none; white-space: nowrap; }
 }
 /* Paddings distintos a los de section (96/128px): .marcas los sobreescribe
    por especificidad, así que el corte necesita su propio media query. */
