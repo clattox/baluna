@@ -773,9 +773,17 @@ form.contact-form {
 .marcas { background: var(--paper-warm); padding: 72px 0; }
 .marcas__titulo { max-width: 560px; }
 /* El aire entre el título y la banda: el h2 va con margin 0, así que este
-   margen es el único respiro que tienen (antes lo daba el grid). */
+   margen es el único respiro que tienen (antes lo daba el grid).
+   Los 8px de padding arriba y abajo son para que el anillo de foco de
+   .marca-link:focus-visible (2px + 4px de offset) no quede recortado por el
+   overflow: hidden: los logos cuadrados miden lo mismo que la banda, así que
+   sin ese aire el filete de arriba y abajo desaparecía. El margen de arriba
+   y el de abajo (en negativo) compensan el padding, así que la banda y la
+   sección quedan exactamente donde estaban. */
 .marcas__track-wrap {
-  margin-top: 40px;
+  margin-top: 32px;
+  margin-bottom: -8px;
+  padding: 8px 0;
   overflow: hidden;
   /* Pausa al hover */
 }
@@ -805,15 +813,31 @@ form.contact-form {
 }
 .marca-logo:hover { opacity: 1; }
 
-/* La Custodia es un isotipo casi cuadrado (el archivo mide 97x96), así que
-   en la caja de 140x48 queda diminuto: va en una caja propia más alta y el
-   centro de la fila lo alinea con el resto (align-items: center).
-   El selector va por src y no por alt porque la segunda copia de la banda
-   lleva alt="" para los lectores de pantalla, y con [alt="..."] solo se
-   agrandaba una de las dos. */
-.marca-logo[src*="lacustodia"] {
+/* La Custodia y Quelen son isotipos casi cuadrados (los dos archivos miden
+   97x96), así que en la caja de 140x48 quedan diminutos: van en una caja
+   propia más alta y el centro de la fila los alinea con el resto
+   (align-items: center, en el track y en .marca-link).
+   El selector va por src y no por alt (la segunda copia de la banda lleva
+   alt="") ni por clase (.marca-logo--sq solo la lleva Quelen, que es la
+   última que llegó y el isotipo de La Custodia ya tenía esta regla): así una
+   sola regla cubre cada logo en las dos tandas. La clase queda en el markup
+   como marca legible de cuál de los dos isotipos es el cuadrado. */
+.marca-logo[src*="lacustodia"], .marca-logo[src*="quelen"] {
   width: 72px;
   height: 72px;
+}
+
+/* Enlace del logo. Envuelve al <img> sin caja propia (inline-flex mide lo
+   mismo que el logo), así el track sigue repartiendo el mismo gap de 64px
+   entre marcas que antes, cuando el hijo directo era la imagen. */
+.marca-link {
+  display: inline-flex;
+  align-items: center;
+}
+.marca-link:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {

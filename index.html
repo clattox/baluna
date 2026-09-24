@@ -19,7 +19,7 @@
      max-age de 7 días). Recalcular las dos huellas cada vez que se toquen.
      Antes se usaba el hash del commit, que obligaba a conocerlo antes de
      subir; la huella del archivo se calcula en local y cambia sola. -->
-<link rel="stylesheet" href="styles.css?v=4329a0d" />
+<link rel="stylesheet" href="styles.css?v=81cd9e2" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -266,25 +266,32 @@
     Al pasar el cursor la animación se pausa, y con prefers-reduced-motion
     se detiene del todo y la banda queda desplazable a mano; ver el bloque
     "Marcas" en styles.css.
-    Cada logo va dentro de .marcas__track como:
-      <img class="marca-logo" src="assets/marcas/nombre.png" alt="Nombre de la marca" loading="lazy" />
+    Cada logo de la primera tanda va dentro de .marcas__track como:
+      <a href="URL oficial" target="_blank" rel="noopener noreferrer" class="marca-link">
+        <img class="marca-logo" src="assets/marcas/nombre.png" alt="Nombre de la marca" loading="lazy" />
+      </a>
+    La segunda tanda (la del loop) repite solo el <img>, sin enlace: es
+    decorativa (aria-hidden="true"), así que no debe ser tabulable ni anunciar
+    la marca dos veces.
   -->
   <section class="marcas">
     <div class="wrap">
       <h2 class="marcas__titulo">Marcas que han confiado en nosotros</h2>
       <div class="marcas__track-wrap">
         <div class="marcas__track">
-          <img src="assets/marcas/quokka.png" alt="Quokka alimentos" class="marca-logo" loading="lazy" />
-          <img src="assets/marcas/1xbet.png" alt="1XBET" class="marca-logo" loading="lazy" />
-          <img src="assets/marcas/clinica_biobio.png" alt="Clínica Biobío" class="marca-logo" loading="lazy" />
-          <img src="assets/marcas/acalis.png" alt="Acalis residencia para personas mayores" class="marca-logo" loading="lazy" />
-          <img src="assets/marcas/lacustodia.png" alt="La Custodia aceite de oliva" class="marca-logo" loading="lazy" />
+          <a href="https://quokkafoods.com/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/quokka.png" alt="Quokka alimentos" class="marca-logo" loading="lazy" /></a>
+          <a href="https://1xbetchil.com/es" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/1xbet.png" alt="1XBET" class="marca-logo" loading="lazy" /></a>
+          <a href="https://www.clinicabiobio.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/clinica_biobio.png" alt="Clínica Biobío" class="marca-logo" loading="lazy" /></a>
+          <a href="https://www.acalis.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/acalis.png" alt="Acalis residencia para personas mayores" class="marca-logo" loading="lazy" /></a>
+          <a href="https://lacustodia.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/lacustodia.png" alt="La Custodia aceite de oliva" class="marca-logo" loading="lazy" /></a>
+          <a href="https://quelen.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/quelen.png" alt="Quelen Centro Turístico" class="marca-logo marca-logo--sq" loading="lazy" /></a>
           <!-- Segunda tanda: la misma lista, para que el loop cierre completo -->
           <img src="assets/marcas/quokka.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
           <img src="assets/marcas/1xbet.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
           <img src="assets/marcas/clinica_biobio.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
           <img src="assets/marcas/acalis.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
           <img src="assets/marcas/lacustodia.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/quelen.png" alt="" class="marca-logo marca-logo--sq" aria-hidden="true" loading="lazy" />
         </div>
       </div>
     </div>
