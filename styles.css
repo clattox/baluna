@@ -73,7 +73,7 @@ img { max-width: 100%; display: block; }
      40px del estado scrolleado y del CTA. Ojo, el logo del estado de arriba
      mide 48px, así que sí supera esos 44px y en ese estado la barra mide 81px
      (16 + 48 + 16 + 1): no es un descuido, es lo que cuesta que el wordmark
-     blanco tenga presencia sobre el video del hero. */
+     blanco tenga presencia sobre la imagen del hero. */
   min-height: 76px;
   display: flex;
   align-items: center;
@@ -89,7 +89,7 @@ img { max-width: 100%; display: block; }
     navbar transparente sobre el hero oscuro.
   Antes el estado de arriba usaba Logotipo-Baluna-Fondo-Color-Azul.png (el
   lockup con caja azul que el manual define para fondo corporativo), pero
-  sobre el video la caja se leía como un parche y no como logo.
+  sobre el fondo del hero la caja se leía como un parche y no como logo.
   La relación de aspecto del wordmark es 2,63:1, así que el ancho sale del
   alto: 105px a 40px (abajo) y 126px a 48px (arriba).
   Ojo con la especificidad: un ".navbar__logo img { height }" es (0,1,1) y
@@ -105,7 +105,7 @@ img { max-width: 100%; display: block; }
   estado de arriba (la regla de display de más abajo lo oculta en cuanto el
   navbar es .scrolled o .open), que es siempre sobre fondo oscuro.
   Mide 48px y no los 40px del de abajo: sin la caja azul, a igual alto el
-  wordmark queda más chico y sobre el video necesita más presencia. La
+  wordmark queda más chico y sobre la imagen del hero necesita más presencia. La
   contra es que 48px supera los 44px que reserva el min-height de
   .navbar__inner, así que en el estado de arriba la barra mide 81px y al
   hacer scroll baja a 77px (el comentario del min-height lo tiene anotado).
@@ -236,39 +236,56 @@ img { max-width: 100%; display: block; }
   padding-top: 112px;
 }
 /*
-  Video provisional del hero (assets/hero.mp4: H.264, sin audio, 30s). Va
-  antes que .hero__scrim en el DOM y los dos son position: absolute sin
+  Fondo del hero: la imagen estática assets/hero-bg.jpg (1672x941, 1,78:1).
+  Antes iba acá un <video> (assets/hero.mp4), pero el master de ese video era
+  vertical (480x854) y en desktop se estiraba ~3x: se veía blando. Esta imagen
+  es horizontal y en el hero de 1280px entra casi 1:1, así que se ve nítida.
+  Va antes que .hero__scrim en el DOM y los dos son position: absolute sin
   z-index, así que el scrim se sigue pintando encima y mantiene el contraste
-  del texto. El fondo de .hero (--brand-deep) queda de respaldo mientras el
-  video carga o si el archivo no está.
-  object-fit: cover recorta el video para llenar el hero. Ojo: el master es
-  vertical (480x854), encaja bien en mobile y en desktop se escala ~3x, así
-  que ahí se ablanda — hasta que haya una versión horizontal.
+  del texto y del navbar. El fondo de .hero (--brand-deep) queda de respaldo
+  si la imagen no carga o mientras llega.
+  background-size: cover llena el hero sin deformar: la imagen conserva su
+  relación 1,78:1 y lo que sobra se recorta (nunca se estira ni deja franjas).
+  background-position: center right ancla el encuadre al borde derecho porque
+  el resaltado salmón de la imagen vive ahí; en desktop casi no se recorta
+  nada y en mobile el recorte es fuerte (el hero queda alto y angosto), así
+  que la franja que se ve es la derecha de la imagen. La legibilidad del texto
+  no depende de eso, sino del scrim: va abajo, donde el degradado es más
+  opaco. Números medidos en Chrome a 375 y 1280px en el comentario del scrim.
+  Medición de la cobertura (Playwright/Chrome, dsf 1): la caja de .hero__bg
+  coincide con la de .hero (1280x723,8 y 375x805,8), cover aplica una sola
+  escala en los dos ejes (0,769 y 0,856), y al comparar el fondo ya renderizado
+  contra la imagen fuente reescalada y recortada con esa misma cuenta la
+  diferencia media de píxeles es 0,56 (1280) y 1,02 (375): sin franjas, sin
+  deformación y con el recorte donde dice background-position.
+  El `background-repeat` queda en su valor inicial (repeat) y es inerte:
+  cubriendo la caja, no hay mosaico posible.
 */
-.hero__video {
+.hero__bg {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  background-image: url('assets/hero-bg.jpg');
+  background-size: cover;
+  background-position: center right;
 }
 /*
-  El scrim oscurece el video para que el texto y el navbar se lean. La
-  primera versión dejaba el tope casi transparente (alfa .1) y el video
-  asomaba claro justo en la franja del navbar: el wordmark blanco y los
-  enlaces --paper quedaban ilegibles en los fotogramas claros (medido: hasta
-  1,97:1 en 1280px).
-  Los alfas se eligieron midiendo sobre los 6 fotogramas más claros del
-  video, en la franja del navbar, a 375 y 1280px (peor caso de los enlaces,
-  que son texto y exigen 4,5:1):
-    tope .45 → 3,38:1 (no alcanza)
-    tope .55 → 4,50:1 (pasa raspando, sin margen)
-    tope .65 → 6,45:1 (elegido, con margen para cualquier fotograma)
-  Con .65 el video aporta 35% y sigue viéndose: el fondo conserva un desvío
-  de luminancia de ~10 sobre 0 (plano) y cambia de tono de fotograma a
-  fotograma (verdoso, anaranjado, azulado), así que no es un rectángulo
-  oscuro. El resto de la rampa es el mismo degradado suave de siempre.
+  El scrim oscurece el fondo (hoy la imagen .hero__bg) para que el texto y el
+  navbar se lean. Sus alfas son los que se eligieron cuando el hero tenía el
+  video provisional, midiendo sobre sus fotogramas más claros en la franja del
+  navbar (tope .45 → 3,38:1; .55 → 4,50:1; .65 → 6,45:1; se dejó el .65), con
+  el umbral 4,5:1 de los enlaces, que son texto. Con la imagen estática se
+  volvieron a medir en Chrome y no hubo que tocarlos: el texto del hero pasa
+  con margen en los dos anchos (peor caso el eyebrow y el párrafo a 375px,
+  6,37:1 sobre el píxel más claro que les toca; el h1 a 375px, 8,98:1), y en
+  la franja del navbar el enlace más justo a 1280px da 12,83:1, el wordmark a
+  375px 13,26:1 y el icono hamburguesa 9,30:1.
+  En 375px el recorte de la imagen deja la zona clara justo arriba (la franja
+  del navbar: [127,87,116]), así que ahí el scrim es lo único que separa el
+  wordmark del fondo. De ahí que el tope llegue a .65.
+  Con ese .65 el fondo aporta 35% y sigue viéndose: conserva luminancia propia
+  (medido en 1280px, fila de arriba: [62,45,85] contra el --brand-deep
+  [23,19,53] del respaldo) y no es un rectángulo plano. El resto de la rampa
+  es el mismo degradado suave de siempre.
 */
 .hero__scrim {
   position: absolute;
@@ -522,12 +539,14 @@ h2 {
 .pf:hover img, .pf:focus-within img { transform: scale(1.03); }
 
 /* La celda del video (Mistro) usa el mismo encuadre que las fotos: absoluta a
-   sangre y recortando al centro. Son las mismas propiedades de .hero__video,
-   y el master también es vertical (480x854), así que object-fit: cover deja el
-   encuadre en el centro. Fuera de la regla del zoom a propósito: agrandar un
-   video en reproducción se ve borroso (el master se escala 1.14x solo para
-   llenar la celda). El velo y la etiqueta del hover van en .pf::before/::after
-   con z-index 1 y 2, así que pasan por encima como con las fotos. */
+   sangre y recortando al centro, igual que el fondo del hero (.hero__bg, que
+   hace lo mismo con background-size: cover). Son las mismas propiedades de
+   fondo, y el master también es vertical (480x854), así que object-fit: cover
+   deja el encuadre en el centro. Fuera de la regla del zoom a propósito:
+   agrandar un video en reproducción se ve borroso (el master se escala 1.14x
+   solo para llenar la celda). El velo y la etiqueta del hover van en
+   .pf::before/::after con z-index 1 y 2, así que pasan por encima como con
+   las fotos. */
 .pf video {
   position: absolute;
   inset: 0;
@@ -1250,11 +1269,10 @@ body.consent-open { overflow: hidden; }
   }
 }
 
-/* El bloque global de prefers-reduced-motion (arriba, junto a body) apaga
-   animaciones y transiciones, pero no sirve para el video del hero: un loop
-   de 30s no se neutraliza con duraciones cortas. Se oculta y queda el fondo
-   --brand-deep de .hero, que ya es el respaldo mientras el video carga. */
-@media (prefers-reduced-motion: reduce) {
-  .hero__video { display: none; }
-}
+/* El hero ya no lleva video: quedó con la imagen estática .hero__bg, así que
+   acá no hay nada que neutralizar. El bloque global de prefers-reduced-motion
+   (arriba, junto a body) apaga animaciones y transiciones, y el video del
+   portafolio se pausa desde script.js. Antes este bloque ocultaba el video
+   del hero (--brand-deep de fondo); con la imagen fija el hero se ve igual con
+   o sin la preferencia, que es justamente lo que se busca. */
 

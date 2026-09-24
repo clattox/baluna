@@ -350,9 +350,10 @@ if (filters && portfolioFigures.length) {
 
 // ===== Portafolio: el video no arranca solo con menos movimiento =====
 // El bloque global de styles.css apaga animaciones y transiciones, pero eso no
-// neutraliza un video: se pausa desde acá. El del hero se oculta por CSS y
-// deja ver el fondo --brand-deep; ocultar este dejaría la celda del portafolio
-// vacía, así que la preferencia se aplica dejándolo en su primer fotograma.
+// neutraliza un video: se pausa desde acá. El único video que queda en la
+// página es el del portafolio (el hero pasó a imagen estática: .hero__bg), y
+// ocultarlo dejaría la celda vacía, así que la preferencia se aplica dejándolo
+// en su primer fotograma.
 const videoPortafolio = document.querySelector("#portfolioGrid video");
 if (videoPortafolio && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   videoPortafolio.autoplay = false;
