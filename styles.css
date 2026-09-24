@@ -813,6 +813,19 @@ form.contact-form {
 }
 .marca-logo:hover { opacity: 1; }
 
+/* Naut llega en blanco sobre fondo transparente, así que sobre el fondo claro
+   de la banda sería invisible: brightness(0) lo pasa a negro y el opacity del
+   filtro lo deja un pelo más tenue que el resto (que ya va al .65 de la clase
+   base). Al pasar el cursor el filtro vuelve a opacidad plena, como el resto
+   de los logos. Vale para las dos tandas porque va por src. */
+.marca-logo[src*="naut"] {
+  filter: brightness(0) opacity(.7);
+  transition: filter .25s, opacity .25s;
+}
+.marca-logo[src*="naut"]:hover {
+  filter: brightness(0) opacity(1);
+}
+
 /* La Custodia y Quelen son isotipos casi cuadrados (los dos archivos miden
    97x96), así que en la caja de 140x48 quedan diminutos: van en una caja
    propia más alta y el centro de la fila los alinea con el resto
