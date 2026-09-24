@@ -832,6 +832,19 @@ form.contact-form {
   filter: brightness(0) opacity(1);
 }
 
+/* Frama llega en un tono claro también (lima rgb(201,245,101)): al .65 de la
+   clase base quedaba en 1.05:1 contra el fondo de la banda, o sea invisible
+   (todo su rango de luz caía entre 0.78 y 0.86, con el fondo en 0.84).
+   brightness(.3) lo oscurece y saturate(1.6) sostiene el verde de la marca
+   —aquí sí hay tono que conservar, así que no se va a gris como Naut—: el
+   contraste renderizado queda en 2.77:1, el mismo peso visual que Naut
+   (2.74:1). Sin opacity() en el filtro: al pasar el cursor basta el
+   .marca-logo:hover de la clase base (opacidad .65 → 1) y el verde se
+   oscurece solo, con la transición que ya trae .marca-logo. */
+.marca-logo[src*="frama"] {
+  filter: brightness(.3) saturate(1.6);
+}
+
 /* La Custodia y Quelen son isotipos casi cuadrados (los dos archivos miden
    97x96), así que en la caja de 140x48 quedan diminutos: van en una caja
    propia más alta y el centro de la fila los alinea con el resto
