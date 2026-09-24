@@ -19,7 +19,7 @@
      max-age de 7 días). Recalcular las dos huellas cada vez que se toquen.
      Antes se usaba el hash del commit, que obligaba a conocerlo antes de
      subir; la huella del archivo se calcula en local y cambia sola. -->
-<link rel="stylesheet" href="styles.css?v=46a6338" />
+<link rel="stylesheet" href="styles.css?v=9e08ddc" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -166,16 +166,17 @@
   <!-- ============ PORTAFOLIO ============ -->
   <!--
     13 fotografias reales, autorizadas por el cliente (confirmado).
-    La grilla es editorial: cada <figure> declara con sus clases cuantas
+    Composicion editorial: cada <figure> declara con sus clases cuantas
     columnas y filas ocupa (ver el bloque "Portfolio" en styles.css).
-    pf--r34 / pf--r45 son la proporcion real del archivo (6 fotos en 3:4
-    y 7 en 4:5) y solo se usan en mobile, donde la grilla es de una
-    columna y ninguna foto se recorta.
-    Ciudad y año siguen "Por confirmar" a proposito: no se inventaron, hay
-    que completarlos cuando Claudio los confirme (la leyenda va oculta a
-    la vista, pero queda en el HTML para lectores de pantalla). La
-    categoria de cada una es una propuesta a validar, no un dato
-    confirmado.
+    pf--r34 / pf--r45 son la proporcion real del archivo (6 fotos en 3:4 y
+    7 en 4:5) y definen el alto en mobile, donde la grilla es de una
+    columna y las pf--med van en cuadrado como acento.
+    data-type alimenta el filtro y la primera linea de la leyenda del
+    hover; data-kind es la segunda linea (que es cada pieza). Los dos son
+    categoria, no dato de cliente: nada inventado.
+    Ciudad y anio ya no se muestran: estaban "Por confirmar" y no se
+    publica informacion provisional. El <figcaption> sigue en el HTML
+    (oculto a la vista) para cuando Claudio confirme esos datos.
   -->
   <section id="portafolio">
     <div class="wrap">
@@ -194,19 +195,19 @@
         </div>
       </div>
       <div class="portfolio-grid" id="portfolioGrid">
-        <figure class="pf pf--7x2 pf--r34 pf--feat" data-type="BTL"><img src="assets/portfolio/btl_1xbet.jpg" alt="Activación 1XBET en estadio" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Activación 1XBET en estadio"></button><figcaption><span class="type">BTL</span><span class="meta">Por confirmar · Por confirmar</span></figcaption></figure>
-        <figure class="pf pf--5x2 pf--r45 pf--med" data-type="BTL"><img src="assets/portfolio/btl_1xbet_grupo.jpg" alt="Entrega de camisetas 1XBET" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Entrega de camisetas 1XBET"></button><figcaption><span class="type">BTL</span><span class="meta">Por confirmar · Por confirmar</span></figcaption></figure>
-        <figure class="pf pf--4x2 pf--r34 pf--sm" data-type="Eventos"><img src="assets/portfolio/clinica_biobio.jpg" alt="Stand institucional Clínica Biobío" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Stand institucional Clínica Biobío"></button><figcaption><span class="type">Eventos</span><span class="meta">Por confirmar · Por confirmar</span></figcaption></figure>
-        <figure class="pf pf--4x2 pf--r45 pf--sm" data-type="Retail"><img src="assets/portfolio/acalis_mall.jpg" alt="Roadshow Acalis Montahue en mall" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Roadshow Acalis Montahue en mall"></button><figcaption><span class="type">Retail</span><span class="meta">Por confirmar · Por confirmar</span></figcaption></figure>
-        <figure class="pf pf--4x2 pf--r45 pf--sm" data-type="Retail"><img src="assets/portfolio/cocacola_equipo.jpg" alt="Activación Coca-Cola en supermercado" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Activación Coca-Cola en supermercado"></button><figcaption><span class="type">Retail</span><span class="meta">Por confirmar · Por confirmar</span></figcaption></figure>
-        <figure class="pf pf--6x2 pf--r45 pf--med" data-type="Eventos"><img src="assets/portfolio/trama_playa.jpg" alt="Evento TRAMA en playa" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Evento TRAMA en playa"></button><figcaption><span class="type">Eventos</span><span class="meta">Por confirmar · Por confirmar</span></figcaption></figure>
-        <figure class="pf pf--6x2 pf--r34 pf--feat" data-type="Retail"><img src="assets/portfolio/acalis_super.jpg" alt="Activación Acalis Montahue en supermercado" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Activación Acalis Montahue en supermercado"></button><figcaption><span class="type">Retail</span><span class="meta">Por confirmar · Por confirmar</span></figcaption></figure>
-        <figure class="pf pf--4x2 pf--r45 pf--sm" data-type="Retail"><img src="assets/portfolio/mistro_degustacion.jpg" alt="Degustación Mistro en supermercado" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Degustación Mistro en supermercado"></button><figcaption><span class="type">Retail</span><span class="meta">Por confirmar · Por confirmar</span></figcaption></figure>
-        <figure class="pf pf--4x2 pf--r34 pf--sm" data-type="Retail"><img src="assets/portfolio/lacustodia_cliente.jpg" alt="Degustación La Custodia en supermercado" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Degustación La Custodia en supermercado"></button><figcaption><span class="type">Retail</span><span class="meta">Por confirmar · Por confirmar</span></figcaption></figure>
-        <figure class="pf pf--4x2 pf--r34 pf--sm" data-type="Retail"><img src="assets/portfolio/cocacola_jumbo.jpg" alt="Activación Coca-Cola en Jumbo" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Activación Coca-Cola en Jumbo"></button><figcaption><span class="type">Retail</span><span class="meta">Por confirmar · Por confirmar</span></figcaption></figure>
-        <figure class="pf pf--4x2 pf--r45 pf--sm" data-type="Retail"><img src="assets/portfolio/lacustodia_atencion.jpg" alt="Degustación La Custodia, atención a cliente" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Degustación La Custodia, atención a cliente"></button><figcaption><span class="type">Retail</span><span class="meta">Por confirmar · Por confirmar</span></figcaption></figure>
-        <figure class="pf pf--4x2 pf--r45 pf--sm" data-type="Staff"><img src="assets/portfolio/naut_promotora.jpg" alt="Promotora Naut en supermercado" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Promotora Naut en supermercado"></button><figcaption><span class="type">Staff</span><span class="meta">Por confirmar · Por confirmar</span></figcaption></figure>
-        <figure class="pf pf--4x2 pf--r34 pf--sm" data-type="Retail"><img src="assets/portfolio/quokka_stand.jpg" alt="Stand Quokka" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Stand Quokka"></button><figcaption><span class="type">Retail</span><span class="meta">Por confirmar · Por confirmar</span></figcaption></figure>
+        <figure class="pf pf--7x2 pf--r34 pf--feat" data-type="BTL" data-kind="Activación de marca"><img src="assets/portfolio/btl_1xbet.jpg" alt="Activación 1XBET en estadio" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Activación 1XBET en estadio"></button><figcaption><span class="type">BTL</span></figcaption></figure>
+        <figure class="pf pf--5x2 pf--r45 pf--med" data-type="BTL" data-kind="Activación de marca"><img src="assets/portfolio/btl_1xbet_grupo.jpg" alt="Entrega de camisetas 1XBET" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Entrega de camisetas 1XBET"></button><figcaption><span class="type">BTL</span></figcaption></figure>
+        <figure class="pf pf--5x2 pf--r34 pf--med" data-type="Eventos" data-kind="Producción de evento"><img src="assets/portfolio/clinica_biobio.jpg" alt="Stand institucional Clínica Biobío" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Stand institucional Clínica Biobío"></button><figcaption><span class="type">Eventos</span></figcaption></figure>
+        <figure class="pf pf--7x2 pf--r45 pf--feat" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/acalis_mall.jpg" alt="Roadshow Acalis Montahue en mall" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Roadshow Acalis Montahue en mall"></button><figcaption><span class="type">Retail</span></figcaption></figure>
+        <figure class="pf pf--6x2 pf--r45 pf--med" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/cocacola_equipo.jpg" alt="Activación Coca-Cola en supermercado" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Activación Coca-Cola en supermercado"></button><figcaption><span class="type">Retail</span></figcaption></figure>
+        <figure class="pf pf--6x2 pf--r45 pf--med" data-type="Eventos" data-kind="Producción de evento"><img src="assets/portfolio/trama_playa.jpg" alt="Evento TRAMA en playa" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Evento TRAMA en playa"></button><figcaption><span class="type">Eventos</span></figcaption></figure>
+        <figure class="pf pf--7x2 pf--r34 pf--feat" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/acalis_super.jpg" alt="Activación Acalis Montahue en supermercado" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Activación Acalis Montahue en supermercado"></button><figcaption><span class="type">Retail</span></figcaption></figure>
+        <figure class="pf pf--5x2 pf--r45 pf--med" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/mistro_degustacion.jpg" alt="Degustación Mistro en supermercado" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Degustación Mistro en supermercado"></button><figcaption><span class="type">Retail</span></figcaption></figure>
+        <figure class="pf pf--6x2 pf--r34 pf--med" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/lacustodia_cliente.jpg" alt="Degustación La Custodia en supermercado" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Degustación La Custodia en supermercado"></button><figcaption><span class="type">Retail</span></figcaption></figure>
+        <figure class="pf pf--3x1 pf--r34 pf--sm" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/cocacola_jumbo.jpg" alt="Activación Coca-Cola en Jumbo" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Activación Coca-Cola en Jumbo"></button><figcaption><span class="type">Retail</span></figcaption></figure>
+        <figure class="pf pf--3x1 pf--r45 pf--sm" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/lacustodia_atencion.jpg" alt="Degustación La Custodia, atención a cliente" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Degustación La Custodia, atención a cliente"></button><figcaption><span class="type">Retail</span></figcaption></figure>
+        <figure class="pf pf--3x1 pf--r45 pf--sm" data-type="Staff" data-kind="Equipo en terreno"><img src="assets/portfolio/naut_promotora.jpg" alt="Promotora Naut en supermercado" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Promotora Naut en supermercado"></button><figcaption><span class="type">Staff</span></figcaption></figure>
+        <figure class="pf pf--3x1 pf--r34 pf--sm" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/quokka_stand.jpg" alt="Stand Quokka" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Stand Quokka"></button><figcaption><span class="type">Retail</span></figcaption></figure>
       </div>
     </div>
   </section>
