@@ -197,11 +197,41 @@ window.balunaConsent = (function () {
     }
   });
 
+  // Controles del panel a los que se puede tabular. El diálogo
+  // (tabindex="-1") queda fuera a propósito: solo existe para recibir el
+  // foco al abrir. Los <input> de los switches son opacity:0 sobre su
+  // track, así que sí cuentan (los deshabilitados se excluyen solos).
+  const SELECTOR_FOCO = 'a[href], button:not([disabled]), input:not([disabled]), ' +
+    'select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+  function controlesPanel() {
+    if (!panel) return [];
+    return Array.from(panel.querySelectorAll(SELECTOR_FOCO));
+  }
+
   document.addEventListener("keydown", (e) => {
-    if (e.key !== "Escape") return;
     if (!banner || !panel) resolverDom();
-    if (panel && !panel.hidden) cerrarPanel();
-    else if (banner && !banner.hidden) ocultarBanner(); // sin eleccion = sin cookies no esenciales
+
+    if (e.key === "Escape") {
+      if (panel && !panel.hidden) cerrarPanel();
+      else if (banner && !banner.hidden) ocultarBanner(); // sin eleccion = sin cookies no esenciales
+      return;
+    }
+
+    if (e.key !== "Tab" || !panel || panel.hidden) return;
+
+    // Trampa de foco: el panel se declara aria-modal="true", así que
+    // mientras está abierto Tab circula solo entre sus controles, igual que
+    // en el lightbox. Sin esto el foco salía a la página de fondo y llegaba
+    // al botón flotante de WhatsApp, que no debería alcanzarse.
+    const controles = controlesPanel();
+    if (!controles.length) return;
+    const primero = controles[0];
+    const ultimo = controles[controles.length - 1];
+    const activo = document.activeElement;
+    if (!panel.contains(activo)) { e.preventDefault(); primero.focus(); return; }
+    if (e.shiftKey && activo === primero) { e.preventDefault(); ultimo.focus(); return; }
+    if (!e.shiftKey && activo === ultimo) { e.preventDefault(); primero.focus(); }
   });
 
   function iniciar() {
@@ -252,16 +282,30 @@ if (navbar && navToggle && navMobile) {
   updateNavbar();
   window.addEventListener("scroll", updateNavbar, { passive: true });
 
+  // El botón cambia de nombre accesible con el estado del panel: "Abrir menú"
+  // fijo describía mal el botón cuando el menú ya estaba desplegado.
+  function estadoMenu(abierto) {
+    navbar.classList.toggle("open", abierto);
+    navToggle.setAttribute("aria-expanded", String(abierto));
+    navToggle.setAttribute("aria-label", abierto ? "Cerrar menú" : "Abrir menú");
+  }
+
   navToggle.addEventListener("click", () => {
-    const isOpen = navbar.classList.toggle("open");
-    navToggle.setAttribute("aria-expanded", String(isOpen));
+    estadoMenu(!navbar.classList.contains("open"));
   });
 
   navMobile.querySelectorAll("a").forEach((a) => {
-    a.addEventListener("click", () => {
-      navbar.classList.remove("open");
-      navToggle.setAttribute("aria-expanded", "false");
-    });
+    a.addEventListener("click", () => estadoMenu(false));
+  });
+
+  // ESC cierra el menú y devuelve el foco al botón. Va en un keydown de
+  // document (el mismo nivel que usan el panel de cookies y el lightbox),
+  // así funciona también con el foco dentro del menú, y comprueba el estado
+  // antes de actuar para no pisar otros atajos.
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape" || !navbar.classList.contains("open")) return;
+    estadoMenu(false);
+    navToggle.focus();
   });
 }
 
@@ -283,8 +327,14 @@ if (filters && portfolioFigures.length) {
     const btn = e.target.closest("button[data-filter]");
     if (!btn) return;
 
-    filters.querySelectorAll("button").forEach((b) => b.classList.remove("active"));
-    btn.classList.add("active");
+    // .active es el estado visual; aria-pressed el que anuncia el lector de
+    // pantalla. Los dos se actualizan juntos, y el botón que se pulsa es
+    // siempre el único activo (el filtro no se deselecciona).
+    filters.querySelectorAll("button").forEach((b) => {
+      const activo = b === btn;
+      b.classList.toggle("active", activo);
+      b.setAttribute("aria-pressed", String(activo));
+    });
 
     const filtro = btn.dataset.filter;
     let visibles = 0;

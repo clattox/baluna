@@ -17,7 +17,7 @@
 <!-- ?v= = huella del archivo (ver el comentario en index.html): cambia la URL
      cuando cambia el CSS o el JS, para no depender de purgas del CDN ni de
      la caché. -->
-<link rel="stylesheet" href="styles.css?v=5fb0296" />
+<link rel="stylesheet" href="styles.css?v=ff6173e" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -33,7 +33,9 @@
       <img src="assets/baluna-logo-navbar.png" alt="Baluna" class="navbar__logo-scrolled" />
       <img src="assets/baluna-logo-chip.png" alt="Baluna" class="navbar__logo-top" />
     </a>
-    <nav class="navbar__links">
+    <!-- Mismo aria-label que en index.html: los dos <nav> del sitio (navbar y
+         pie) necesitan nombre propio para no chocar como landmarks. -->
+    <nav class="navbar__links" aria-label="Principal">
       <a href="index.html#servicios">Servicios</a>
       <a href="index.html#cobertura">Cobertura</a>
       <a href="index.html#portafolio">Portafolio</a>
@@ -131,7 +133,7 @@
 <footer>
   <div class="footer-inner">
     <img src="assets/baluna-logo-navbar.png" alt="Baluna" class="footer-logo" />
-    <nav>
+    <nav aria-label="Pie de página">
       <a href="index.html#servicios">Servicios</a>
       <a href="index.html#cobertura">Cobertura</a>
       <a href="index.html#portafolio">Portafolio</a>
@@ -216,6 +218,6 @@
 </div>
 
 
-<script src="script.js?v=36b8464"></script>
+<script src="script.js?v=2adc83c"></script>
 </body>
 </html>
