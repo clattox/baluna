@@ -237,9 +237,10 @@ img { max-width: 100%; display: block; }
 }
 /*
   Fondo del hero: la imagen estática assets/hero-bg.jpg (1672x941, 1,78:1).
-  Antes iba acá un <video> (assets/hero.mp4), pero el master de ese video era
-  vertical (480x854) y en desktop se estiraba ~3x: se veía blando. Esta imagen
-  es horizontal y en el hero de 1280px entra casi 1:1, así que se ve nítida.
+  Antes iba acá un <video> que ya no está en el repo (assets/hero.mp4): el
+  master de ese video era vertical (480x854) y en desktop se estiraba ~3x, así
+  que se veía blando. Esta imagen es horizontal y en el hero de 1280px entra
+  casi 1:1, así que se ve nítida.
   Va antes que .hero__scrim en el DOM y los dos son position: absolute sin
   z-index, así que el scrim se sigue pintando encima y mantiene el contraste
   del texto y del navbar. El fondo de .hero (--brand-deep) queda de respaldo
@@ -267,6 +268,19 @@ img { max-width: 100%; display: block; }
   background-image: url('assets/hero-bg.jpg');
   background-size: cover;
   background-position: center right;
+}
+/*
+  En mobile el hero queda alto y angosto (375x805,8), así que cover recorta
+  ~74% del ancho de la imagen y el anclaje a la derecha deja ver la franja
+  clara: medido con center right, la fila de arriba detrás del navbar daba
+  [127,87,116] y ahí el tope del scrim sólo llega a .65, o sea el wordmark y
+  el icono quedaban sobre la zona más clara de la foto. Anclando a la
+  izquierda se ve la zona oscura de la imagen y el scrim vuelve a tener poco
+  que tapar. Desde 640px el hero es menos angosto y la franja visible ya
+  incluye la zona clara de la derecha, que es lo que se quiere en desktop.
+*/
+@media (max-width: 639px) {
+  .hero__bg { background-position: left center; }
 }
 /*
   El scrim oscurece el fondo (hoy la imagen .hero__bg) para que el texto y el
@@ -791,6 +805,33 @@ form.contact-form {
 
 /* ---------- Final CTA ---------- */
 .final-cta { background: var(--brand-deep); color: var(--paper); text-align: center; padding: 96px 24px; }
+/*
+  Misma imagen que el hero, encuadrada al centro, con un velo de --brand-deep
+  al .65 (el mismo tope que el scrim del hero). El velo no es decorativo: sin
+  él el titular NO se lee. La cinta clara de la imagen entra por el borde
+  superior derecho de la caja del h2 y, medido en píxeles línea por línea, el
+  texto crema daba 2,86:1 (línea 1) y 2,02:1 (línea 2) a 375px, 2,22:1 y 2,01:1
+  a 768px y 2,63:1 a 1280px, contra el 3:1 que exige el texto grande. El
+  supuesto de que la zona central de la imagen alcanzaba no se cumplía: la
+  banda que usa la sección es oscura en el centro-izquierda, pero la cinta
+  salmón cruza por arriba a la derecha. Con el velo el peor píxel bajo el
+  titular queda en 7,35:1 (375px), 6,91:1 (768px), 6,98:1 (1280px) y 6,77:1
+  (1440px), con el mínimo por línea en 7,85:1: hay margen incluso sobre el
+  4,5:1 del texto chico, que es lo que hace falta porque otras medidas de
+  ventana mueven el recorte vertical y con él qué pixel cae detrás de cada
+  línea. Medido con Chrome: se oculta el h2 y el botón, se leen los píxeles del
+  fondo en las cajas exactas de cada línea (Range.getClientRects) y se compara
+  contra el píxel más claro, que es el peor caso.
+  El --brand-deep de la regla de arriba queda debajo como respaldo (esta regla
+  no toca background-color) y sirve para que la sección nunca quede vacía si la
+  imagen no carga. Encuadre al centro porque la sección es ancha (ratio 0,94 a
+  2,84) y usa la banda del medio de la imagen.
+*/
+.final-cta {
+  background-image: linear-gradient(rgba(23,19,53,.65), rgba(23,19,53,.65)), url('assets/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+}
 .final-cta h2 { color: var(--paper); max-width: 520px; margin: 0 auto; }
 .final-cta .btn-primary { margin-top: 36px; display: inline-flex; align-items: center; gap: 8px; }
 @media (min-width: 768px) { .final-cta { padding: 128px 24px; } }
