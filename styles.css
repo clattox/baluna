@@ -253,10 +253,27 @@ img { max-width: 100%; display: block; }
   object-fit: cover;
   object-position: center;
 }
+/*
+  El scrim oscurece el video para que el texto y el navbar se lean. La
+  primera versión dejaba el tope casi transparente (alfa .1) y el video
+  asomaba claro justo en la franja del navbar: el wordmark blanco y los
+  enlaces --paper quedaban ilegibles en los fotogramas claros (medido: hasta
+  1,97:1 en 1280px).
+  Los alfas se eligieron midiendo sobre los 6 fotogramas más claros del
+  video, en la franja del navbar, a 375 y 1280px (peor caso de los enlaces,
+  que son texto y exigen 4,5:1):
+    tope .45 → 3,38:1 (no alcanza)
+    tope .55 → 4,50:1 (pasa raspando, sin margen)
+    tope .65 → 6,45:1 (elegido, con margen para cualquier fotograma)
+  Con .65 el video aporta 35% y sigue viéndose: el fondo conserva un desvío
+  de luminancia de ~10 sobre 0 (plano) y cambia de tono de fotograma a
+  fotograma (verdoso, anaranjado, azulado), así que no es un rectángulo
+  oscuro. El resto de la rampa es el mismo degradado suave de siempre.
+*/
 .hero__scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, var(--brand-deep), rgba(23,19,53,.6) 60%, rgba(23,19,53,.1));
+  background: linear-gradient(to top, var(--brand-deep), rgba(23,19,53,.8) 55%, rgba(23,19,53,.75) 85%, rgba(23,19,53,.65));
 }
 .hero__content {
   position: relative;
