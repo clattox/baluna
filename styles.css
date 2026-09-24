@@ -698,33 +698,55 @@ form.contact-form {
   página y el pie queda pegado a él, sin un bloque claro en medio).
   Los cinco logos son archivos reales entregados por el cliente: van con
   sus colores originales, sin filtro, atenuados en reposo y a plena
-  opacidad al pasar el cursor o al enfocarlos con teclado, para que la
-  banda acompañe sin competir con el resto de la página. Cada logo ocupa
-  la misma caja (140x48px con object-fit: contain): los archivos vienen a
-  96px de alto, para DPR 2, y cada uno se ajusta dentro de su caja sin
-  deformarse ni estirarse, así la fila queda pareja aunque las
-  proporciones de los logos sean muy distintas y el reparto no cambie si
-  mañana entra otro archivo.
+  opacidad al pasar el cursor, para que la banda acompañe sin competir con
+  el resto de la página. Cada logo ocupa la misma caja (140x48px con
+  object-fit: contain): los archivos vienen a 96px de alto, para DPR 2, y
+  cada uno se ajusta dentro de su caja sin deformarse ni estirarse.
+  El desplazamiento es un carrusel de CSS puro (sin JS): el track lleva la
+  lista de logos dos veces y la animación lo corre hasta -50%. Ese -50%
+  cae justo donde empieza la segunda tanda solo si el track mide también
+  el gap que va después de la última foto, de ahí el padding-right igual
+  al gap: sin él el recorrido queda medio gap corto (32px) y el loop salta.
 */
 .marcas { background: var(--paper-warm); padding: 72px 0; }
 .marcas__titulo { max-width: 560px; }
-/* Los logos arrancan a plomo con el título y con el resto de las secciones
-   (si alguna vez se prefieren centrados, basta justify-content: center). */
-.marcas__grid {
+/* El aire entre el título y la banda: el h2 va con margin 0, así que este
+   margen es el único respiro que tienen (antes lo daba el grid). */
+.marcas__track-wrap {
   margin-top: 40px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 32px 48px;
+  overflow: hidden;
+  /* Pausa al hover */
 }
+.marcas__track-wrap:hover .marcas__track { animation-play-state: paused; }
+
+.marcas__track {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  width: max-content;
+  padding-right: 64px;
+  animation: marcas-scroll 18s linear infinite;
+}
+
+@keyframes marcas-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 .marca-logo {
   width: 140px;
   height: 48px;
   object-fit: contain;
-  opacity: .75;
+  opacity: .65;
+  flex-shrink: 0;
   transition: opacity .25s;
 }
-.marca-logo:hover, .marca-logo:focus-visible { opacity: 1; }
+.marca-logo:hover { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marcas__track { animation: none; }
+  .marcas__track-wrap { overflow-x: auto; }
+}
 /* Paddings distintos a los de section (96/128px): .marcas los sobreescribe
    por especificidad, así que el corte necesita su propio media query. */
 @media (min-width: 768px) { .marcas { padding: 96px 0; } }

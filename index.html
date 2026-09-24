@@ -19,7 +19,7 @@
      max-age de 7 días). Recalcular las dos huellas cada vez que se toquen.
      Antes se usaba el hash del commit, que obligaba a conocerlo antes de
      subir; la huella del archivo se calcula en local y cambia sola. -->
-<link rel="stylesheet" href="styles.css?v=87d3a5a" />
+<link rel="stylesheet" href="styles.css?v=458ff92" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -246,23 +246,40 @@
   <!--
     Banda de logos de clientes. Va antes del CTA final para que el CTA
     cierre la página y quede pegado al pie, sin un bloque claro en medio.
-    Los cinco logos son archivos reales entregados por el cliente: se
-    muestran con sus colores originales (sin filtro), atenuados en reposo
-    y a plena opacidad al pasar el cursor o al enfocarlos con teclado.
-    Los PNG vienen a 96px de alto (para pantallas de DPR 2) y el CSS los
-    muestra a 48px, con el ancho que traiga cada archivo.
-    Cada logo va dentro de #marcasGrid como:
+    Los cinco logos son archivos reales entregados por el cliente: van con
+    sus colores originales (sin filtro), atenuados en reposo y a plena
+    opacidad al pasar el cursor, para que la banda acompañe sin competir
+    con el resto de la página.
+    La banda es un carrusel de CSS puro (sin JS ni librerías): la lista se
+    repite una segunda vez al final del track y la animación la corre hasta
+    -50%, que con el relleno del track es exactamente el ancho de la
+    primera tanda, así el loop vuelve a empezar sin salto visible. La
+    segunda tanda va con alt="" y aria-hidden="true" para que un lector de
+    pantalla no anuncie cada marca dos veces (los archivos son los mismos,
+    así que no cuestan una segunda descarga).
+    Al pasar el cursor la animación se pausa, y con prefers-reduced-motion
+    se detiene del todo y la banda queda desplazable a mano; ver el bloque
+    "Marcas" en styles.css.
+    Cada logo va dentro de .marcas__track como:
       <img class="marca-logo" src="assets/marcas/nombre.png" alt="Nombre de la marca" loading="lazy" />
   -->
   <section class="marcas">
     <div class="wrap">
       <h2 class="marcas__titulo">Marcas que han confiado en nosotros</h2>
-      <div class="marcas__grid" id="marcasGrid">
-        <img src="assets/marcas/quokka.png" alt="Quokka alimentos" class="marca-logo" loading="lazy" />
-        <img src="assets/marcas/1xbet.png" alt="1XBET" class="marca-logo" loading="lazy" />
-        <img src="assets/marcas/clinica_biobio.png" alt="Clínica Biobío" class="marca-logo" loading="lazy" />
-        <img src="assets/marcas/acalis.png" alt="Acalis residencia para personas mayores" class="marca-logo" loading="lazy" />
-        <img src="assets/marcas/lacustodia.png" alt="La Custodia aceite de oliva" class="marca-logo" loading="lazy" />
+      <div class="marcas__track-wrap">
+        <div class="marcas__track">
+          <img src="assets/marcas/quokka.png" alt="Quokka alimentos" class="marca-logo" loading="lazy" />
+          <img src="assets/marcas/1xbet.png" alt="1XBET" class="marca-logo" loading="lazy" />
+          <img src="assets/marcas/clinica_biobio.png" alt="Clínica Biobío" class="marca-logo" loading="lazy" />
+          <img src="assets/marcas/acalis.png" alt="Acalis residencia para personas mayores" class="marca-logo" loading="lazy" />
+          <img src="assets/marcas/lacustodia.png" alt="La Custodia aceite de oliva" class="marca-logo" loading="lazy" />
+          <!-- Segunda tanda: la misma lista, para que el loop cierre completo -->
+          <img src="assets/marcas/quokka.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/1xbet.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/clinica_biobio.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/acalis.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/lacustodia.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+        </div>
       </div>
     </div>
   </section>
