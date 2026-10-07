@@ -19,7 +19,7 @@
      max-age de 7 días). Recalcular las dos huellas cada vez que se toquen.
      Antes se usaba el hash del commit, que obligaba a conocerlo antes de
      subir; la huella del archivo se calcula en local y cambia sola. -->
-<link rel="stylesheet" href="styles.css?v=ffdae9a" />
+<link rel="stylesheet" href="styles.css?v=5232d76" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -238,19 +238,14 @@
     Mapa real de Chile (assets/mapa-chile.png, 831x1628, fondo transparente)
     con las macrozonas norte, centro y sur marcadas. Las zonas viven dentro de
     la imagen, así que en HTML queda solo el <img>: sin ciudades ni cifras
-    inventadas. El ancho lo pone .coverage-graphic (380px, centrado en su
-    columna) y la sección deja el mapa a la derecha del texto desde 768px,
-    apilado debajo a ancho completo en móvil.
+    inventadas. El ancho lo pone .coverage-graphic (480px, centrado con margin
+    auto) y el mapa queda centrado bajo el título de la sección.
   -->
   <section id="cobertura">
     <div class="wrap">
       <h2 class="coverage__titulo">Cobertura en todo Chile</h2>
     </div>
     <div class="wrap coverage-grid">
-      <div>
-        <h2>Una operación. Todo Chile.</h2>
-        <p>Coordinamos equipos y operaciones en distintas ciudades del país, manteniendo un estándar de ejecución y supervisión.</p>
-      </div>
       <div class="coverage-graphic">
         <img src="assets/mapa-chile.png" alt="Mapa de cobertura nacional Baluna — zona norte, centro y sur" />
       </div>

@@ -498,8 +498,10 @@ h2 {
   margin-bottom: 48px;
   color: var(--ink);
 }
-.coverage-grid { display: grid; gap: 64px; align-items: center; }
-.coverage-grid p { max-width: 420px; color: var(--ink-soft); margin-top: 24px; text-wrap: balance; }
+/* El grid quedó con un solo hijo (el mapa) tras quitar el bloque de texto:
+   una sola columna que el .coverage-graphic centra por sí mismo con su
+   margin auto. */
+.coverage-grid { display: grid; align-items: center; }
 .coverage-graphic {
   margin: 0 auto;
   max-width: 480px;
@@ -513,7 +515,6 @@ h2 {
   height: auto;
   display: block;
 }
-@media (min-width: 768px) { .coverage-grid { grid-template-columns: repeat(2, 1fr); } }
 
 /* ---------- Portfolio ---------- */
 /*
