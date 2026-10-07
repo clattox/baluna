@@ -516,253 +516,155 @@ h2 {
   display: block;
 }
 
-/* ---------- Portfolio ---------- */
-/*
-  Composición editorial sobre grilla de 12 columnas. Las 13 fotos reales
-  son verticales (6 en 3:4 y 7 en 4:5, todas de 1000px de ancho), así que
-  la jerarquía no puede venir de la orientación sino del ancho de celda:
-  3 protagonistas de 7 columnas (1,8x el área de una secundaria de 5), 6
-  secundarias de 5-6 columnas y 4 detalles de 3 columnas y media altura.
-  Bandas (12 columnas x 2 filas): 7+5 / 5+7 / 6+6 / 7+5 / 6+4x(3x1).
-  El alto de cada celda lo dan las filas (grid-auto-rows), no un
-  aspect-ratio: las imágenes van en absoluto para que el contenido no
-  estire la pista y la fila mida exactamente el mínimo de minmax().
-  El ancho de fila acompaña al ancho de pantalla (clamp) para que las
-  celdas anchas no se aplanen en monitores grandes.
-*/
-#portafolio { padding: 56px 0 64px; }
+/* ---------- Portafolio carrusel ---------- */
+.portafolio { padding: 72px 0 88px; }
+.port-header { margin-bottom: 40px; }
+.port-header h2 { font-size: clamp(32px, 4vw, 48px); }
+.port-sub { color: var(--ink-soft); margin-top: 8px; }
 
-.portfolio-head { display: flex; flex-direction: column; gap: 20px; margin-bottom: 32px; }
-.portfolio-head__lead { max-width: 620px; }
-.portfolio-sub { margin: 16px 0 0; font-size: 15px; line-height: 1.6; color: var(--ink-soft); text-wrap: balance; }
-
-/* Filtros editoriales: texto en línea, sin píldora ni borde. El activo se
-   marca con tinta y un filete inferior de 1px (estado muy sutil). */
-.filters { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 22px; }
-.filters button {
+.port-carousel {
   position: relative;
-  border: 0;
-  padding: 4px 0 6px;
-  background: none;
-  color: var(--ink-soft);
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: color .25s;
-}
-.filters button::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 1px;
-  background: currentColor;
-  opacity: 0;
-  transition: opacity .25s;
-}
-.filters button:hover { color: var(--ink); }
-.filters button.active { color: var(--ink); }
-.filters button.active::after { opacity: 1; }
-.filters button:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; }
-
-.portfolio-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
-
-.pf {
-  position: relative;
-  margin: 0;
   overflow: hidden;
-  border-radius: 2px;
-  background: var(--paper-warm);
-}
-/* Mobile: una columna con ritmo. Las protagonistas y los detalles
-   conservan su proporción real (3:4 o 4:5); las secundarias van en
-   cuadrado como acento, que es el único recorte de la sección (20-25%). */
-@media (max-width: 639px) {
-  .pf--r34 { aspect-ratio: 3 / 4; }
-  .pf--r45 { aspect-ratio: 4 / 5; }
-  .pf--med { aspect-ratio: 1 / 1; }
-}
-.pf img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .45s ease;
-}
-.pf:hover img, .pf:focus-within img { transform: scale(1.03); }
-
-/* La celda del video (Mistro) usa el mismo encuadre que las fotos: absoluta a
-   sangre y recortando al centro, igual que el fondo del hero (.hero__bg, que
-   hace lo mismo con background-size: cover). Son las mismas propiedades de
-   fondo, y el master también es vertical (480x854), así que object-fit: cover
-   deja el encuadre en el centro. Fuera de la regla del zoom a propósito:
-   agrandar un video en reproducción se ve borroso (el master se escala 1.14x
-   solo para llenar la celda). El velo y la etiqueta del hover van en
-   .pf::before/::after con z-index 1 y 2, así que pasan por encima como con
-   las fotos. */
-.pf video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-/* Botón que cubre la foto: hace clicable la figura y navegable con
-   teclado (una <figure> no recibe foco). Va sobre el velo y la etiqueta. */
-.pf__btn {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  border: 0;
-  padding: 0;
-  background: none;
-  cursor: zoom-in;
-}
-.pf__btn:focus-visible { outline: 2px solid var(--paper); outline-offset: -4px; }
-
-.pf::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: rgba(23, 19, 53, .28);
-  opacity: 0;
-  transition: opacity .45s ease;
-}
-/* Leyenda abajo a la izquierda, dos líneas cortas en mayúsculas: categoría
-   y qué es. El texto sale de los atributos data-type y data-kind, así que
-   la misma etiqueta alimenta el filtro y el hover (una sola fuente). */
-.pf::after {
-  content: attr(data-type) "\A" attr(data-kind);
-  position: absolute;
-  inset: auto 0 0 0;
-  z-index: 2;
-  padding: 16px;
-  white-space: pre-line;
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1.7;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--paper);
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity .45s ease, transform .45s ease;
-}
-.pf:hover::before, .pf:hover::after,
-.pf:focus-within::before, .pf:focus-within::after { opacity: 1; }
-.pf:hover::after, .pf:focus-within::after { transform: none; }
-
-/* La leyenda del <figure> se conserva como respaldo accesible, pero fuera
-   de la vista: el hover ya muestra categoría y tipo con data-type/data-kind
-   y no se publica ningún dato provisional. */
-.pf figcaption {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-@media (min-width: 640px) {
-  #portafolio { padding: 72px 0 88px; }
-  .portfolio-grid {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    grid-auto-rows: minmax(clamp(180px, 24vw, 250px), auto);
-    grid-auto-flow: row dense;
-    gap: 12px;
-  }
-  /* En tablet las protagonistas pasan a ancho completo y el resto a media
-     caja. El alto de fila acompaña al ancho de pantalla para que ambas
-     formas queden cerca de 1:1 (si no, a 1023px las celdas se aplanan).
-     Cierra la última foto a ancho completo para que las medias cajas
-     siempre caigan en pares y no quede un hueco al final. */
-  .pf--7x2, .pf--6x2 { grid-column: span 6; grid-row: span 4; }
-  .pf--5x2, .pf--3x1 { grid-column: span 3; grid-row: span 2; }
-  .pf:last-of-type { grid-column: span 6; grid-row: span 4; }
-  /* Con un filtro activo la grilla se vuelve una hoja de contactos pareja
-     (una foto por media caja): así cualquier subconjunto de fotos cierra
-     sin huecos en medio de la composición. Se detecta con :has() para no
-     tocar script.js; sin soporte de :has() solo se ve la composición
-     editorial con algún hueco. */
-  .portfolio-grid:has(.pf[hidden]) .pf { grid-column: span 3; grid-row: span 2; }
-}
-
-@media (min-width: 1024px) {
-  /* El portafolio respira más ancho que el resto del sitio (1152px): la
-     sección es la pieza editorial y la fotografía manda. Solo se toca
-     este .wrap, no el contenedor global. */
-  #portafolio .wrap { max-width: 1320px; }
-  #portafolio h2 { font-size: 56px; line-height: 1.08; }
-  /* El encabezado pasa a fila solo aquí: entre 640 y 1023 la columna de
-     texto queda muy angosta y el <h2> se parte en cuatro líneas. */
-  .portfolio-head { flex-direction: row; align-items: flex-end; justify-content: space-between; gap: 48px; }
-  .portfolio-grid {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-auto-rows: minmax(clamp(300px, 25vw, 380px), auto);
-    gap: 12px;
-  }
-  .pf--7x2 { grid-column: span 7; grid-row: span 2; }
-  .pf--6x2 { grid-column: span 6; grid-row: span 2; }
-  .pf--5x2 { grid-column: span 5; grid-row: span 2; }
-  .pf--3x1 { grid-column: span 3; grid-row: span 1; }
-  .pf:last-of-type { grid-column: span 3; grid-row: span 1; }
-  /* Vista filtrada: hoja de contactos de 4 columnas (ver comentario en el
-     bloque de 640px). Anula la asimetría para que ningún subconjunto deje
-     huecos en medio. */
-  .portfolio-grid:has(.pf[hidden]) .pf { grid-column: span 3; grid-row: span 1; }
-}
-
-/* ---------- Lightbox del portafolio ---------- */
-body.lightbox-open { overflow: hidden; }
-.lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: grid;
-  place-items: center;
-  /* Tinta de marca, no negro puro: el fondo sigue siendo Baluna. */
-  background: rgba(23, 19, 53, .97);
-  animation: lightbox-in .25s ease both;
-}
-@keyframes lightbox-in { from { opacity: 0; } to { opacity: 1; } }
-.lightbox[hidden] { display: none; }
-.lightbox__img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
-.lightbox__btn {
-  position: absolute;
-  display: grid;
-  place-items: center;
-  border: 0;
-  padding: 12px;
-  background: none;
-  line-height: 0;
-  color: rgba(246, 244, 242, .7);
-  cursor: pointer;
-  transition: color .2s;
-}
-.lightbox__btn:hover { color: var(--paper); }
-.lightbox__btn:focus-visible { outline: 2px solid var(--paper); outline-offset: 4px; }
-.lightbox__close { top: 12px; right: 12px; }
-.lightbox__nav--prev { left: 4px; top: 50%; transform: translateY(-50%); }
-.lightbox__nav--next { right: 4px; top: 50%; transform: translateY(-50%); }
-.lightbox__meta {
-  position: absolute;
-  inset-inline: 0;
-  bottom: 16px;
-  text-align: center;
-  font-size: 12px;
-  letter-spacing: .16em;
-  font-variant-numeric: tabular-nums;
-  color: rgba(246, 244, 242, .6);
+  border-radius: 12px;
+  aspect-ratio: 4/3;
+  background: var(--brand-deep);
 }
 @media (min-width: 768px) {
-  .lightbox__close { top: 20px; right: 24px; }
-  .lightbox__nav--prev { left: 16px; }
-  .lightbox__nav--next { right: 16px; }
+  .port-carousel { aspect-ratio: 16/9; }
+}
+
+.port-track {
+  display: flex;
+  height: 100%;
+  transition: transform .6s cubic-bezier(.4,0,.2,1);
+}
+
+.port-slide {
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+  margin: 0;
+  cursor: pointer;
+}
+.port-slide img, .port-slide video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.port-slide figcaption {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background: rgba(23,19,53,.7);
+  color: var(--paper);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.port-prev, .port-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(23,19,53,.6);
+  color: var(--paper);
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s;
+  z-index: 2;
+}
+.port-prev:hover, .port-next:hover { background: var(--brand); }
+.port-prev { left: 12px; }
+.port-next { right: 12px; }
+
+.port-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 2;
+}
+.port-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(246,244,242,.5);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background .2s, transform .2s;
+}
+.port-dot.active {
+  background: var(--paper);
+  transform: scale(1.3);
+}
+
+/* Lightbox */
+.port-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.92);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.port-lightbox[hidden] { display: none; }
+.port-lb-img {
+  max-height: 90vh;
+  max-width: 90vw;
+  object-fit: contain;
+  border-radius: 4px;
+}
+.port-lb-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(246,244,242,.15);
+  color: var(--paper);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.port-lb-prev, .port-lb-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(246,244,242,.15);
+  color: var(--paper);
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.port-lb-prev { left: 20px; }
+.port-lb-next { right: 20px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .port-track { transition: none; }
 }
 
 /* ---------- Contact ---------- */
@@ -891,7 +793,7 @@ form.contact-form {
   el gap que va después de la última foto, de ahí el padding-right igual
   al gap: sin él el recorrido queda medio gap corto (32px) y el loop salta.
 */
-.marcas { background: var(--paper-warm); padding: 72px 0; }
+.marcas { background: var(--paper-warm); padding: 72px 0; border-bottom: 1px solid var(--line); }
 .marcas__titulo { max-width: 560px; }
 /* El aire entre el título y la banda: el h2 va con margin 0, así que este
    margen es el único respiro que tienen (antes lo daba el grid).

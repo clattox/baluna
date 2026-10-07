@@ -309,132 +309,105 @@ if (navbar && navToggle && navMobile) {
   });
 }
 
-// ===== Portafolio: filtro por categoría (solo index.html) =====
-// El bloque se salta solo en las páginas que no tienen la sección.
-const filters = document.getElementById("filters");
-const portfolioFigures = Array.from(document.querySelectorAll("#portfolioGrid figure"));
+// ── Portafolio carrusel ──────────────────────────────────────────
+(function () {
+  const track = document.getElementById('portTrack');
+  const dotsWrap = document.getElementById('portDots');
+  const lightbox = document.getElementById('portLightbox');
+  const lbImg = document.getElementById('portLbImg');
+  const lbClose = document.getElementById('portLbClose');
+  const lbPrev = document.getElementById('portLbPrev');
+  const lbNext = document.getElementById('portLbNext');
+  if (!track) return;
 
-if (filters && portfolioFigures.length) {
-  filters.addEventListener("click", (e) => {
-    const btn = e.target.closest("button[data-filter]");
-    if (!btn) return;
+  const slides = Array.from(track.querySelectorAll('.port-slide'));
+  const imgSlides = slides.filter(s => s.querySelector('img')); // solo fotos para lightbox
+  let current = 0;
+  let autoTimer;
 
-    // .active es el estado visual; aria-pressed el que anuncia el lector de
-    // pantalla. Los dos se actualizan juntos, y el botón que se pulsa es
-    // siempre el único activo (el filtro no se deselecciona).
-    filters.querySelectorAll("button").forEach((b) => {
-      const activo = b === btn;
-      b.classList.toggle("active", activo);
-      b.setAttribute("aria-pressed", String(activo));
+  // Dots
+  slides.forEach((_, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'port-dot' + (i === 0 ? ' active' : '');
+    btn.setAttribute('aria-label', `Ir a foto ${i + 1}`);
+    btn.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(btn);
+  });
+
+  function goTo(n) {
+    current = (n + slides.length) % slides.length;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dotsWrap.querySelectorAll('.port-dot').forEach((d, i) =>
+      d.classList.toggle('active', i === current));
+    resetTimer();
+  }
+
+  function resetTimer() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => goTo(current + 1), 5000);
+  }
+
+  document.getElementById('portCarousel')
+    .querySelector('.port-prev').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('portCarousel')
+    .querySelector('.port-next').addEventListener('click', () => goTo(current + 1));
+
+  // Pausa al hover
+  const carousel = document.getElementById('portCarousel');
+  carousel.addEventListener('mouseenter', () => clearInterval(autoTimer));
+  carousel.addEventListener('mouseleave', resetTimer);
+
+  resetTimer();
+
+  // Lightbox — solo fotos (no video)
+  let lbCurrent = 0;
+
+  slides.forEach((slide) => {
+    const img = slide.querySelector('img');
+    if (!img) return;
+    slide.style.cursor = 'pointer';
+    slide.addEventListener('click', () => {
+      lbCurrent = imgSlides.indexOf(slide);
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lightbox.removeAttribute('hidden');
+      document.body.style.overflow = 'hidden';
+      lbClose.focus();
     });
-
-    const filtro = btn.dataset.filter;
-    portfolioFigures.forEach((fig) => {
-      const mostrar = filtro === "Todos" || fig.dataset.type === filtro;
-      // hidden (y no display:none en línea) para que la grilla se recomponga sola.
-      fig.hidden = !mostrar;
-    });
   });
-}
 
-// ===== Portafolio: el video no arranca solo con menos movimiento =====
-// El bloque global de styles.css apaga animaciones y transiciones, pero eso no
-// neutraliza un video: se pausa desde acá. El único video que queda en la
-// página es el del portafolio (el hero pasó a imagen estática: .hero__bg), y
-// ocultarlo dejaría la celda vacía, así que la preferencia se aplica dejándolo
-// en su primer fotograma.
-const videoPortafolio = document.querySelector("#portfolioGrid video");
-if (videoPortafolio && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  videoPortafolio.autoplay = false;
-  videoPortafolio.removeAttribute("autoplay");
-  videoPortafolio.pause();
-}
-
-// ===== Portafolio: lightbox propio, sin librerías =====
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightboxImg");
-const lightboxCount = document.getElementById("lightboxCount");
-const lightboxClose = document.getElementById("lightboxClose");
-const lightboxPrev = document.getElementById("lightboxPrev");
-const lightboxNext = document.getElementById("lightboxNext");
-
-// Solo las figuras con <img> entran a la galería: la celda del video no tiene
-// foto que ampliar y, sin este filtro, el querySelector("img") devolvía null y
-// reventaba el bloque entero (y con él el clic de las 12 fotos).
-// indiceEnGaleria guarda la posición real de cada figura dentro de la galería,
-// que desde que existe el video ya no coincide con su posición en la grilla.
-const indiceEnGaleria = new Map();
-const fotos = [];
-portfolioFigures.forEach((fig) => {
-  const img = fig.querySelector("img");
-  if (!img) return;
-  indiceEnGaleria.set(fig, fotos.length);
-  fotos.push({ src: img.getAttribute("src"), alt: img.getAttribute("alt") || "" });
-});
-
-if (lightbox && lightboxImg && fotos.length) {
-
-  const controles = [lightboxClose, lightboxPrev, lightboxNext].filter(Boolean);
-  let abierto = false;
-  let indice = 0;
-  let focoPrevio = null;
-
-  function mostrarFoto(n) {
-    indice = (n + fotos.length) % fotos.length; // navegación circular
-    lightboxImg.src = fotos[indice].src;
-    lightboxImg.alt = fotos[indice].alt;
-    if (lightboxCount) {
-      lightboxCount.textContent =
-        `${String(indice + 1).padStart(2, "0")} / ${String(fotos.length).padStart(2, "0")}`;
-    }
+  function lbGoTo(n) {
+    lbCurrent = (n + imgSlides.length) % imgSlides.length;
+    const img = imgSlides[lbCurrent].querySelector('img');
+    lbImg.src = img.src;
+    lbImg.alt = img.alt;
   }
 
-  function abrirLightbox(n, disparador) {
-    focoPrevio = disparador || document.activeElement;
-    abierto = true;
-    lightbox.hidden = false;
-    document.body.classList.add("lightbox-open");
-    mostrarFoto(n);
-    (lightboxClose || lightbox).focus();
+  function closeLb() {
+    lightbox.setAttribute('hidden', '');
+    document.body.style.overflow = '';
   }
 
-  function cerrarLightbox() {
-    abierto = false;
-    lightbox.hidden = true;
-    document.body.classList.remove("lightbox-open");
-    if (focoPrevio && typeof focoPrevio.focus === "function") focoPrevio.focus();
+  lbClose.addEventListener('click', closeLb);
+  lbPrev.addEventListener('click', () => lbGoTo(lbCurrent - 1));
+  lbNext.addEventListener('click', () => lbGoTo(lbCurrent + 1));
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLb();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (lightbox.hasAttribute('hidden')) return;
+    if (e.key === 'Escape') closeLb();
+    if (e.key === 'ArrowLeft') lbGoTo(lbCurrent - 1);
+    if (e.key === 'ArrowRight') lbGoTo(lbCurrent + 1);
+  });
+
+  // prefers-reduced-motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    clearInterval(autoTimer);
   }
-
-  // El lightbox recorre las fotos en el orden del DOM, aunque haya un filtro
-  // activo: es la galería completa, no solo lo visible. La celda del video no
-  // lleva .pf__btn, así que no entra al recorrido ni a la trampa de foco.
-  portfolioFigures.forEach((fig) => {
-    const btn = fig.querySelector(".pf__btn");
-    if (btn) btn.addEventListener("click", () => abrirLightbox(indiceEnGaleria.get(fig), btn));
-  });
-  if (lightboxPrev) lightboxPrev.addEventListener("click", () => mostrarFoto(indice - 1));
-  if (lightboxNext) lightboxNext.addEventListener("click", () => mostrarFoto(indice + 1));
-  if (lightboxClose) lightboxClose.addEventListener("click", cerrarLightbox);
-  lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) cerrarLightbox(); // clic en el fondo oscuro
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (!abierto) return;
-    if (e.key === "Escape") { e.preventDefault(); cerrarLightbox(); return; }
-    if (e.key === "ArrowRight") { e.preventDefault(); mostrarFoto(indice + 1); return; }
-    if (e.key === "ArrowLeft") { e.preventDefault(); mostrarFoto(indice - 1); return; }
-    if (e.key !== "Tab" || !controles.length) return;
-
-    // Trampa de foco: Tab circula solo entre los controles del lightbox.
-    const primero = controles[0];
-    const ultimo = controles[controles.length - 1];
-    const activo = document.activeElement;
-    if (!lightbox.contains(activo)) { e.preventDefault(); primero.focus(); return; }
-    if (e.shiftKey && activo === primero) { e.preventDefault(); ultimo.focus(); return; }
-    if (!e.shiftKey && activo === ultimo) { e.preventDefault(); primero.focus(); }
-  });
-}
+})();
 
 // ===== Footer: año dinámico =====
 const copyYear = document.getElementById("copyYear");

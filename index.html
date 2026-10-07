@@ -19,7 +19,7 @@
      max-age de 7 días). Recalcular las dos huellas cada vez que se toquen.
      Antes se usaba el hash del commit, que obligaba a conocerlo antes de
      subir; la huella del archivo se calcula en local y cambia sola. -->
-<link rel="stylesheet" href="styles.css?v=5232d76" />
+<link rel="stylesheet" href="styles.css?v=ed51039" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -254,62 +254,51 @@
 
   <!-- ============ PORTAFOLIO ============ -->
   <!--
-    13 fotografias reales, autorizadas por el cliente (confirmado).
-    Composicion editorial: cada <figure> declara con sus clases cuantas
-    columnas y filas ocupa (ver el bloque "Portfolio" en styles.css).
-    pf--r34 / pf--r45 son la proporcion real del archivo (6 fotos en 3:4 y
-    7 celdas en 4:5, una de ellas el video de Mistro, que conserva el 4:5 de
-    la grilla aunque su master sea vertical 480x854) y definen el alto en
-    mobile, donde la grilla es de una columna y las pf--med van en cuadrado
-    como acento.
-    La celda del video no lleva .pf__btn: el lightbox solo sabe mostrar fotos
-    y esa figura no tiene <img>, asi que script.js salta las figuras sin foto
-    al armar la galeria (ver el bloque del lightbox).
-    data-type alimenta el filtro y la primera linea de la leyenda del
-    hover; data-kind es la segunda linea (que es cada pieza). Los dos son
-    categoria, no dato de cliente: nada inventado.
-    Ciudad y anio ya no se muestran: estaban "Por confirmar" y no se
-    publica informacion provisional. El <figcaption> sigue en el HTML
-    (oculto a la vista) para cuando Claudio confirme esos datos.
+    Carrusel automático de foto grande (avanza cada 5 s) con flechas, dots y
+    lightbox al hacer clic. Lo maneja script.js; ver el bloque "Portafolio
+    carrusel" en script.js y en styles.css. La celda del video (Mistro) se
+    reproduce dentro del carrusel pero no abre lightbox: solo las fotos entran
+    a la galería.
   -->
-  <section id="portafolio">
+  <section class="portafolio" id="portafolio">
     <div class="wrap">
-      <div class="portfolio-head">
-        <div class="portfolio-head__lead">
-          <h2>Experiencias que<br>hablan por sí solas.</h2>
-          <p class="portfolio-sub">Activaciones reales. Marcas reales. Resultados en terreno.</p>
-        </div>
-        <!-- aria-pressed: el filtro activo se marca con .active (color y filete
-             inferior, visual) y con aria-pressed="true" (estado expuesto a
-             lectores de pantalla). script.js mantiene los dos en sincronía. -->
-        <div class="filters" id="filters">
-          <button class="active" data-filter="Todos" aria-pressed="true">Todos</button>
-          <button data-filter="BTL" aria-pressed="false">BTL</button>
-          <button data-filter="Eventos" aria-pressed="false">Eventos</button>
-          <button data-filter="Retail" aria-pressed="false">Retail</button>
-          <button data-filter="Staff" aria-pressed="false">Staff</button>
-        </div>
+      <div class="port-header">
+        <h2>Experiencias que<br>hablan por sí solas.</h2>
+        <p class="port-sub">Activaciones reales. Marcas reales. Resultados en terreno.</p>
       </div>
-      <div class="portfolio-grid" id="portfolioGrid">
-        <figure class="pf pf--7x2 pf--r34 pf--feat" data-type="BTL" data-kind="Activación de marca"><img src="assets/portfolio/btl_1xbet.jpg" alt="Activación 1XBET en estadio" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Activación 1XBET en estadio"></button><figcaption><span class="type">BTL</span></figcaption></figure>
-        <figure class="pf pf--5x2 pf--r45 pf--med" data-type="BTL" data-kind="Activación de marca"><img src="assets/portfolio/btl_1xbet_grupo.jpg" alt="Entrega de camisetas 1XBET" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Entrega de camisetas 1XBET"></button><figcaption><span class="type">BTL</span></figcaption></figure>
-        <figure class="pf pf--5x2 pf--r34 pf--med" data-type="Eventos" data-kind="Producción de evento"><img src="assets/portfolio/clinica_biobio.jpg" alt="Stand institucional Clínica Biobío" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Stand institucional Clínica Biobío"></button><figcaption><span class="type">Eventos</span></figcaption></figure>
-        <figure class="pf pf--7x2 pf--r45 pf--feat" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/acalis_mall.jpg" alt="Roadshow Acalis Montahue en mall" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Roadshow Acalis Montahue en mall"></button><figcaption><span class="type">Retail</span></figcaption></figure>
-        <figure class="pf pf--6x2 pf--r45 pf--med" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/cocacola_equipo.jpg" alt="Activación Coca-Cola en supermercado" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Activación Coca-Cola en supermercado"></button><figcaption><span class="type">Retail</span></figcaption></figure>
-        <figure class="pf pf--6x2 pf--r45 pf--med" data-type="Eventos" data-kind="Producción de evento"><img src="assets/portfolio/trama_playa.jpg" alt="Evento TRAMA en playa" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Evento TRAMA en playa"></button><figcaption><span class="type">Eventos</span></figcaption></figure>
-        <figure class="pf pf--7x2 pf--r34 pf--feat" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/acalis_super.jpg" alt="Activación Acalis Montahue en supermercado" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Activación Acalis Montahue en supermercado"></button><figcaption><span class="type">Retail</span></figcaption></figure>
-        <figure class="pf pf--5x2 pf--r45 pf--med" data-type="Retail" data-kind="Punto de venta">
-          <video autoplay muted loop playsinline preload="metadata" aria-label="Activación Mistro en supermercado">
-            <source src="assets/portfolio/mistro_video.mp4" type="video/mp4" />
-          </video>
-          <figcaption><span class="type">Retail</span></figcaption>
-        </figure>
-        <figure class="pf pf--6x2 pf--r34 pf--med" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/lacustodia_cliente.jpg" alt="Degustación La Custodia en supermercado" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Degustación La Custodia en supermercado"></button><figcaption><span class="type">Retail</span></figcaption></figure>
-        <figure class="pf pf--3x1 pf--r34 pf--sm" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/cocacola_jumbo.jpg" alt="Activación Coca-Cola en Jumbo" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Activación Coca-Cola en Jumbo"></button><figcaption><span class="type">Retail</span></figcaption></figure>
-        <figure class="pf pf--3x1 pf--r45 pf--sm" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/lacustodia_atencion.jpg" alt="Degustación La Custodia, atención a cliente" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Degustación La Custodia, atención a cliente"></button><figcaption><span class="type">Retail</span></figcaption></figure>
-        <figure class="pf pf--3x1 pf--r45 pf--sm" data-type="Staff" data-kind="Equipo en terreno"><img src="assets/portfolio/naut_promotora.jpg" alt="Promotora Naut en supermercado" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Promotora Naut en supermercado"></button><figcaption><span class="type">Staff</span></figcaption></figure>
-        <figure class="pf pf--3x1 pf--r34 pf--sm" data-type="Retail" data-kind="Punto de venta"><img src="assets/portfolio/quokka_stand.jpg" alt="Stand Quokka" loading="lazy" /><button type="button" class="pf__btn" aria-label="Ampliar: Stand Quokka"></button><figcaption><span class="type">Retail</span></figcaption></figure>
+      <div class="port-carousel" id="portCarousel">
+        <div class="port-track" id="portTrack">
+          <figure class="port-slide" data-type="BTL"><img src="assets/portfolio/btl_1xbet.jpg" alt="Activación 1XBET en estadio" loading="lazy" /><figcaption>BTL</figcaption></figure>
+          <figure class="port-slide" data-type="BTL"><img src="assets/portfolio/btl_1xbet_grupo.jpg" alt="Equipo 1XBET" loading="lazy" /><figcaption>BTL</figcaption></figure>
+          <figure class="port-slide" data-type="Retail"><img src="assets/portfolio/acalis_mall.jpg" alt="Roadshow Acalis en mall" loading="lazy" /><figcaption>Retail</figcaption></figure>
+          <figure class="port-slide" data-type="Retail"><img src="assets/portfolio/acalis_super.jpg" alt="Activación Acalis en supermercado" loading="lazy" /><figcaption>Retail</figcaption></figure>
+          <figure class="port-slide" data-type="Retail"><img src="assets/portfolio/cocacola_equipo.jpg" alt="Activación Coca-Cola equipo" loading="lazy" /><figcaption>Retail</figcaption></figure>
+          <figure class="port-slide" data-type="Retail"><img src="assets/portfolio/cocacola_jumbo.jpg" alt="Activación Coca-Cola Jumbo" loading="lazy" /><figcaption>Retail</figcaption></figure>
+          <figure class="port-slide" data-type="Retail"><img src="assets/portfolio/lacustodia_atencion.jpg" alt="Degustación La Custodia" loading="lazy" /><figcaption>Retail</figcaption></figure>
+          <figure class="port-slide" data-type="Retail"><img src="assets/portfolio/lacustodia_cliente.jpg" alt="La Custodia cliente" loading="lazy" /><figcaption>Retail</figcaption></figure>
+          <figure class="port-slide" data-type="Retail"><img src="assets/portfolio/naut_promotora.jpg" alt="Promotora Naut" loading="lazy" /><figcaption>Staff</figcaption></figure>
+          <figure class="port-slide" data-type="Retail"><img src="assets/portfolio/quokka_stand.jpg" alt="Stand Quokka" loading="lazy" /><figcaption>Retail</figcaption></figure>
+          <figure class="port-slide" data-type="Eventos"><img src="assets/portfolio/trama_playa.jpg" alt="Evento TRAMA playa" loading="lazy" /><figcaption>Eventos</figcaption></figure>
+          <figure class="port-slide" data-type="Eventos"><img src="assets/portfolio/clinica_biobio.jpg" alt="Stand Clínica Biobío" loading="lazy" /><figcaption>Eventos</figcaption></figure>
+          <figure class="port-slide" data-type="Retail">
+            <video autoplay muted loop playsinline preload="metadata" aria-label="Activación Mistro en supermercado">
+              <source src="assets/portfolio/mistro_video.mp4" type="video/mp4" />
+            </video>
+            <figcaption>Retail</figcaption>
+          </figure>
+        </div>
+        <button class="port-prev" aria-label="Foto anterior">&#8592;</button>
+        <button class="port-next" aria-label="Foto siguiente">&#8594;</button>
+        <div class="port-dots" id="portDots"></div>
       </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="port-lightbox" id="portLightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada" hidden>
+      <button class="port-lb-close" id="portLbClose" aria-label="Cerrar">&#10005;</button>
+      <button class="port-lb-prev" id="portLbPrev" aria-label="Anterior">&#8592;</button>
+      <img class="port-lb-img" id="portLbImg" src="" alt="" />
+      <button class="port-lb-next" id="portLbNext" aria-label="Siguiente">&#8594;</button>
     </div>
   </section>
 
@@ -447,28 +436,6 @@
   </div>
 </div>
 
-<!-- ============ LIGHTBOX DEL PORTAFOLIO ============ -->
-<!--
-  Overlay propio, sin librerías: lo maneja script.js. Abre la foto que se
-  pulsa y navega con las flechas (mouse o teclado ←/→, ESC cierra y el
-  foco queda atrapado dentro del diálogo mientras está abierto).
-  Los SVG son en línea y el fondo oscuro tapa el resto del sitio
-  (z-index 100: por encima del navbar, del banner y del panel de cookies).
--->
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galería de experiencias" tabindex="-1" hidden>
-  <button type="button" class="lightbox__btn lightbox__close" id="lightboxClose" aria-label="Cerrar galería">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M5 5l14 14M19 5L5 19" /></svg>
-  </button>
-  <button type="button" class="lightbox__btn lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Foto anterior">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 4l-8 8 8 8" /></svg>
-  </button>
-  <img class="lightbox__img" id="lightboxImg" alt="" />
-  <button type="button" class="lightbox__btn lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Foto siguiente">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 4l8 8-8 8" /></svg>
-  </button>
-  <p class="lightbox__meta" id="lightboxCount">01 / 13</p>
-</div>
-
 <!-- ============ WHATSAPP FLOTANTE ============ -->
 <!--
   Ícono genérico de burbuja de chat: no se usa el logo oficial de
@@ -494,10 +461,10 @@
   </a>
 </aside>
 <!--
-  script.js va al final del <body>, después del lightbox del portafolio:
-  el bloque del lightbox resuelve sus elementos al cargar el archivo, así
-  que necesita que ese markup ya esté en el DOM.
+  script.js va al final del <body>: el carrusel del portafolio (y su lightbox)
+  resuelve sus elementos al cargar el archivo, así que necesita que ese markup
+  ya esté en el DOM.
 -->
-<script src="script.js?v=2f0ddd5"></script>
+<script src="script.js?v=acbead6"></script>
 </body>
 </html>
