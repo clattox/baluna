@@ -19,7 +19,7 @@
      max-age de 7 días). Recalcular las dos huellas cada vez que se toquen.
      Antes se usaba el hash del commit, que obligaba a conocerlo antes de
      subir; la huella del archivo se calcula en local y cambia sola. -->
-<link rel="stylesheet" href="styles.css?v=05eb88a" />
+<link rel="stylesheet" href="styles.css?v=ffdae9a" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -42,6 +42,7 @@
       <a href="#cobertura">Cobertura</a>
       <a href="#portafolio">Portafolio</a>
       <a href="#contacto">Contacto</a>
+      <a href="blog.html">Blog</a>
     </nav>
     <a href="#contacto" class="navbar__cta">Cotizar evento</a>
     <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
@@ -53,6 +54,7 @@
     <a href="#cobertura">Cobertura</a>
     <a href="#portafolio">Portafolio</a>
     <a href="#contacto">Contacto</a>
+    <a href="blog.html">Blog</a>
     <a href="#contacto" class="navbar__cta">Cotizar evento</a>
   </div>
 </header>
@@ -78,6 +80,63 @@
     </div>
   </section>
 
+  <!-- ============ MARCAS ============ -->
+  <!--
+    Banda de logos de clientes. Va justo después del hero, como carta de
+    presentación: las marcas que ya confiaron en nosotros se ven antes
+    de entrar en los servicios.
+    Los ocho logos son archivos reales entregados por el cliente: van con
+    sus colores originales (sin filtro) —salvo Naut, que viene en blanco y por
+    eso se oscurece con un filter—, atenuados en reposo y a plena opacidad al
+    pasar el cursor, para que la banda acompañe sin competir con el resto de
+    la página.
+    La banda es un carrusel de CSS puro (sin JS ni librerías): la lista se
+    repite una segunda vez al final del track y la animación la corre hasta
+    -50%, que con el relleno del track es exactamente el ancho de la
+    primera tanda, así el loop vuelve a empezar sin salto visible. La
+    segunda tanda va con alt="" y aria-hidden="true" para que un lector de
+    pantalla no anuncie cada marca dos veces (los archivos son los mismos,
+    así que no cuestan una segunda descarga).
+    Al pasar el cursor la animación se pausa, y con prefers-reduced-motion
+    se detiene del todo y la banda queda desplazable a mano; ver el bloque
+    "Marcas" en styles.css.
+    Cada logo de la primera tanda va dentro de .marcas__track como:
+      <a href="URL oficial" target="_blank" rel="noopener noreferrer" class="marca-link">
+        <img class="marca-logo" src="assets/marcas/nombre.png" alt="Nombre de la marca" loading="lazy" />
+      </a>
+    La segunda tanda (la del loop) repite solo el <img>, sin enlace: es
+    decorativa (aria-hidden="true"), así que no debe ser tabulable ni anunciar
+    la marca dos veces.
+  -->
+  <section class="marcas">
+    <div class="wrap">
+      <h2 class="marcas__titulo">Marcas que han confiado en nosotros</h2>
+      <div class="marcas__track-wrap">
+        <div class="marcas__track">
+          <a href="https://quokkafoods.com/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/quokka.png" alt="Quokka alimentos" class="marca-logo" loading="lazy" /></a>
+          <a href="https://1xbetchil.com/es" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/1xbet.png" alt="1XBET" class="marca-logo" loading="lazy" /></a>
+          <a href="https://www.clinicabiobio.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/clinica_biobio.png" alt="Clínica Biobío" class="marca-logo" loading="lazy" /></a>
+          <a href="https://www.acalis.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/acalis.png" alt="Acalis residencia para personas mayores" class="marca-logo" loading="lazy" /></a>
+          <a href="https://lacustodia.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/lacustodia.png" alt="La Custodia aceite de oliva" class="marca-logo" loading="lazy" /></a>
+          <a href="https://quelen.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/quelen.png" alt="Quelen Centro Turístico" class="marca-logo marca-logo--sq" loading="lazy" /></a>
+          <a href="https://www.instagram.com/mielmistro/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/mistro.png" alt="Mistro miel" class="marca-logo" loading="lazy" /></a>
+          <a href="https://naut.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/naut.png" alt="Naut bebida vegetal" class="marca-logo marca-logo--naut" loading="lazy" /></a>
+          <a href="https://framadrinks.com/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/frama.png" alt="Frama Drinks" class="marca-logo" loading="lazy" /></a>
+          <!-- Segunda tanda: la misma lista, para que el loop cierre completo -->
+          <img src="assets/marcas/quokka.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/1xbet.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/clinica_biobio.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/acalis.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/lacustodia.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/quelen.png" alt="" class="marca-logo marca-logo--sq" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/mistro.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/naut.png" alt="" class="marca-logo marca-logo--naut" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/frama.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ CREDIBILIDAD ============ -->
   <section class="credibility">
     <div class="credibility__grid">
@@ -90,7 +149,7 @@
   <!-- ============ SERVICIOS ============ -->
   <section id="servicios">
     <div class="wrap">
-      <div class="section-head"><h2>Lo que hacemos</h2></div>
+      <div class="section-head"><h2>Servicios</h2></div>
       <div class="services-list">
         <div class="service-row">
           <span class="num">01</span>
@@ -136,17 +195,41 @@
     </div>
   </section>
 
-  <!-- ============ PROCESO ============ -->
-  <section class="process">
+  <!-- ============ ¿POR QUÉ ELEGIRNOS? ============ -->
+  <section class="reasons" id="razones">
     <div class="wrap">
-      <h2>De la idea a la ejecución.</h2>
-      <div class="process-grid">
-        <div class="step"><span class="num">01</span><h3>Diseñamos</h3><p>Conceptualización y planificación.</p></div>
-        <div class="step"><span class="num">02</span><h3>Coordinamos</h3><p>Logística, producción y equipos.</p></div>
-        <div class="step"><span class="num">03</span><h3>Activamos</h3><p>Staff, montaje y experiencia en terreno.</p></div>
-        <div class="step"><span class="num">04</span><h3>Ejecutamos</h3><p>Supervisión y seguimiento de la operación.</p></div>
+      <h2>¿Por qué elegirnos?</h2>
+      <div class="reasons__grid">
+        <div class="reasons__item">
+          <span class="reasons__check" aria-hidden="true"></span>
+          <div>
+            <h3>Experiencia en terreno</h3>
+            <p>Más de 5 años ejecutando activaciones BTL en todo Chile.</p>
+          </div>
+        </div>
+        <div class="reasons__item">
+          <span class="reasons__check" aria-hidden="true"></span>
+          <div>
+            <h3>Staff capacitado</h3>
+            <p>Equipos entrenados, supervisados y comprometidos con cada campaña.</p>
+          </div>
+        </div>
+        <div class="reasons__item">
+          <span class="reasons__check" aria-hidden="true"></span>
+          <div>
+            <h3>Cobertura nacional</h3>
+            <p>Operamos en las principales ciudades del norte, centro y sur del país.</p>
+          </div>
+        </div>
+        <div class="reasons__item">
+          <span class="reasons__check" aria-hidden="true"></span>
+          <div>
+            <h3>Respuesta rápida</h3>
+            <p>Cotizaciones en menos de 24 horas y coordinación ágil desde el primer contacto.</p>
+          </div>
+        </div>
       </div>
-      <p class="process__note">No solamente aportamos creatividad: también capacidad de ejecución.</p>
+      <p class="reasons__footer">No solamente aportamos creatividad: también capacidad de ejecución.</p>
     </div>
   </section>
 
@@ -160,6 +243,9 @@
     apilado debajo a ancho completo en móvil.
   -->
   <section id="cobertura">
+    <div class="wrap">
+      <h2 class="coverage__titulo">Cobertura en todo Chile</h2>
+    </div>
     <div class="wrap coverage-grid">
       <div>
         <h2>Una operación. Todo Chile.</h2>
@@ -197,7 +283,6 @@
         <div class="portfolio-head__lead">
           <h2>Experiencias que<br>hablan por sí solas.</h2>
           <p class="portfolio-sub">Activaciones reales. Marcas reales. Resultados en terreno.</p>
-          <span class="portfolio-count" id="portfolioCount" aria-live="polite">01 — 13</span>
         </div>
         <!-- aria-pressed: el filtro activo se marca con .active (color y filete
              inferior, visual) y con aria-pressed="true" (estado expuesto a
@@ -260,62 +345,6 @@
         <label class="field col-span-2"><span class="label">Mensaje / requerimientos</span><textarea name="mensaje" rows="4"></textarea></label>
         <button type="submit">Solicitar cotización</button>
       </form>
-    </div>
-  </section>
-
-  <!-- ============ MARCAS ============ -->
-  <!--
-    Banda de logos de clientes. Va antes del CTA final para que el CTA
-    cierre la página y quede pegado al pie, sin un bloque claro en medio.
-    Los ocho logos son archivos reales entregados por el cliente: van con
-    sus colores originales (sin filtro) —salvo Naut, que viene en blanco y por
-    eso se oscurece con un filter—, atenuados en reposo y a plena opacidad al
-    pasar el cursor, para que la banda acompañe sin competir con el resto de
-    la página.
-    La banda es un carrusel de CSS puro (sin JS ni librerías): la lista se
-    repite una segunda vez al final del track y la animación la corre hasta
-    -50%, que con el relleno del track es exactamente el ancho de la
-    primera tanda, así el loop vuelve a empezar sin salto visible. La
-    segunda tanda va con alt="" y aria-hidden="true" para que un lector de
-    pantalla no anuncie cada marca dos veces (los archivos son los mismos,
-    así que no cuestan una segunda descarga).
-    Al pasar el cursor la animación se pausa, y con prefers-reduced-motion
-    se detiene del todo y la banda queda desplazable a mano; ver el bloque
-    "Marcas" en styles.css.
-    Cada logo de la primera tanda va dentro de .marcas__track como:
-      <a href="URL oficial" target="_blank" rel="noopener noreferrer" class="marca-link">
-        <img class="marca-logo" src="assets/marcas/nombre.png" alt="Nombre de la marca" loading="lazy" />
-      </a>
-    La segunda tanda (la del loop) repite solo el <img>, sin enlace: es
-    decorativa (aria-hidden="true"), así que no debe ser tabulable ni anunciar
-    la marca dos veces.
-  -->
-  <section class="marcas">
-    <div class="wrap">
-      <h2 class="marcas__titulo">Marcas que han confiado en nosotros</h2>
-      <div class="marcas__track-wrap">
-        <div class="marcas__track">
-          <a href="https://quokkafoods.com/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/quokka.png" alt="Quokka alimentos" class="marca-logo" loading="lazy" /></a>
-          <a href="https://1xbetchil.com/es" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/1xbet.png" alt="1XBET" class="marca-logo" loading="lazy" /></a>
-          <a href="https://www.clinicabiobio.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/clinica_biobio.png" alt="Clínica Biobío" class="marca-logo" loading="lazy" /></a>
-          <a href="https://www.acalis.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/acalis.png" alt="Acalis residencia para personas mayores" class="marca-logo" loading="lazy" /></a>
-          <a href="https://lacustodia.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/lacustodia.png" alt="La Custodia aceite de oliva" class="marca-logo" loading="lazy" /></a>
-          <a href="https://quelen.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/quelen.png" alt="Quelen Centro Turístico" class="marca-logo marca-logo--sq" loading="lazy" /></a>
-          <a href="https://www.instagram.com/mielmistro/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/mistro.png" alt="Mistro miel" class="marca-logo" loading="lazy" /></a>
-          <a href="https://naut.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/naut.png" alt="Naut bebida vegetal" class="marca-logo marca-logo--naut" loading="lazy" /></a>
-          <a href="https://framadrinks.com/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/frama.png" alt="Frama Drinks" class="marca-logo" loading="lazy" /></a>
-          <!-- Segunda tanda: la misma lista, para que el loop cierre completo -->
-          <img src="assets/marcas/quokka.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
-          <img src="assets/marcas/1xbet.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
-          <img src="assets/marcas/clinica_biobio.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
-          <img src="assets/marcas/acalis.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
-          <img src="assets/marcas/lacustodia.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
-          <img src="assets/marcas/quelen.png" alt="" class="marca-logo marca-logo--sq" aria-hidden="true" loading="lazy" />
-          <img src="assets/marcas/mistro.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
-          <img src="assets/marcas/naut.png" alt="" class="marca-logo marca-logo--naut" aria-hidden="true" loading="lazy" />
-          <img src="assets/marcas/frama.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
-        </div>
-      </div>
     </div>
   </section>
 
@@ -474,6 +503,6 @@
   el bloque del lightbox resuelve sus elementos al cargar el archivo, así
   que necesita que ese markup ya esté en el DOM.
 -->
-<script src="script.js?v=6f15e55"></script>
+<script src="script.js?v=2f0ddd5"></script>
 </body>
 </html>

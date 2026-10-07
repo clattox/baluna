@@ -418,12 +418,7 @@ h2 {
 .service-row:last-child { border-bottom: none; }
 /* El número va en --ink-soft y no en --blush: sobre --paper el rosa de la
    marca queda en 1,95:1 (bajo el 4,5:1 de WCAG AA) y axe lo marcaba como
-   violación en las cuatro filas. Con --ink-soft sube a 8,04:1. El paso
-   .process-grid .num sí puede seguir en --blush: ahí el fondo oscuro del paso
-   deja el rosa sobre 4,5:1. Ojo, ese fondo ya no es --brand-deep plano (desde
-   que .process lleva la imagen con velo): medido contra el píxel más claro que
-   le toca a cada número, el rosa da 4,77:1 en el peor ancho (1216-1280px) y
-   entre 8,2:1 y 8,4:1 en el resto, así que el color se mantuvo. */
+   violación en las cuatro filas. Con --ink-soft sube a 8,04:1. */
 .service-row .num { font-family: var(--font-display); font-size: 18px; color: var(--ink-soft); }
 .service-row h3 { font-family: var(--font-display); font-size: 24px; line-height: 1.3; color: var(--ink); margin: 0; }
 .service-row .desc p { max-width: 360px; color: var(--ink-soft); margin: 0; }
@@ -434,55 +429,63 @@ h2 {
   .service-row { grid-template-columns: 100px 1fr 1fr; gap: 40px; padding: 56px 0; }
 }
 
-/* ---------- Process ---------- */
-.process { background: var(--brand-deep); color: var(--paper); }
+/* ---------- Reasons (antes "Proceso") ---------- */
+.reasons { background: var(--brand-deep); color: var(--paper); }
 /*
   Misma imagen y mismo tratamiento que el CTA final (assets/hero-bg.jpg con un
   velo de --brand-deep encima), para que las dos secciones oscuras cierren la
   página con la misma textura. El --brand-deep de arriba queda debajo como
   respaldo: esta regla no toca background-color.
-  Acá el velo es más crítico que en el CTA, porque esta sección tiene los
-  textos de menor alfa del sitio: los párrafos de cada paso van en --paper al
-  70% y la nota final al 60% (a diferencia del titular, que va en --paper
-  pleno). Además el comentario de .service-row .num justifica el --blush de los
-  números de acá con que "el fondo es --brand-deep y el rosa da 8,32:1": con la
-  imagen ese fondo ya no es plano, así que ese número se volvió a medir (ver las
-  cifras abajo) y sigue por encima del 4,5:1 sin cambiar el color.
-  Medido en Chrome, ocultando el texto y leyendo los píxeles de fondo en los
-  rectángulos exactos de cada línea (Range.getClientRects), contra el píxel más
-  claro bajo cada texto. Ojo con el velo: el .6 del encargo NO alcanzaba.
-  A 375px la sección es alta y angosta (375x1043 contra una imagen de
-  1672x941): cover escala a 1,11 y deja ver apenas 338 de los 1672px de ancho,
-  la banda oscura del centro, así que ahí todo pasa con .6 (peor caso la nota al
-  60%, 6,44:1).
-  Pero desde ~1216px el ancho deja de ser limitante y la imagen entra completa,
-  así que la cinta clara cae justo detrás de la cuarta columna: con .6 el número
-  04 (--blush) quedaba en 3,23:1 y su párrafo en 3,86:1. Barrido de alfas a
-  1280px: .6 → 3,23:1 | .65 → 3,66:1 | .7 → 4,19:1 | .75 → 4,77:1.
-  Quedó el .75 porque es el mínimo que deja los 14 textos de la sección sobre
-  4,5:1 y aguanta la matriz de anchos completa: medido en 320, 375, 480, 640,
-  768, 900, 1024, 1216, 1280, 1440, 1600, 1920 y 2560px, el peor texto va de
-  4,69:1 (num 04 a 1216px) a 6,44:1. Es más velo que el .65 del CTA final y no
-  es un descuido: acá los párrafos van en --paper al 70%, la nota al 60% y los
-  números en --blush (mitad de luminancia que el papel), mientras que allá todo
-  el texto es --paper pleno. Si en algún momento se quiere ver más la imagen, el
-  camino es un velo direccional —más fuerte a la derecha, donde está la cinta—,
-  como el scrim del hero, y no bajar este número.
+  La sección pasó de "Proceso" (4 pasos numerados) a "¿Por qué elegirnos?" (4
+  razones con check). El fondo oscuro con imagen y el velo se mantienen: los
+  textos de la sección siguen con alfa baja sobre la imagen —los párrafos de
+  cada razón van en --paper al 70% y el pie (.reasons__footer) al 60%—, así que
+  el .75 medido para el bloque "Proceso" (ver el historial en git) sigue siendo
+  el mínimo que deja esos textos sobre el 4,5:1 de WCAG AA con la cinta clara de
+  la imagen detrás. Si en algún momento se quiere ver más la imagen, el camino
+  es un velo direccional —más fuerte a la derecha, donde está la cinta—, como
+  el scrim del hero, y no bajar este número.
 */
-.process {
+.reasons {
   background-image: linear-gradient(rgba(23,19,53,.75), rgba(23,19,53,.75)), url('assets/hero-bg.jpg');
   background-size: cover;
   background-position: center;
 }
-.process h2 { color: var(--paper); max-width: 480px; }
-.process-grid { margin-top: 64px; display: grid; gap: 40px; grid-template-columns: 1fr; }
-.process-grid .step { border-top: 1px solid var(--line-dark); padding-top: 24px; }
-.process-grid .num { font-family: var(--font-display); font-size: 14px; color: var(--blush); }
-.process-grid h3 { font-family: var(--font-display); font-size: 24px; margin: 12px 0 0; font-weight: 500; }
-.process-grid p { margin: 8px 0 0; font-size: 15px; color: rgba(246,244,242,.7); }
-.process__note { margin-top: 64px; max-width: 420px; font-size: 14px; color: rgba(246,244,242,.6); text-wrap: balance; }
-@media (min-width: 640px) { .process-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .process-grid { grid-template-columns: repeat(4, 1fr); gap: 32px; } }
+.reasons h2 { color: var(--paper); max-width: 480px; }
+.reasons__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 48px;
+  margin-top: 40px;
+}
+.reasons__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.reasons__item h3 { font-family: var(--font-display); font-size: 22px; margin: 0; font-weight: 500; color: var(--paper); }
+.reasons__item p { margin: 8px 0 0; font-size: 15px; color: rgba(246,244,242,.7); }
+.reasons__check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  background: var(--blush);
+}
+.reasons__check::after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 6px;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(-45deg) translateY(-2px);
+}
+.reasons__footer { margin-top: 64px; max-width: 420px; font-size: 14px; color: rgba(246,244,242,.6); text-wrap: balance; }
+@media (max-width: 639px) { .reasons__grid { grid-template-columns: 1fr; } }
 
 /* ---------- Coverage ---------- */
 /* Menos aire que el resto de las secciones (section: 96px, y 128px desde
@@ -490,6 +493,11 @@ h2 {
    especificidad a la regla de section en los dos cortes, así que no hace
    falta su propio media query; ver el caso de #portafolio más abajo. */
 #cobertura { padding: 56px 0; }
+.coverage__titulo {
+  text-align: center;
+  margin-bottom: 48px;
+  color: var(--ink);
+}
 .coverage-grid { display: grid; gap: 64px; align-items: center; }
 .coverage-grid p { max-width: 420px; color: var(--ink-soft); margin-top: 24px; text-wrap: balance; }
 .coverage-graphic {
@@ -526,17 +534,6 @@ h2 {
 .portfolio-head { display: flex; flex-direction: column; gap: 20px; margin-bottom: 32px; }
 .portfolio-head__lead { max-width: 620px; }
 .portfolio-sub { margin: 16px 0 0; font-size: 15px; line-height: 1.6; color: var(--ink-soft); text-wrap: balance; }
-.portfolio-count {
-  display: inline-block;
-  margin-top: 18px;
-  padding-top: 10px;
-  border-top: 1px solid var(--line);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: .18em;
-  font-variant-numeric: tabular-nums;
-  color: var(--ink-soft);
-}
 
 /* Filtros editoriales: texto en línea, sin píldora ni borde. El activo se
    marca con tinta y un filete inferior de 1px (estado muy sutil). */
@@ -1300,6 +1297,19 @@ body.consent-open { overflow: hidden; }
 /* Resalta los campos pendientes de completar. Al reemplazar el texto por
    el dato real, borrar el <span class="flag"> y dejar el dato suelto. */
 .flag { border-radius: 4px; background: var(--blush-soft); color: var(--brand-deep); padding: 1px 6px; font-size: .92em; font-weight: 600; }
+
+
+/* ---------- Blog (placeholder) ---------- */
+/* Página mínima mientras no haya contenido real. Fondo oscuro como
+   .legal-hero para que el navbar transparente del inicio muestre el logo en
+   blanco y no quede invisible sobre un fondo claro. */
+.blog-placeholder { background: var(--brand-deep); color: var(--paper); padding: 144px 0 96px; }
+.blog-placeholder h1 { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: 40px; line-height: 1.1; color: var(--paper); text-wrap: balance; }
+.blog-placeholder p { margin: 20px 0 0; max-width: 560px; font-size: 17px; color: rgba(246,244,242,.75); text-wrap: balance; }
+@media (min-width: 768px) {
+  .blog-placeholder { padding: 176px 0 128px; }
+  .blog-placeholder h1 { font-size: 52px; }
+}
 
 
 /* ===========================================================

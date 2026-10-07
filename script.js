@@ -309,20 +309,12 @@ if (navbar && navToggle && navMobile) {
   });
 }
 
-// ===== Portafolio: filtro por categoría y contador (solo index.html) =====
+// ===== Portafolio: filtro por categoría (solo index.html) =====
 // El bloque se salta solo en las páginas que no tienen la sección.
 const filters = document.getElementById("filters");
 const portfolioFigures = Array.from(document.querySelectorAll("#portfolioGrid figure"));
-const portfolioCount = document.getElementById("portfolioCount");
 
 if (filters && portfolioFigures.length) {
-  const pintarContador = (visibles) => {
-    if (portfolioCount) {
-      portfolioCount.textContent = `01 — ${String(visibles).padStart(2, "0")}`;
-    }
-  };
-  pintarContador(portfolioFigures.length);
-
   filters.addEventListener("click", (e) => {
     const btn = e.target.closest("button[data-filter]");
     if (!btn) return;
@@ -337,14 +329,11 @@ if (filters && portfolioFigures.length) {
     });
 
     const filtro = btn.dataset.filter;
-    let visibles = 0;
     portfolioFigures.forEach((fig) => {
       const mostrar = filtro === "Todos" || fig.dataset.type === filtro;
       // hidden (y no display:none en línea) para que la grilla se recomponga sola.
       fig.hidden = !mostrar;
-      if (mostrar) visibles += 1;
     });
-    pintarContador(visibles);
   });
 }
 
