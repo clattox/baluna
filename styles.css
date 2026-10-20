@@ -17,7 +17,7 @@
   --blush-soft: #efd9d5;
   --line: #e2ded9;
   --line-dark: rgba(246, 244, 242, 0.16);
-  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-display: "Playfair Display", Georgia, ui-serif, serif;
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -321,26 +321,45 @@ img { max-width: 100%; display: block; }
   font-weight: 500;
   line-height: .95;
   /*
-    10vw (antes 13vw) y los breakpoints de abajo (44px/56px, antes
-    60px/72px): el tagline oficial del manual ("Transformamos la
-    presencia en eventos en experiencias de marca memorables.") tiene
-    61% más caracteres que el H1 anterior. A los tamaños viejos pasaba
-    de 2 a 4 líneas en desktop y de 4 a 6 en mobile (altura del bloque
-    274px vs 137px), contra lo que pide el brief ("no sobrecargar el
-    hero"). Medido con Playwright en 375/640/700/768/1280px: estos
-    tamaños devuelven 3-4 líneas y 125-160px de alto, casi el mismo
-    rango que el H1 anterior (137-185px) pese al texto más largo.
+    10vw en mobile y los breakpoints de abajo (44px/56px) se mantienen del
+    H1 anterior. Ahora el texto es fijo + una palabra que rota, así que el
+    caso más ancho es "Expertos en Activaciones": a 56px entra en una o dos
+    líneas dentro del max-width de 720px, y en mobile (10vw = 37,5px a
+    375px) siempre cae en dos. Esa palabra manda el ancho del bloque, así
+    que si algún día se agrega una más larga conviene revisar estos
+    números y el max-width.
   */
   font-size: 10vw;
   color: var(--paper);
   text-wrap: balance;
 }
-.hero p {
+/* El párrafo de apoyo. El selector es de clase y no ".hero p" porque el
+   hero tiene tres párrafos con roles distintos (eyebrow, sub y promise) y
+   ".hero p" (0,1,1) les ganaba a sus clases (0,1,0): les imponía el 18px, el
+   margen de 24px y el .8 de opacidad a todos, incluidos el eyebrow y la
+   promesa. */
+.hero__sub {
   max-width: 480px;
   margin: 24px 0 0;
   font-size: 18px;
   color: rgba(246,244,242,.8);
   text-wrap: balance;
+}
+/* La palabra que rota (Promotoras / Activaciones / Reposición / Eventos) va
+   en el rosa de la marca; script.js alterna .fade para que el cambio de
+   texto no sea un salto seco. Con prefers-reduced-motion no hay intervalo:
+   queda fija en "Promotoras" y sin transición. */
+.hero__rotating {
+  display: inline;
+  color: var(--blush);
+  transition: opacity .4s;
+}
+.hero__rotating.fade { opacity: 0; }
+.hero__promise {
+  margin-top: 12px;
+  font-size: 13px;
+  color: rgba(246,244,242,.6);
+  font-family: var(--font-sans);
 }
 .hero__ctas { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
 .btn-primary {
@@ -370,6 +389,38 @@ img { max-width: 100%; display: block; }
 
 @media (min-width: 640px) { .hero h1 { font-size: 44px; } }
 @media (min-width: 768px) { .hero h1 { font-size: 56px; } }
+
+/* ---------- Quiénes somos ---------- */
+/* Va justo después del hero y antes de la banda de marcas: el texto explica
+   cómo trabaja la agencia antes de mostrar clientes y servicios. */
+.quienes {
+  padding: 80px 0;
+  background: var(--paper-warm);
+}
+.quienes__inner {
+  max-width: 720px;
+}
+/* Misma trampa de especificidad que en .credibility__title: el label es un
+   <p> y la regla general .quienes p (0,1,1) le ganaría a .quienes__label
+   (0,1,0), dejándolo en --ink-soft y con el interlineado de párrafo. Con las
+   dos clases (0,2,0) vuelve al --blush y conserva su ritmo. */
+.quienes .quienes__label {
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--blush);
+  font-family: var(--font-sans);
+  margin-bottom: 16px;
+}
+.quienes h2 {
+  font-size: clamp(28px, 3.5vw, 42px);
+  margin-bottom: 24px;
+}
+.quienes p {
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
 
 /* ---------- Credibility ---------- */
 .credibility {
@@ -416,17 +467,14 @@ h2 {
   border-bottom: 1px solid var(--line);
 }
 .service-row:last-child { border-bottom: none; }
-/* El número va en --ink-soft y no en --blush: sobre --paper el rosa de la
-   marca queda en 1,95:1 (bajo el 4,5:1 de WCAG AA) y axe lo marcaba como
-   violación en las cuatro filas. Con --ink-soft sube a 8,04:1. */
-.service-row .num { font-family: var(--font-display); font-size: 18px; color: var(--ink-soft); }
 .service-row h3 { font-family: var(--font-display); font-size: 24px; line-height: 1.3; color: var(--ink); margin: 0; }
 .service-row .desc p { max-width: 360px; color: var(--ink-soft); margin: 0; }
 .service-row .tags { margin: 20px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 14px; color: var(--ink-soft); }
 .service-row .tags li { display: flex; align-items: center; gap: 12px; }
 .service-row .tags li:not(:last-child)::after { content: "/"; color: var(--line); margin-left: 12px; }
+/* Sin la columna de numeración: las filas quedan título / descripción. */
 @media (min-width: 768px) {
-  .service-row { grid-template-columns: 100px 1fr 1fr; gap: 40px; padding: 56px 0; }
+  .service-row { grid-template-columns: 1fr 1fr; gap: 40px; padding: 56px 0; }
 }
 
 /* ---------- Reasons (antes "Proceso") ---------- */
@@ -487,6 +535,43 @@ h2 {
 .reasons__footer { margin-top: 64px; max-width: 420px; font-size: 14px; color: rgba(246,244,242,.6); text-wrap: balance; }
 @media (max-width: 639px) { .reasons__grid { grid-template-columns: 1fr; } }
 
+/* ---------- Consultoría ---------- */
+/* Bloque azul de marca entre las razones y la cobertura: rompe la sucesión
+   de fondos claros y separa el segundo servicio de la prueba social. */
+.consultoria {
+  padding: 88px 0;
+  background: var(--brand);
+  color: var(--paper);
+}
+.consultoria__inner {
+  max-width: 720px;
+}
+.consultoria__label {
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--blush);
+  font-family: var(--font-sans);
+  margin-bottom: 16px;
+}
+.consultoria h2 {
+  font-size: clamp(28px, 3.5vw, 42px);
+  margin-bottom: 24px;
+  color: var(--paper);
+}
+.consultoria__text {
+  font-size: 18px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+  color: rgba(246,244,242,.85);
+}
+.consultoria__detail {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(246,244,242,.65);
+  margin-bottom: 40px;
+}
+
 /* ---------- Coverage ---------- */
 /* Menos aire que el resto de las secciones (section: 96px, y 128px desde
    768px) porque el mapa ya aporta mucha altura por sí solo. El id gana por
@@ -529,9 +614,6 @@ h2 {
   aspect-ratio: 4/3;
   background: var(--brand-deep);
 }
-@media (min-width: 768px) {
-  .port-carousel { aspect-ratio: 16/9; }
-}
 
 .port-track {
   display: flex;
@@ -545,6 +627,15 @@ h2 {
   position: relative;
   margin: 0;
   cursor: pointer;
+}
+/* Desde 768px se ven dos fotos a la vez: alto fijo de 480px (con dos fotos
+   lado a lado el 16/9 dejaba celdas demasiado altas) y cada slide ocupa la
+   mitad del ancho. Este bloque va después de la regla base de .port-slide a
+   propósito: la media query no suma especificidad, así que si fuera antes el
+   min-width: 100% de la base le ganaría al 50%. */
+@media (min-width: 768px) {
+  .port-carousel { aspect-ratio: unset; height: 480px; }
+  .port-slide { min-width: 50%; }
 }
 .port-slide img, .port-slide video {
   width: 100%;
@@ -610,6 +701,10 @@ h2 {
   background: var(--paper);
   transform: scale(1.3);
 }
+/* Los dots sin posición propia en el ancho actual (el último en desktop) se
+   marcan con el atributo hidden desde render(); la regla explícita evita que
+   un futuro display en .port-dot vuelva a mostrarlos. */
+.port-dot[hidden] { display: none; }
 
 /* Lightbox */
 .port-lightbox {
@@ -686,9 +781,9 @@ form.contact-form {
 }
 .field { display: flex; flex-direction: column; gap: 6px; font-size: 14px; }
 .field span.label { font-weight: 500; color: var(--ink-soft); }
-/* Mismo caso que .service-row .num: el asterisco de campo obligatorio vive
-   sobre --paper y el rosa daba 1,95:1. --ink-soft queda igual que la
-   etiqueta, así que el asterisco acompaña en vez de desaparecer. */
+/* El asterisco de campo obligatorio vive sobre --paper y el rosa daba 1,95:1.
+   --ink-soft queda igual que la etiqueta, así que el asterisco acompaña en
+   vez de desaparecer. */
 .field span.req { color: var(--ink-soft); }
 .field input, .field textarea {
   border-radius: 6px;
@@ -797,12 +892,10 @@ form.contact-form {
 .marcas__titulo { max-width: 560px; }
 /* El aire entre el título y la banda: el h2 va con margin 0, así que este
    margen es el único respiro que tienen (antes lo daba el grid).
-   Los 8px de padding arriba y abajo son para que el anillo de foco de
-   .marca-link:focus-visible (2px + 4px de offset) no quede recortado por el
-   overflow: hidden: los logos cuadrados miden lo mismo que la banda, así que
-   sin ese aire el filete de arriba y abajo desaparecía. El margen de arriba
-   y el de abajo (en negativo) compensan el padding, así que la banda y la
-   sección quedan exactamente donde estaban. */
+   Los 8px de padding arriba y abajo son para que los logos cuadrados (72x72)
+   no queden recortados por el overflow: hidden, que mide lo mismo que la
+   banda. El margen de arriba y el de abajo (en negativo) compensan el
+   padding, así que la banda y la sección quedan exactamente donde estaban. */
 .marcas__track-wrap {
   margin-top: 32px;
   margin-bottom: -8px;
@@ -865,7 +958,7 @@ form.contact-form {
 /* La Custodia y Quelen son isotipos casi cuadrados (los dos archivos miden
    97x96), así que en la caja de 140x48 quedan diminutos: van en una caja
    propia más alta y el centro de la fila los alinea con el resto
-   (align-items: center, en el track y en .marca-link).
+   (align-items: center, en el track).
    El selector va por src y no por alt (la segunda copia de la banda lleva
    alt="") ni por clase (.marca-logo--sq solo la lleva Quelen, que es la
    última que llegó y el isotipo de La Custodia ya tenía esta regla): así una
@@ -876,18 +969,8 @@ form.contact-form {
   height: 72px;
 }
 
-/* Enlace del logo. Envuelve al <img> sin caja propia (inline-flex mide lo
-   mismo que el logo), así el track sigue repartiendo el mismo gap de 64px
-   entre marcas que antes, cuando el hijo directo era la imagen. */
-.marca-link {
-  display: inline-flex;
-  align-items: center;
-}
-.marca-link:focus-visible {
-  outline: 2px solid var(--brand);
-  outline-offset: 4px;
-  border-radius: 4px;
-}
+/* Los logos van sueltos en el track (sin <a>): no hay caja intermedia, así
+   que el gap de 64px se reparte entre las imágenes directamente. */
 
 @media (prefers-reduced-motion: reduce) {
   .marcas__track { animation: none; }

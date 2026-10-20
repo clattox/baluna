@@ -1,3 +1,20 @@
+// ── Hero rotating text ───────────────────────────────────────────
+(function () {
+  const el = document.getElementById('heroRotating');
+  if (!el) return;
+  const words = ['Promotoras', 'Activaciones', 'Reposición', 'Eventos'];
+  let i = 0;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  setInterval(() => {
+    el.classList.add('fade');
+    setTimeout(() => {
+      i = (i + 1) % words.length;
+      el.textContent = words[i];
+      el.classList.remove('fade');
+    }, 400);
+  }, 2800);
+})();
+
 // =====================================================================
 // Consentimiento de cookies y privacidad — Ley N°21.719
 // ---------------------------------------------------------------------
@@ -325,6 +342,18 @@ if (navbar && navToggle && navMobile) {
   let current = 0;
   let autoTimer;
 
+  // En desktop (>= 768px) se ven dos fotos a la vez; en mobile, una.
+  function perView() {
+    return window.innerWidth >= 768 ? 2 : 1;
+  }
+
+  // Posiciones del carrusel: con dos fotos visibles la última posición es la
+  // que deja las dos últimas fotos en pantalla, así que hay una menos que
+  // slides y el carrusel nunca se detiene enseñando medio hueco vacío.
+  function totalPositions() {
+    return Math.max(1, slides.length - perView() + 1);
+  }
+
   // Dots
   slides.forEach((_, i) => {
     const btn = document.createElement('button');
@@ -334,13 +363,30 @@ if (navbar && navToggle && navMobile) {
     dotsWrap.appendChild(btn);
   });
 
+  // Pinta el estado actual: mueve el track (50% del ancho por paso cuando se
+  // ven dos fotos, 100% cuando se ve una), marca el dot activo y esconde los
+  // dots que no tienen posición propia en el ancho actual (en desktop el
+  // último, porque la última foto ya se ve junto a la penúltima).
+  function render() {
+    const total = totalPositions();
+    if (current >= total) current = total - 1;
+    dotsWrap.querySelectorAll('.port-dot').forEach((d, i) => {
+      d.hidden = i >= total;
+      d.classList.toggle('active', i === current);
+    });
+    track.style.transform = `translateX(-${current * (100 / perView())}%)`;
+  }
+
   function goTo(n) {
-    current = (n + slides.length) % slides.length;
-    track.style.transform = `translateX(-${current * 100}%)`;
-    dotsWrap.querySelectorAll('.port-dot').forEach((d, i) =>
-      d.classList.toggle('active', i === current));
+    const total = totalPositions();
+    current = ((n % total) + total) % total;
+    render();
     resetTimer();
   }
+
+  // Al cruzar el corte de 768px cambia el ancho de cada slide: se recalcula la
+  // posición y qué dots aplican, sin reiniciar el autoplay.
+  window.addEventListener('resize', render);
 
   function resetTimer() {
     clearInterval(autoTimer);
@@ -357,6 +403,7 @@ if (navbar && navToggle && navMobile) {
   carousel.addEventListener('mouseenter', () => clearInterval(autoTimer));
   carousel.addEventListener('mouseleave', resetTimer);
 
+  render();
   resetTimer();
 
   // Lightbox — solo fotos (no video)

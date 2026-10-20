@@ -12,14 +12,14 @@
 <meta property="og:locale" content="es_CL" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
 <!-- ?v= = huella del archivo (shasum -a 1 styles.css script.js | cut -c1-7):
      al cambiar el CSS o el JS cambia la URL y ni el CDN ni el navegador
      pueden seguir sirviendo la versión anterior (styles.css se sirve con
      max-age de 7 días). Recalcular las dos huellas cada vez que se toquen.
      Antes se usaba el hash del commit, que obligaba a conocerlo antes de
      subir; la huella del archivo se calcula en local y cambia sola. -->
-<link rel="stylesheet" href="styles.css?v=ed51039" />
+<link rel="stylesheet" href="styles.css?v=cf14741" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -43,6 +43,7 @@
       <a href="#portafolio">Portafolio</a>
       <a href="#contacto">Contacto</a>
       <a href="blog.html">Blog</a>
+      <a href="#consultoria">Consultoría</a>
     </nav>
     <a href="#contacto" class="navbar__cta">Cotizar evento</a>
     <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
@@ -55,6 +56,7 @@
     <a href="#portafolio">Portafolio</a>
     <a href="#contacto">Contacto</a>
     <a href="blog.html">Blog</a>
+    <a href="#consultoria">Consultoría</a>
     <a href="#contacto" class="navbar__cta">Cotizar evento</a>
   </div>
 </header>
@@ -70,13 +72,26 @@
     <div class="hero__bg" aria-hidden="true"></div>
     <div class="hero__scrim" aria-hidden="true"></div>
     <div class="hero__content">
-      <p class="hero__eyebrow">Agencia BTL — activaciones, eventos y staff promocional</p>
-      <h1>Transformamos la presencia en eventos en experiencias de marca memorables.</h1>
-      <p>Activaciones BTL, eventos, lanzamientos y equipos de staff en todo Chile.</p>
+      <p class="hero__eyebrow">Agencia BTL</p>
+      <h1>
+        <span class="hero__static">Expertos en </span>
+        <span class="hero__rotating" id="heroRotating" aria-live="polite">Promotoras</span>
+      </h1>
+      <p class="hero__sub">Llevamos tu marca donde está tu consumidor, con equipos capacitados en todo Chile.</p>
       <div class="hero__ctas">
-        <a href="#contacto" class="btn-primary">Cotizar mi proyecto</a>
-        <a href="#portafolio" class="btn-outline">Ver experiencias</a>
+        <a href="#contacto" class="btn-primary">Cotiza tu activación</a>
       </div>
+      <p class="hero__promise">Propuesta en menos de 24 horas</p>
+    </div>
+  </section>
+
+  <!-- ============ QUIÉNES SOMOS ============ -->
+  <section class="quienes" id="quienes">
+    <div class="wrap quienes__inner">
+      <p class="quienes__label">Quiénes somos</p>
+      <h2>Conocemos tu marca<br>antes de representarla.</h2>
+      <p>En Baluna no solo ponemos personal: primero conocemos tu empresa y estudiamos tu marca. Entendemos sus valores, sus beneficios y los objetivos de cada campaña, y se los transmitimos a nuestras promotoras para que tu marca esté bien representada en el punto de venta.</p>
+      <p>Trabajamos de cerca con cada cliente y buscamos relaciones de largo plazo.</p>
     </div>
   </section>
 
@@ -100,28 +115,28 @@
     Al pasar el cursor la animación se pausa, y con prefers-reduced-motion
     se detiene del todo y la banda queda desplazable a mano; ver el bloque
     "Marcas" en styles.css.
-    Cada logo de la primera tanda va dentro de .marcas__track como:
-      <a href="URL oficial" target="_blank" rel="noopener noreferrer" class="marca-link">
-        <img class="marca-logo" src="assets/marcas/nombre.png" alt="Nombre de la marca" loading="lazy" />
-      </a>
-    La segunda tanda (la del loop) repite solo el <img>, sin enlace: es
-    decorativa (aria-hidden="true"), así que no debe ser tabulable ni anunciar
-    la marca dos veces.
+    Los logos no son enlaces: la banda es solo una carta de presentación, así
+    que cada marca va con su <img> suelto dentro de .marcas__track y ninguna
+    queda en el orden de tabulación.
+    La lista se repite una segunda vez para que el loop cierre completo; esa
+    segunda tanda también va con alt="" y aria-hidden="true" para que un lector
+    de pantalla no anuncie cada marca dos veces (los archivos son los mismos,
+    así que no cuestan una segunda descarga).
   -->
   <section class="marcas">
     <div class="wrap">
       <h2 class="marcas__titulo">Marcas que han confiado en nosotros</h2>
       <div class="marcas__track-wrap">
         <div class="marcas__track">
-          <a href="https://quokkafoods.com/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/quokka.png" alt="Quokka alimentos" class="marca-logo" loading="lazy" /></a>
-          <a href="https://1xbetchil.com/es" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/1xbet.png" alt="1XBET" class="marca-logo" loading="lazy" /></a>
-          <a href="https://www.clinicabiobio.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/clinica_biobio.png" alt="Clínica Biobío" class="marca-logo" loading="lazy" /></a>
-          <a href="https://www.acalis.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/acalis.png" alt="Acalis residencia para personas mayores" class="marca-logo" loading="lazy" /></a>
-          <a href="https://lacustodia.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/lacustodia.png" alt="La Custodia aceite de oliva" class="marca-logo" loading="lazy" /></a>
-          <a href="https://quelen.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/quelen.png" alt="Quelen Centro Turístico" class="marca-logo marca-logo--sq" loading="lazy" /></a>
-          <a href="https://www.instagram.com/mielmistro/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/mistro.png" alt="Mistro miel" class="marca-logo" loading="lazy" /></a>
-          <a href="https://naut.cl/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/naut.png" alt="Naut bebida vegetal" class="marca-logo marca-logo--naut" loading="lazy" /></a>
-          <a href="https://framadrinks.com/" target="_blank" rel="noopener noreferrer" class="marca-link"><img src="assets/marcas/frama.png" alt="Frama Drinks" class="marca-logo" loading="lazy" /></a>
+          <img src="assets/marcas/quokka.png" alt="Quokka alimentos" class="marca-logo" loading="lazy" />
+          <img src="assets/marcas/1xbet.png" alt="1XBET" class="marca-logo" loading="lazy" />
+          <img src="assets/marcas/clinica_biobio.png" alt="Clínica Biobío" class="marca-logo" loading="lazy" />
+          <img src="assets/marcas/acalis.png" alt="Acalis residencia para personas mayores" class="marca-logo" loading="lazy" />
+          <img src="assets/marcas/lacustodia.png" alt="La Custodia aceite de oliva" class="marca-logo" loading="lazy" />
+          <img src="assets/marcas/quelen.png" alt="Quelen Centro Turístico" class="marca-logo marca-logo--sq" loading="lazy" />
+          <img src="assets/marcas/mistro.png" alt="Mistro miel" class="marca-logo" loading="lazy" />
+          <img src="assets/marcas/naut.png" alt="Naut bebida vegetal" class="marca-logo marca-logo--naut" loading="lazy" />
+          <img src="assets/marcas/frama.png" alt="Frama Drinks" class="marca-logo" loading="lazy" />
           <!-- Segunda tanda: la misma lista, para que el loop cierre completo -->
           <img src="assets/marcas/quokka.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
           <img src="assets/marcas/1xbet.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
@@ -152,7 +167,6 @@
       <div class="section-head"><h2>Servicios</h2></div>
       <div class="services-list">
         <div class="service-row">
-          <span class="num">01</span>
           <h3>BTL &amp; activaciones</h3>
           <div class="desc">
             <p>Experiencias que conectan marcas con personas.</p>
@@ -162,7 +176,6 @@
           </div>
         </div>
         <div class="service-row">
-          <span class="num">02</span>
           <h3>Eventos &amp; lanzamientos</h3>
           <div class="desc">
             <p>Planificación y ejecución de experiencias corporativas.</p>
@@ -172,7 +185,6 @@
           </div>
         </div>
         <div class="service-row">
-          <span class="num">03</span>
           <h3>Staff &amp; capital humano</h3>
           <div class="desc">
             <p>Equipos preparados para representar y activar marcas.</p>
@@ -182,7 +194,6 @@
           </div>
         </div>
         <div class="service-row">
-          <span class="num">04</span>
           <h3>Reposición en punto de venta</h3>
           <div class="desc">
             <p>Presencia constante de marca en sala de venta.</p>
@@ -233,6 +244,17 @@
     </div>
   </section>
 
+  <!-- ============ CONSULTORÍA Y ADQUISICIONES ============ -->
+  <section class="consultoria" id="consultoria">
+    <div class="wrap consultoria__inner">
+      <p class="consultoria__label">Nuevo servicio</p>
+      <h2>¿Tu negocio necesita más clientes?</h2>
+      <p class="consultoria__text">Complementamos las experiencias de marca con estrategias de marketing y sistemas de adquisición de clientes, diseñados para generar nuevas oportunidades comerciales y potenciar las ventas de tu empresa.</p>
+      <p class="consultoria__detail">Evaluamos y auditamos tu marca mediante una asesoría estratégica para diseñar e implementar una estrategia alineada con los objetivos de tu negocio. La complementamos con sistemas de adquisición de clientes a través de campañas publicitarias en Meta Ads, orientadas a impulsar tu crecimiento.</p>
+      <a href="https://wa.me/56923915825?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20Consultor%C3%ADa%20y%20Adquisiciones" target="_blank" rel="noopener noreferrer" class="btn-primary">Conversemos</a>
+    </div>
+  </section>
+
   <!-- ============ COBERTURA ============ -->
   <!--
     Mapa real de Chile (assets/mapa-chile.png, 831x1628, fondo transparente)
@@ -254,11 +276,11 @@
 
   <!-- ============ PORTAFOLIO ============ -->
   <!--
-    Carrusel automático de foto grande (avanza cada 5 s) con flechas, dots y
-    lightbox al hacer clic. Lo maneja script.js; ver el bloque "Portafolio
-    carrusel" en script.js y en styles.css. La celda del video (Mistro) se
-    reproduce dentro del carrusel pero no abre lightbox: solo las fotos entran
-    a la galería.
+    Carrusel automático de fotos (avanza cada 5 s): una por vista en mobile
+    y dos desde 768px, con flechas, dots y lightbox al hacer clic. Lo maneja
+    script.js; ver el bloque "Portafolio carrusel" en script.js y en
+    styles.css. La celda del video (Mistro) se reproduce dentro del carrusel
+    pero no abre lightbox: solo las fotos entran a la galería.
   -->
   <section class="portafolio" id="portafolio">
     <div class="wrap">
@@ -465,6 +487,6 @@
   resuelve sus elementos al cargar el archivo, así que necesita que ese markup
   ya esté en el DOM.
 -->
-<script src="script.js?v=acbead6"></script>
+<script src="script.js?v=a85c7ab"></script>
 </body>
 </html>
