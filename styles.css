@@ -321,45 +321,26 @@ img { max-width: 100%; display: block; }
   font-weight: 500;
   line-height: .95;
   /*
-    10vw en mobile y los breakpoints de abajo (44px/56px) se mantienen del
-    H1 anterior. Ahora el texto es fijo + una palabra que rota, así que el
-    caso más ancho es "Expertos en Activaciones": a 56px entra en una o dos
-    líneas dentro del max-width de 720px, y en mobile (10vw = 37,5px a
-    375px) siempre cae en dos. Esa palabra manda el ancho del bloque, así
-    que si algún día se agrega una más larga conviene revisar estos
-    números y el max-width.
+    10vw en mobile y los breakpoints de abajo (44px/56px). El titular es
+    fijo y va en tres líneas con <br>; la más ancha es "Creamos
+    experiencias", que a 56px entra dentro del max-width de 720px. En
+    mobile el 10vw deja poco aire, así que si se busca que sean siempre
+    tres líneas conviene bajar el tamaño.
   */
   font-size: 10vw;
   color: var(--paper);
   text-wrap: balance;
 }
 /* El párrafo de apoyo. El selector es de clase y no ".hero p" porque el
-   hero tiene tres párrafos con roles distintos (eyebrow, sub y promise) y
-   ".hero p" (0,1,1) les ganaba a sus clases (0,1,0): les imponía el 18px, el
-   margen de 24px y el .8 de opacidad a todos, incluidos el eyebrow y la
-   promesa. */
+   hero tiene dos párrafos con roles distintos (eyebrow y sub) y ".hero p"
+   (0,1,1) les ganaba a sus clases (0,1,0): les imponía el 18px, el margen de
+   24px y el .8 de opacidad a los dos, incluido el eyebrow. */
 .hero__sub {
   max-width: 480px;
   margin: 24px 0 0;
   font-size: 18px;
   color: rgba(246,244,242,.8);
   text-wrap: balance;
-}
-/* La palabra que rota (Promotoras / Activaciones / Reposición / Eventos) va
-   en el rosa de la marca; script.js alterna .fade para que el cambio de
-   texto no sea un salto seco. Con prefers-reduced-motion no hay intervalo:
-   queda fija en "Promotoras" y sin transición. */
-.hero__rotating {
-  display: inline;
-  color: var(--blush);
-  transition: opacity .4s;
-}
-.hero__rotating.fade { opacity: 0; }
-.hero__promise {
-  margin-top: 12px;
-  font-size: 13px;
-  color: rgba(246,244,242,.6);
-  font-family: var(--font-sans);
 }
 .hero__ctas { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
 .btn-primary {
@@ -395,13 +376,12 @@ img { max-width: 100%; display: block; }
    cómo trabaja la agencia antes de mostrar clientes y servicios. */
 .quienes {
   padding: 80px 0;
-  background-image: linear-gradient(rgba(23,19,53,.82), rgba(23,19,53,.82)), url('assets/hero-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  color: var(--paper);
+  background: var(--paper);
 }
 .quienes__inner {
   max-width: 720px;
+  border-left: 3px solid var(--blush);
+  padding-left: 32px;
 }
 /* Misma trampa de especificidad que en .credibility__title: el label es un
    <p> y la regla general .quienes p (0,1,1) le ganaría a .quienes__label
@@ -418,10 +398,10 @@ img { max-width: 100%; display: block; }
 .quienes h2 {
   font-size: clamp(28px, 3.5vw, 42px);
   margin-bottom: 24px;
-  color: var(--paper);
+  color: var(--ink);
 }
 .quienes p {
-  color: rgba(246,244,242,.8);
+  color: var(--ink-soft);
   line-height: 1.7;
   margin-bottom: 16px;
 }

@@ -1,20 +1,3 @@
-// ── Hero rotating text ───────────────────────────────────────────
-(function () {
-  const el = document.getElementById('heroRotating');
-  if (!el) return;
-  const words = ['Promotoras', 'Activaciones', 'Reposición', 'Eventos'];
-  let i = 0;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  setInterval(() => {
-    el.classList.add('fade');
-    setTimeout(() => {
-      i = (i + 1) % words.length;
-      el.textContent = words[i];
-      el.classList.remove('fade');
-    }, 400);
-  }, 2800);
-})();
-
 // =====================================================================
 // Consentimiento de cookies y privacidad — Ley N°21.719
 // ---------------------------------------------------------------------
