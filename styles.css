@@ -416,11 +416,22 @@ img { max-width: 100%; display: block; }
 /* Franja compacta: el marfil tostado (--sand) la despega de .marcas
    (--paper-warm) y de #servicios (--paper), que antes la dejaban fundida con
    los bloques vecinos. El aire vertical vive en el grid, así que la sección
-   no suma los 96/128px de la regla general de section. */
+   no suma los 96/128px de la regla general de section.
+   Encima va assets/credibility-bg.jpg (2172x724, tono medio 204,197,190, es
+   decir del mismo marfil tostado) como textura decorativa: background-color
+   queda primero como respaldo si la imagen no carga o mientras llega, y la
+   imagen se pinta encima. cover la recorta sin deformar (la franja es mucho
+   más ancha que 3:1 en desktop y mucho más alta en mobile) y center mantiene
+   el motivo centrado. No hay texto apoyado directamente sobre la foto: los
+   tres textos van dentro de .credibility__item, que es opaco. */
 .credibility {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  background: var(--sand);
+  background-color: var(--sand);
+  background-image: url('assets/credibility-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   padding: 0;
 }
 .credibility__grid {
