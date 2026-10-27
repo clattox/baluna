@@ -19,7 +19,7 @@
      max-age de 7 días). Recalcular las dos huellas cada vez que se toquen.
      Antes se usaba el hash del commit, que obligaba a conocerlo antes de
      subir; la huella del archivo se calcula en local y cambia sola. -->
-<link rel="stylesheet" href="styles.css?v=c3aee9a" />
+<link rel="stylesheet" href="styles.css?v=ad5478d" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -159,46 +159,68 @@
   </section>
 
   <!-- ============ SERVICIOS ============ -->
-  <section id="servicios">
+  <!--
+    Rediseño editorial: grilla asimétrica 2×2 en desktop, stack en mobile.
+    Tarjetas alternas oscuras (--brand + foto + velo) y claras (--paper + foto lateral).
+    Numeración 01–04. Fotos del portafolio real de Baluna.
+  -->
+  <section id="servicios" class="svc-section">
     <div class="wrap">
-      <div class="section-head"><h2>Servicios</h2></div>
-      <div class="services-grid">
+      <div class="svc-header">
+        <p class="svc-header__eyebrow">Lo que hacemos</p>
+        <h2 class="svc-header__title">Experiencias que<br>mueven marcas.</h2>
+        <p class="svc-header__sub">Diseñamos y ejecutamos experiencias de marca que conectan con personas, en cualquier punto de Chile.</p>
+      </div>
 
-        <div class="svc-card" style="--svc-img: url('assets/portfolio/btl_1xbet.jpg')">
-          <div class="svc-card__inner">
+      <div class="svc-grid">
+
+        <!-- 01 — oscuro con foto -->
+        <div class="svc-item svc-item--dark" style="--svc-photo: url('assets/portfolio/btl_1xbet.jpg')">
+          <div class="svc-item__photo" aria-hidden="true"></div>
+          <div class="svc-item__body">
+            <span class="svc-num">01 —</span>
             <h3>BTL y activaciones</h3>
             <p>Experiencias que conectan marcas con personas.</p>
-            <ul class="tags">
+            <ul class="svc-tags">
               <li>Sampling</li><li>Roadshows</li><li>Retail</li><li>Brand experience</li>
             </ul>
           </div>
         </div>
 
-        <div class="svc-card" style="--svc-img: url('assets/portfolio/clinica_biobio.jpg')">
-          <div class="svc-card__inner">
-            <h3>Eventos y lanzamientos</h3>
+        <!-- 02 — claro con foto -->
+        <div class="svc-item svc-item--light" style="--svc-photo: url('assets/portfolio/clinica_biobio.jpg')">
+          <div class="svc-item__photo" aria-hidden="true"></div>
+          <div class="svc-item__body">
+            <span class="svc-num">02 —</span>
+            <h3>Eventos y<br>lanzamientos</h3>
             <p>Planificación y ejecución de experiencias corporativas.</p>
-            <ul class="tags">
+            <ul class="svc-tags">
               <li>Lanzamientos</li><li>Eventos corporativos</li><li>Ferias</li><li>Producción</li>
             </ul>
           </div>
         </div>
 
-        <div class="svc-card" style="--svc-img: url('assets/portfolio/naut_promotora.jpg')">
-          <div class="svc-card__inner">
-            <h3>Staff y capital humano</h3>
+        <!-- 03 — claro con foto -->
+        <div class="svc-item svc-item--light" style="--svc-photo: url('assets/portfolio/naut_promotora.jpg')">
+          <div class="svc-item__photo" aria-hidden="true"></div>
+          <div class="svc-item__body">
+            <span class="svc-num">03 —</span>
+            <h3>Staff y capital<br>humano</h3>
             <p>Equipos preparados para representar y activar marcas.</p>
-            <ul class="tags">
+            <ul class="svc-tags">
               <li>Promotores</li><li>Anfitriones</li><li>Staff promocional</li><li>Supervisión</li>
             </ul>
           </div>
         </div>
 
-        <div class="svc-card" style="--svc-img: url('assets/portfolio/lacustodia_cliente.jpg')">
-          <div class="svc-card__inner">
-            <h3>Reposición en punto de venta</h3>
+        <!-- 04 — oscuro con foto -->
+        <div class="svc-item svc-item--dark" style="--svc-photo: url('assets/portfolio/lacustodia_cliente.jpg')">
+          <div class="svc-item__photo" aria-hidden="true"></div>
+          <div class="svc-item__body">
+            <span class="svc-num">04 —</span>
+            <h3>Reposición en<br>punto de venta</h3>
             <p>Presencia constante de marca en sala de venta.</p>
-            <ul class="tags">
+            <ul class="svc-tags">
               <li>Reposición</li><li>Sala de venta</li><li>Retail</li><li>Seguimiento personalizado</li>
             </ul>
           </div>

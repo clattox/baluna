@@ -476,59 +476,151 @@ h2 {
 }
 @media (min-width: 768px) { h2 { font-size: 48px; } section { padding: 128px 0; } }
 
-/* ---------- Services ---------- */
-#servicios { padding: 80px 0; background: var(--paper); }
+/* ---------- Services — rediseño editorial ---------- */
+/*
+  Grilla 2×2 asimétrica en desktop, stack en mobile.
+  Tarjetas oscuras: fondo --brand + foto de portafolio real con velo de gradiente.
+  Tarjetas claras: fondo --paper + foto a la derecha con velo suave.
+  La foto va en un ::after pseudo-elemento para no contaminar el DOM con
+  elementos decorativos; el .svc-item__photo (aria-hidden) sirve solo como
+  ancla semántica para lectores de pantalla que ignoran ::after.
+*/
+.svc-section {
+  padding: 80px 0 96px;
+  background: var(--paper);
+}
 
-.services-grid {
+.svc-header {
+  max-width: 680px;
+  margin-bottom: 48px;
+}
+.svc-header__eyebrow {
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--blush);
+  font-weight: 600;
+  margin: 0 0 14px;
+}
+.svc-header__title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 16px;
+  line-height: 1.1;
+}
+.svc-header__sub {
+  font-size: 16px;
+  color: var(--ink-soft);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 560px;
+}
+
+/* Grilla */
+.svc-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
-  margin-top: 40px;
+  gap: 12px;
 }
 @media (min-width: 640px) {
-  .services-grid { grid-template-columns: 1fr 1fr; }
+  .svc-grid { grid-template-columns: 1fr 1fr; }
 }
 
-.svc-card {
+/* Tarjeta base */
+.svc-item {
   position: relative;
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
-  min-height: 320px;
-  background-image: var(--svc-img);
-  background-size: cover;
-  background-position: center;
+  min-height: 340px;
   display: flex;
   align-items: flex-end;
+  transition: transform .35s cubic-bezier(.22,1,.36,1);
 }
-.svc-card::before {
+.svc-item:hover { transform: translateY(-3px); }
+
+/* Foto de fondo (via CSS custom property --svc-photo del inline style) */
+.svc-item__photo {
+  position: absolute;
+  inset: 0;
+  background-image: var(--svc-photo);
+  background-size: cover;
+  background-position: center;
+  transition: transform .5s cubic-bezier(.22,1,.36,1);
+}
+.svc-item:hover .svc-item__photo { transform: scale(1.04); }
+
+/* Velo oscuro: tarjeta --dark */
+.svc-item--dark .svc-item__photo::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(23,19,53,.92) 40%, rgba(23,19,53,.3));
-  transition: opacity .3s;
+  background: linear-gradient(
+    to top,
+    rgba(40,35,83,.95) 35%,
+    rgba(40,35,83,.55) 65%,
+    rgba(40,35,83,.25) 100%
+  );
 }
-.svc-card:hover::before {
-  background: linear-gradient(to top, rgba(23,19,53,.97) 50%, rgba(23,19,53,.4));
+
+/* Velo claro: tarjeta --light */
+.svc-item--light .svc-item__photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(246,244,242,.97) 40%,
+    rgba(246,244,242,.7) 65%,
+    rgba(246,244,242,.1) 100%
+  );
 }
-.svc-card__inner {
+
+/* Cuerpo del texto */
+.svc-item__body {
   position: relative;
   z-index: 1;
-  padding: 28px;
-  color: var(--paper);
+  padding: 32px 28px;
+  width: 100%;
 }
-.svc-card__inner h3 {
+
+/* Número editorial */
+.svc-num {
+  display: block;
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.svc-item--dark .svc-num  { color: var(--blush); }
+.svc-item--light .svc-num { color: var(--brand); opacity: .7; }
+
+/* Título */
+.svc-item__body h3 {
   font-family: var(--font-display);
-  font-size: 22px;
-  margin: 0 0 8px;
-  color: var(--paper);
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 500;
+  margin: 0 0 10px;
+  line-height: 1.15;
+  max-width: 260px;
 }
-.svc-card__inner p {
+.svc-item--dark  .svc-item__body h3 { color: var(--paper); }
+.svc-item--light .svc-item__body h3 { color: var(--ink); }
+
+/* Descripción */
+.svc-item__body p {
   font-size: 14px;
-  color: rgba(246,244,242,.75);
-  margin: 0 0 16px;
-  line-height: 1.5;
+  line-height: 1.6;
+  margin: 0 0 18px;
+  max-width: 240px;
 }
-.svc-card .tags {
+.svc-item--dark  .svc-item__body p { color: rgba(246,244,242,.72); }
+.svc-item--light .svc-item__body p { color: var(--ink-soft); }
+
+/* Tags */
+.svc-tags {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -536,15 +628,33 @@ h2 {
   flex-wrap: wrap;
   gap: 6px;
 }
-.svc-card .tags li {
-  font-size: 11px;
-  letter-spacing: .06em;
+.svc-tags li {
+  font-size: 10px;
+  letter-spacing: .07em;
   text-transform: uppercase;
-  background: rgba(246,244,242,.12);
-  color: rgba(246,244,242,.8);
-  padding: 3px 10px;
+  padding: 4px 11px;
   border-radius: 999px;
-  border: 1px solid rgba(246,244,242,.2);
+  font-weight: 500;
+}
+.svc-item--dark  .svc-tags li {
+  background: rgba(246,244,242,.1);
+  color: rgba(246,244,242,.78);
+  border: 1px solid rgba(246,244,242,.18);
+}
+.svc-item--light .svc-tags li {
+  background: rgba(40,35,83,.06);
+  color: var(--ink-soft);
+  border: 1px solid rgba(40,35,83,.14);
+}
+
+/* En desktop la tarjeta claro muestra texto solo en la mitad izquierda */
+@media (min-width: 640px) {
+  .svc-item--light .svc-item__body { max-width: 55%; }
+  .svc-item { min-height: 380px; }
+}
+@media (min-width: 1024px) {
+  .svc-item { min-height: 420px; }
+  .svc-item__body { padding: 36px 32px; }
 }
 
 /* ---------- Reasons (antes "Proceso") ---------- */
