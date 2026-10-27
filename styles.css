@@ -395,7 +395,10 @@ img { max-width: 100%; display: block; }
    cómo trabaja la agencia antes de mostrar clientes y servicios. */
 .quienes {
   padding: 80px 0;
-  background: var(--paper-warm);
+  background-image: linear-gradient(rgba(23,19,53,.82), rgba(23,19,53,.82)), url('assets/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  color: var(--paper);
 }
 .quienes__inner {
   max-width: 720px;
@@ -415,9 +418,10 @@ img { max-width: 100%; display: block; }
 .quienes h2 {
   font-size: clamp(28px, 3.5vw, 42px);
   margin-bottom: 24px;
+  color: var(--paper);
 }
 .quienes p {
-  color: var(--ink-soft);
+  color: rgba(246,244,242,.8);
   line-height: 1.7;
   margin-bottom: 16px;
 }
@@ -440,6 +444,12 @@ img { max-width: 100%; display: block; }
    hero marcaban un salto de nivel (heading-order). El estilo se aplica con
    clase propia y con más especificidad que la regla de los <p> de abajo,
    para que el título no herede el tamaño del texto de apoyo. */
+.credibility__item {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 28px 24px;
+}
 .credibility__grid .credibility__title { margin: 0; font-family: var(--font-display); font-size: 20px; color: var(--ink); font-weight: 500; }
 .credibility__grid p { margin: 4px 0 0; font-size: 15px; color: var(--ink-soft); }
 @media (min-width: 640px) { .credibility__grid { grid-template-columns: repeat(3, 1fr); padding: 48px 24px; } }
@@ -459,22 +469,74 @@ h2 {
 @media (min-width: 768px) { h2 { font-size: 48px; } section { padding: 128px 0; } }
 
 /* ---------- Services ---------- */
-.services-list { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.service-row {
+#servicios { padding: 80px 0; background: var(--paper); }
+
+.services-grid {
   display: grid;
-  gap: 24px;
-  padding: 40px 0;
-  border-bottom: 1px solid var(--line);
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 40px;
 }
-.service-row:last-child { border-bottom: none; }
-.service-row h3 { font-family: var(--font-display); font-size: 24px; line-height: 1.3; color: var(--ink); margin: 0; }
-.service-row .desc p { max-width: 360px; color: var(--ink-soft); margin: 0; }
-.service-row .tags { margin: 20px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 14px; color: var(--ink-soft); }
-.service-row .tags li { display: flex; align-items: center; gap: 12px; }
-.service-row .tags li:not(:last-child)::after { content: "/"; color: var(--line); margin-left: 12px; }
-/* Sin la columna de numeración: las filas quedan título / descripción. */
-@media (min-width: 768px) {
-  .service-row { grid-template-columns: 1fr 1fr; gap: 40px; padding: 56px 0; }
+@media (min-width: 640px) {
+  .services-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.svc-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  min-height: 320px;
+  background-image: var(--svc-img);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+}
+.svc-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(23,19,53,.92) 40%, rgba(23,19,53,.3));
+  transition: opacity .3s;
+}
+.svc-card:hover::before {
+  background: linear-gradient(to top, rgba(23,19,53,.97) 50%, rgba(23,19,53,.4));
+}
+.svc-card__inner {
+  position: relative;
+  z-index: 1;
+  padding: 28px;
+  color: var(--paper);
+}
+.svc-card__inner h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  margin: 0 0 8px;
+  color: var(--paper);
+}
+.svc-card__inner p {
+  font-size: 14px;
+  color: rgba(246,244,242,.75);
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+.svc-card .tags {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.svc-card .tags li {
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  background: rgba(246,244,242,.12);
+  color: rgba(246,244,242,.8);
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(246,244,242,.2);
 }
 
 /* ---------- Reasons (antes "Proceso") ---------- */

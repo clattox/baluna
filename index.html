@@ -19,7 +19,7 @@
      max-age de 7 días). Recalcular las dos huellas cada vez que se toquen.
      Antes se usaba el hash del commit, que obligaba a conocerlo antes de
      subir; la huella del archivo se calcula en local y cambia sola. -->
-<link rel="stylesheet" href="styles.css?v=cf14741" />
+<link rel="stylesheet" href="styles.css?v=9ab0ca6" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -155,9 +155,9 @@
   <!-- ============ CREDIBILIDAD ============ -->
   <section class="credibility">
     <div class="credibility__grid">
-      <div><p class="credibility__title">Operación nacional</p><p>Cobertura en todo Chile.</p></div>
-      <div><p class="credibility__title">Cotizaciones &lt; 24 h</p><p>Respuesta rápida a proyectos.</p></div>
-      <div><p class="credibility__title">Staff capacitado</p><p>Equipos preparados y supervisados.</p></div>
+      <div class="credibility__item"><p class="credibility__title">Operación nacional</p><p>Cobertura en todo Chile.</p></div>
+      <div class="credibility__item"><p class="credibility__title">Cotizaciones &lt; 24 h</p><p>Respuesta rápida a proyectos.</p></div>
+      <div class="credibility__item"><p class="credibility__title">Staff capacitado</p><p>Equipos preparados y supervisados.</p></div>
     </div>
   </section>
 
@@ -165,43 +165,48 @@
   <section id="servicios">
     <div class="wrap">
       <div class="section-head"><h2>Servicios</h2></div>
-      <div class="services-list">
-        <div class="service-row">
-          <h3>BTL &amp; activaciones</h3>
-          <div class="desc">
+      <div class="services-grid">
+
+        <div class="svc-card" style="--svc-img: url('assets/portfolio/btl_1xbet.jpg')">
+          <div class="svc-card__inner">
+            <h3>BTL y activaciones</h3>
             <p>Experiencias que conectan marcas con personas.</p>
             <ul class="tags">
-              <li>Sampling</li><li>Roadshows</li><li>Retail</li><li>Brand experience</li><li>Activaciones</li>
+              <li>Sampling</li><li>Roadshows</li><li>Retail</li><li>Brand experience</li>
             </ul>
           </div>
         </div>
-        <div class="service-row">
-          <h3>Eventos &amp; lanzamientos</h3>
-          <div class="desc">
+
+        <div class="svc-card" style="--svc-img: url('assets/portfolio/clinica_biobio.jpg')">
+          <div class="svc-card__inner">
+            <h3>Eventos y lanzamientos</h3>
             <p>Planificación y ejecución de experiencias corporativas.</p>
             <ul class="tags">
-              <li>Lanzamientos</li><li>Eventos corporativos</li><li>Ferias</li><li>Producción</li><li>Experiencias</li>
+              <li>Lanzamientos</li><li>Eventos corporativos</li><li>Ferias</li><li>Producción</li>
             </ul>
           </div>
         </div>
-        <div class="service-row">
-          <h3>Staff &amp; capital humano</h3>
-          <div class="desc">
+
+        <div class="svc-card" style="--svc-img: url('assets/portfolio/naut_promotora.jpg')">
+          <div class="svc-card__inner">
+            <h3>Staff y capital humano</h3>
             <p>Equipos preparados para representar y activar marcas.</p>
             <ul class="tags">
-              <li>Promotores</li><li>Anfitriones</li><li>Staff promocional</li><li>Supervisión</li><li>Operación en terreno</li>
+              <li>Promotores</li><li>Anfitriones</li><li>Staff promocional</li><li>Supervisión</li>
             </ul>
           </div>
         </div>
-        <div class="service-row">
-          <h3>Reposición en punto de venta</h3>
-          <div class="desc">
+
+        <div class="svc-card" style="--svc-img: url('assets/portfolio/lacustodia_cliente.jpg')">
+          <div class="svc-card__inner">
+            <h3>Reposición en punto de venta</h3>
             <p>Presencia constante de marca en sala de venta.</p>
             <ul class="tags">
               <li>Reposición</li><li>Sala de venta</li><li>Retail</li><li>Seguimiento personalizado</li>
             </ul>
           </div>
         </div>
+
       </div>
     </div>
   </section>
