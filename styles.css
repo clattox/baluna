@@ -236,10 +236,10 @@ img { max-width: 100%; display: block; }
   position: relative;
   min-height: 92vh;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   overflow: hidden;
   background: var(--brand-deep);
-  padding-top: 112px;
+  padding-top: 80px;
 }
 /*
   Fondo del hero: la imagen estática assets/hero-bg.jpg (1672x941, 1,78:1).
@@ -317,23 +317,16 @@ img { max-width: 100%; display: block; }
   width: 100%;
   max-width: 1152px;
   margin: 0 auto;
-  padding: 0 24px 64px;
+  padding: 0 24px 80px;
 }
-.hero__eyebrow { max-width: 420px; margin: 0 0 20px; font-size: 14px; font-weight: 500; color: var(--blush-soft); }
+.hero__eyebrow { max-width: 420px; margin: 0 0 24px; font-size: 15px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--blush-soft); }
 .hero h1 {
-  max-width: 720px;
+  max-width: 800px;
   margin: 0;
   font-family: var(--font-display);
   font-weight: 500;
   line-height: .95;
-  /*
-    10vw en mobile y los breakpoints de abajo (44px/56px). El titular es
-    fijo y va en tres líneas con <br>; la más ancha es "Creamos
-    experiencias", que a 56px entra dentro del max-width de 720px. En
-    mobile el 10vw deja poco aire, así que si se busca que sean siempre
-    tres líneas conviene bajar el tamaño.
-  */
-  font-size: 10vw;
+  font-size: clamp(36px, 9vw, 56px);
   color: var(--paper);
   text-wrap: balance;
 }
@@ -342,18 +335,19 @@ img { max-width: 100%; display: block; }
    (0,1,1) les ganaba a sus clases (0,1,0): les imponía el 18px, el margen de
    24px y el .8 de opacidad a los dos, incluido el eyebrow. */
 .hero__sub {
-  max-width: 480px;
-  margin: 24px 0 0;
-  font-size: 18px;
-  color: rgba(246,244,242,.8);
+  max-width: 520px;
+  margin: 28px 0 0;
+  font-size: 19px;
+  line-height: 1.6;
+  color: rgba(246,244,242,.82);
   text-wrap: balance;
 }
-.hero__ctas { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+.hero__ctas { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
 .btn-primary {
   border-radius: 999px;
   background: var(--blush);
   color: var(--brand-deep);
-  padding: 14px 28px;
+  padding: 15px 32px;
   font-size: 15px;
   font-weight: 600;
   text-decoration: none;
@@ -366,7 +360,7 @@ img { max-width: 100%; display: block; }
   border-radius: 999px;
   border: 1px solid rgba(246,244,242,.3);
   color: var(--paper);
-  padding: 14px 28px;
+  padding: 15px 32px;
   font-size: 15px;
   font-weight: 600;
   text-decoration: none;
@@ -374,8 +368,8 @@ img { max-width: 100%; display: block; }
 }
 .btn-outline:hover { background: rgba(246,244,242,.1); }
 
-@media (min-width: 640px) { .hero h1 { font-size: 44px; } }
-@media (min-width: 768px) { .hero h1 { font-size: 56px; } }
+@media (min-width: 640px) { .hero h1 { font-size: 52px; } }
+@media (min-width: 768px) { .hero h1 { font-size: 68px; } }
 
 /* ---------- Quiénes somos ---------- */
 /* Va justo después del hero y antes de la banda de marcas: el texto explica
