@@ -438,7 +438,7 @@ img { max-width: 100%; display: block; }
   /* Mismo ancho que .wrap (1152px): los recuadros alinean con el resto. */
   max-width: 1152px;
   margin: 0 auto;
-  padding: 40px 24px;
+  padding: 72px 24px;
   display: grid;
   /* auto-fit con mínimo de 220px: 1 columna en phones, 2 en tablets y 3
      cuando el ancho lo permite (~768px), sin un corte extra. */
@@ -460,7 +460,7 @@ img { max-width: 100%; display: block; }
 }
 .credibility__grid .credibility__title { margin: 0; font-family: var(--font-display); font-size: 20px; color: var(--ink); font-weight: 500; }
 .credibility__grid p { margin: 4px 0 0; font-size: 15px; color: var(--ink-soft); }
-@media (min-width: 640px) { .credibility__grid { padding: 48px 24px; } }
+@media (min-width: 640px) { .credibility__grid { padding: 96px 24px; } }
 
 /* ---------- Section shared ---------- */
 section { padding: 96px 0; }
