@@ -17,6 +17,12 @@
   --blush-soft: #efd9d5;
   --line: #e2ded9;
   --line-dark: rgba(246, 244, 242, 0.16);
+  /* Alternancia de fondos (fuera del manual): tonos elegidos para separar
+     bloques claros consecutivos sin perder la luminosidad del sitio. Se usan
+     solo en las secciones indicadas, nunca como fondo general. */
+  --sand: #e8e1d8;
+  --sand-deep: #d9d0c5;
+  --paper-bright: #f7f5f1;
   --font-display: "Playfair Display", Georgia, ui-serif, serif;
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
 }
@@ -407,17 +413,26 @@ img { max-width: 100%; display: block; }
 }
 
 /* ---------- Credibility ---------- */
+/* Franja compacta: el marfil tostado (--sand) la despega de .marcas
+   (--paper-warm) y de #servicios (--paper), que antes la dejaban fundida con
+   los bloques vecinos. El aire vertical vive en el grid, así que la sección
+   no suma los 96/128px de la regla general de section. */
 .credibility {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  background: var(--paper-warm);
+  background: var(--sand);
+  padding: 0;
 }
 .credibility__grid {
+  /* Mismo ancho que .wrap (1152px): los recuadros alinean con el resto. */
   max-width: 1152px;
   margin: 0 auto;
   padding: 40px 24px;
   display: grid;
-  gap: 32px;
+  /* auto-fit con mínimo de 220px: 1 columna en phones, 2 en tablets y 3
+     cuando el ancho lo permite (~768px), sin un corte extra. */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
 }
 /* La primera línea de cada tarjeta es un <p> y no un <h3>: el bloque de
    credibilidad no tiene encabezado propio y tres h3 sueltos bajo el h1 del
@@ -425,14 +440,16 @@ img { max-width: 100%; display: block; }
    clase propia y con más especificidad que la regla de los <p> de abajo,
    para que el título no herede el tamaño del texto de apoyo. */
 .credibility__item {
-  background: var(--paper);
+  /* --paper-bright sobre --sand: la tarjeta sigue luminosa y el borde
+     --line (1,23:1 contra el relleno) apenas la separa, sin competir. */
+  background: var(--paper-bright);
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 28px 24px;
 }
 .credibility__grid .credibility__title { margin: 0; font-family: var(--font-display); font-size: 20px; color: var(--ink); font-weight: 500; }
 .credibility__grid p { margin: 4px 0 0; font-size: 15px; color: var(--ink-soft); }
-@media (min-width: 640px) { .credibility__grid { grid-template-columns: repeat(3, 1fr); padding: 48px 24px; } }
+@media (min-width: 640px) { .credibility__grid { padding: 48px 24px; } }
 
 /* ---------- Section shared ---------- */
 section { padding: 96px 0; }
@@ -644,7 +661,10 @@ h2 {
 }
 
 /* ---------- Portafolio carrusel ---------- */
-.portafolio { padding: 72px 0 88px; }
+/* Banda de tono más profundo (--sand-deep) entre la cobertura (--paper) y el
+   contacto (--paper-warm): corta el tramo claro y enmarca el carrusel oscuro.
+   Texto sobre este fondo: --ink 11,69:1 y --ink-soft 5,79:1 (AA). */
+.portafolio { padding: 72px 0 88px; background: var(--sand-deep); }
 .port-header { margin-bottom: 40px; }
 .port-header h2 { font-size: clamp(32px, 4vw, 48px); }
 .port-sub { color: var(--ink-soft); margin-top: 8px; }
