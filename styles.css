@@ -1157,6 +1157,14 @@ form.contact-form {
 }
 .marca-logo[src*="naut"]:hover { opacity: 1; }
 
+/* La Custodia es dorado/beige claro: sobre el fondo marfil actual casi
+   desaparece. brightness(0) lo pasa a negro como Naut. */
+.marca-logo[src*="lacustodia"] {
+  filter: brightness(0);
+  opacity: .55;
+}
+.marca-logo[src*="lacustodia"]:hover { opacity: 1; }
+
 /* Frama es lima claro (#C9F565): sobre navy tiene contraste suficiente,
    no necesita filtro. */
 
