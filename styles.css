@@ -1483,3 +1483,95 @@ body.consent-open { overflow: hidden; }
    del hero (--brand-deep de fondo); con la imagen fija el hero se ve igual con
    o sin la preferencia, que es justamente lo que se busca. */
 
+
+/* ============================================================
+   PÁGINA CONSULTORÍA (consultoria.html)
+   ============================================================ */
+
+/* --- Hero --- */
+.consultoria-hero {
+  background: var(--brand);
+  color: var(--paper);
+  padding: 140px 0 96px;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+.consultoria-hero__inner {
+  max-width: 720px;
+}
+.consultoria-hero h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(32px, 5vw, 54px);
+  line-height: 1.1;
+  color: var(--paper);
+  margin-bottom: 24px;
+}
+.consultoria-hero__sub {
+  font-size: 18px;
+  line-height: 1.7;
+  color: rgba(246,244,242,.80);
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+/* --- Tarjetas de servicios --- */
+.consultoria-servicios {
+  padding: 88px 0;
+  background: var(--paper);
+}
+.consultoria-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+@media (min-width: 768px) {
+  .consultoria-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.consultoria-card {
+  background: var(--paper-bright);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 36px 28px;
+}
+.consultoria-card__icon {
+  color: var(--brand);
+  margin-bottom: 20px;
+}
+.consultoria-card h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.consultoria-card p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+/* --- CTA final --- */
+.consultoria-cta {
+  background: var(--sand);
+  border-top: 1px solid var(--line);
+  padding: 88px 0;
+  text-align: center;
+}
+.consultoria-cta__inner {
+  max-width: 560px;
+  margin: 0 auto;
+}
+.consultoria-cta h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 42px);
+  color: var(--brand);
+  margin-bottom: 16px;
+}
+.consultoria-cta p {
+  font-size: 17px;
+  color: var(--ink-soft);
+  margin-bottom: 36px;
+  line-height: 1.6;
+}
