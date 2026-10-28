@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Baluna — Agencia BTL, activaciones y staff promocional en Chile</title>
+<meta name="description" content="Agencia BTL con operación nacional en Chile. Activaciones de marca, eventos corporativos, lanzamientos y staff promocional. Cotiza tu proyecto." />
+<meta name="keywords" content="agencia BTL Chile, activaciones de marca Chile, eventos corporativos Chile, promotores Chile, staff promocional Chile, producción de eventos Chile" />
+<meta property="og:title" content="Baluna — Agencia BTL, activaciones y staff promocional en Chile" />
+<meta property="og:description" content="Transformamos la presencia en eventos en experiencias de marca memorables. Activaciones BTL, eventos, lanzamientos y equipos de staff en todo Chile." />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="es_CL" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
+<!-- ?v= = huella del archivo (shasum -a 1 styles.css script.js | cut -c1-7):
+     al cambiar el CSS o el JS cambia la URL y ni el CDN ni el navegador
+     pueden seguir sirviendo la versión anterior (styles.css se sirve con
+     max-age de 7 días). Recalcular las dos huellas cada vez que se toquen.
+     Antes se usaba el hash del commit, que obligaba a conocerlo antes de
+     subir; la huella del archivo se calcula en local y cambia sola. -->
+<link rel="stylesheet" href="styles.css?v=ef71d62" />
+<link rel="icon" href="favicon.ico" sizes="any" />
+<link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
+<link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<header class="navbar" id="navbar">
+  <div class="navbar__inner">
+    <a href="#inicio" class="navbar__logo">
+      <img src="assets/baluna-logo-navbar.png" alt="Baluna" class="navbar__logo-scrolled" />
+      <img src="assets/baluna-logo-navbar.png" alt="Baluna" class="navbar__logo-top" />
+    </a>
+    <!-- aria-label en los dos <nav> del sitio (navbar y pie): sin nombre, dos
+         landmarks navigation con el mismo rol y distinto contenido hacían
+         saltar landmark-unique en axe. -->
+    <nav class="navbar__links" aria-label="Principal">
+      <a href="#servicios">Servicios</a>
+      <a href="#cobertura">Cobertura</a>
+      <a href="#portafolio">Portafolio</a>
+      <a href="#contacto">Contacto</a>
+      <a href="blog.html">Blog</a>
+      <a href="#consultoria">Consultoría</a>
+    </nav>
+    <a href="#contacto" class="navbar__cta">Cotizar evento</a>
+    <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span><i></i><i></i></span>
+    </button>
+  </div>
+  <div class="navbar__mobile" id="navMobile">
+    <a href="#servicios">Servicios</a>
+    <a href="#cobertura">Cobertura</a>
+    <a href="#portafolio">Portafolio</a>
+    <a href="#contacto">Contacto</a>
+    <a href="blog.html">Blog</a>
+    <a href="#consultoria">Consultoría</a>
+    <a href="#contacto" class="navbar__cta">Cotizar evento</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="inicio">
+    <!-- Fondo decorativo: imagen estática (assets/hero-bg.jpg), pintada por
+         CSS en .hero__bg. El encuadre y el porqué del scrim están comentados
+         en styles.css; antes acá iba un <video> que se descartó (su master era
+         vertical y en desktop se estiraba ~3x). -->
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__scrim" aria-hidden="true"></div>
+    <div class="hero__content">
+      <p class="hero__eyebrow">Agencia BTL</p>
+      <h1>Activamos marcas<br>Creamos experiencias<br>que permanecen</h1>
+      <p class="hero__sub">Diseñamos y ejecutamos experiencias de marca, activaciones BTL y eventos con equipos preparados para operar en todo Chile.</p>
+      <div class="hero__ctas">
+        <a href="#contacto" class="btn-primary">Hablemos de tu proyecto</a>
+        <a href="#portafolio" class="btn-outline">Explorar experiencias</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUIÉNES SOMOS ============ -->
+  <section class="quienes" id="quienes">
+    <div class="wrap quienes__inner">
+      <p class="quienes__label">Quiénes somos</p>
+      <h2>Conocemos tu marca<br>antes de representarla</h2>
+      <p>En Baluna no solo ponemos personal: primero conocemos tu empresa y estudiamos tu marca. Entendemos sus valores, sus beneficios y los objetivos de cada campaña, y se los transmitimos a nuestras promotoras para que tu marca esté bien representada en el punto de venta.</p>
+      <p>Trabajamos de cerca con cada cliente y buscamos relaciones de largo plazo.</p>
+    </div>
+  </section>
+
+  <!-- ============ MARCAS ============ -->
+  <!--
+    Banda de logos de clientes. Va justo después del hero, como carta de
+    presentación: las marcas que ya confiaron en nosotros se ven antes
+    de entrar en los servicios.
+    Los ocho logos son archivos reales entregados por el cliente: van con
+    sus colores originales (sin filtro) —salvo Naut, que viene en blanco y por
+    eso se oscurece con un filter—, atenuados en reposo y a plena opacidad al
+    pasar el cursor, para que la banda acompañe sin competir con el resto de
+    la página.
+    La banda es un carrusel de CSS puro (sin JS ni librerías): la lista se
+    repite una segunda vez al final del track y la animación la corre hasta
+    -50%, que con el relleno del track es exactamente el ancho de la
+    primera tanda, así el loop vuelve a empezar sin salto visible. La
+    segunda tanda va con alt="" y aria-hidden="true" para que un lector de
+    pantalla no anuncie cada marca dos veces (los archivos son los mismos,
+    así que no cuestan una segunda descarga).
+    Al pasar el cursor la animación se pausa, y con prefers-reduced-motion
+    se detiene del todo y la banda queda desplazable a mano; ver el bloque
+    "Marcas" en styles.css.
+    Los logos no son enlaces: la banda es solo una carta de presentación, así
+    que cada marca va con su <img> suelto dentro de .marcas__track y ninguna
+    queda en el orden de tabulación.
+    La lista se repite una segunda vez para que el loop cierre completo; esa
+    segunda tanda también va con alt="" y aria-hidden="true" para que un lector
+    de pantalla no anuncie cada marca dos veces (los archivos son los mismos,
+    así que no cuestan una segunda descarga).
+  -->
+  <section class="marcas">
+    <div class="wrap">
+      <h2 class="marcas__titulo">Marcas que han confiado en nosotros</h2>
+      <div class="marcas__track-wrap">
+        <div class="marcas__track">
+          <img src="assets/marcas/quokka.png" alt="Quokka alimentos" class="marca-logo" loading="lazy" />
+          <img src="assets/marcas/1xbet.png" alt="1XBET" class="marca-logo" loading="lazy" />
+          <img src="assets/marcas/clinica_biobio.png" alt="Clínica Biobío" class="marca-logo" loading="lazy" />
+          <img src="assets/marcas/acalis.png" alt="Acalis residencia para personas mayores" class="marca-logo" loading="lazy" />
+          <img src="assets/marcas/lacustodia.png" alt="La Custodia aceite de oliva" class="marca-logo" loading="lazy" />
+          <img src="assets/marcas/quelen.png" alt="Quelen Centro Turístico" class="marca-logo marca-logo--sq" loading="lazy" />
+          <img src="assets/marcas/mistro.png" alt="Mistro miel" class="marca-logo" loading="lazy" />
+          <img src="assets/marcas/naut.png" alt="Naut bebida vegetal" class="marca-logo marca-logo--naut" loading="lazy" />
+          <img src="assets/marcas/frama.png" alt="Frama Drinks" class="marca-logo" loading="lazy" />
+          <!-- Segunda tanda: la misma lista, para que el loop cierre completo -->
+          <img src="assets/marcas/quokka.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/1xbet.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/clinica_biobio.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/acalis.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/lacustodia.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/quelen.png" alt="" class="marca-logo marca-logo--sq" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/mistro.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/naut.png" alt="" class="marca-logo marca-logo--naut" aria-hidden="true" loading="lazy" />
+          <img src="assets/marcas/frama.png" alt="" class="marca-logo" aria-hidden="true" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CREDIBILIDAD ============ -->
+  <section class="credibility">
+    <div class="credibility__grid">
+      <div class="credibility__item"><p class="credibility__title">Operación nacional</p><p>Cobertura en todo Chile.</p></div>
+      <div class="credibility__item"><p class="credibility__title">Cotizaciones &lt; 24 h</p><p>Respuesta rápida a proyectos.</p></div>
+      <div class="credibility__item"><p class="credibility__title">Staff capacitado</p><p>Equipos preparados y supervisados.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICIOS ============ -->
+  <!--
+    Rediseño editorial: grilla asimétrica 2×2 en desktop, stack en mobile.
+    Tarjetas alternas oscuras (--brand + foto + velo) y claras (--paper + foto lateral).
+    Numeración 01–04. Fotos del portafolio real de Baluna.
+  -->
+  <section id="servicios" class="svc-section">
+    <div class="wrap">
+      <div class="svc-header">
+        <p class="svc-header__eyebrow">Lo que hacemos</p>
+        <h2 class="svc-header__title">Experiencias que<br>mueven marcas</h2>
+        <p class="svc-header__sub">Diseñamos y ejecutamos experiencias de marca que conectan con personas, en cualquier punto de Chile.</p>
+      </div>
+
+      <div class="svc-grid">
+
+        <!-- 01 — oscuro con foto -->
+        <div class="svc-item svc-item--dark" style="--svc-photo: url('assets/portfolio/btl_1xbet.jpg')">
+          <div class="svc-item__photo" aria-hidden="true"></div>
+          <div class="svc-item__body">
+            <h3>BTL y activaciones</h3>
+            <p>Experiencias que conectan marcas con personas.</p>
+            <ul class="svc-tags">
+              <li>Sampling</li><li>Roadshows</li><li>Retail</li><li>Brand experience</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 02 — claro con foto -->
+        <div class="svc-item svc-item--light" style="--svc-photo: url('assets/portfolio/clinica_biobio.jpg')">
+          <div class="svc-item__photo" aria-hidden="true"></div>
+          <div class="svc-item__body">
+            <h3>Eventos y<br>lanzamientos</h3>
+            <p>Planificación y ejecución de experiencias corporativas.</p>
+            <ul class="svc-tags">
+              <li>Lanzamientos</li><li>Eventos corporativos</li><li>Ferias</li><li>Producción</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 03 — claro con foto -->
+        <div class="svc-item svc-item--light" style="--svc-photo: url('assets/portfolio/naut_promotora.jpg')">
+          <div class="svc-item__photo" aria-hidden="true"></div>
+          <div class="svc-item__body">
+            <h3>Staff y capital<br>humano</h3>
+            <p>Equipos preparados para representar y activar marcas.</p>
+            <ul class="svc-tags">
+              <li>Promotores</li><li>Anfitriones</li><li>Staff promocional</li><li>Supervisión</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 04 — oscuro con foto -->
+        <div class="svc-item svc-item--dark" style="--svc-photo: url('assets/portfolio/lacustodia_cliente.jpg')">
+          <div class="svc-item__photo" aria-hidden="true"></div>
+          <div class="svc-item__body">
+            <h3>Reposición en<br>punto de venta</h3>
+            <p>Presencia constante de marca en sala de venta.</p>
+            <ul class="svc-tags">
+              <li>Reposición</li><li>Sala de venta</li><li>Retail</li><li>Seguimiento personalizado</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ¿POR QUÉ ELEGIRNOS? ============ -->
+  <section class="reasons" id="razones">
+    <div class="wrap">
+      <h2>¿Por qué elegirnos?</h2>
+      <div class="reasons__grid">
+        <div class="reasons__item">
+          <span class="reasons__check" aria-hidden="true"></span>
+          <div>
+            <h3>Experiencia en terreno</h3>
+            <p>Más de 5 años ejecutando activaciones BTL en todo Chile.</p>
+          </div>
+        </div>
+        <div class="reasons__item">
+          <span class="reasons__check" aria-hidden="true"></span>
+          <div>
+            <h3>Staff capacitado</h3>
+            <p>Equipos entrenados, supervisados y comprometidos con cada campaña.</p>
+          </div>
+        </div>
+        <div class="reasons__item">
+          <span class="reasons__check" aria-hidden="true"></span>
+          <div>
+            <h3>Cobertura nacional</h3>
+            <p>Operamos en las principales ciudades del norte, centro y sur del país.</p>
+          </div>
+        </div>
+        <div class="reasons__item">
+          <span class="reasons__check" aria-hidden="true"></span>
+          <div>
+            <h3>Respuesta rápida</h3>
+            <p>Cotizaciones en menos de 24 horas y coordinación ágil desde el primer contacto.</p>
+          </div>
+        </div>
+      </div>
+      <p class="reasons__footer">No solamente aportamos creatividad: también capacidad de ejecución.</p>
+    </div>
+  </section>
+
+  <!-- ============ CONSULTORÍA Y ADQUISICIONES ============ -->
+  <section class="consultoria" id="consultoria">
+    <div class="wrap consultoria__inner">
+      <p class="consultoria__label">Nuevo servicio</p>
+      <h2>¿Tu negocio necesita más clientes?</h2>
+      <p class="consultoria__text">Complementamos las experiencias de marca con estrategias de marketing y sistemas de adquisición de clientes, diseñados para generar nuevas oportunidades comerciales y potenciar las ventas de tu empresa.</p>
+      <p class="consultoria__detail">Evaluamos y auditamos tu marca mediante una asesoría estratégica para diseñar e implementar una estrategia alineada con los objetivos de tu negocio. La complementamos con sistemas de adquisición de clientes a través de campañas publicitarias en Meta Ads, orientadas a impulsar tu crecimiento.</p>
+      <a href="https://wa.me/56923915825?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20Consultor%C3%ADa%20y%20Adquisiciones" target="_blank" rel="noopener noreferrer" class="btn-primary">Conversemos</a>
+    </div>
+  </section>
+
+  <!-- ============ COBERTURA ============ -->
+  <!--
+    Mapa real de Chile (assets/mapa-chile.png, 831x1628, fondo transparente)
+    con las macrozonas norte, centro y sur marcadas. Las zonas viven dentro de
+    la imagen, así que en HTML queda solo el <img>: sin ciudades ni cifras
+    inventadas. El ancho lo pone .coverage-graphic (480px, centrado con margin
+    auto) y el mapa queda centrado bajo el título de la sección.
+  -->
+  <section id="cobertura">
+    <div class="wrap">
+      <h2 class="coverage__titulo">Cobertura en todo Chile</h2>
+    </div>
+    <div class="wrap coverage-grid">
+      <div class="coverage-graphic">
+        <img src="assets/mapa-chile.png" alt="Mapa de cobertura nacional Baluna — zona norte, centro y sur" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PORTAFOLIO ============ -->
+  <!--
+    Carrusel automático de fotos (avanza cada 5 s): una por vista en mobile
+    y dos desde 768px, con flechas, dots y lightbox al hacer clic. Lo maneja
+    script.js; ver el bloque "Portafolio carrusel" en script.js y en
+    styles.css. La celda del video (Mistro) se reproduce dentro del carrusel
+    pero no abre lightbox: solo las fotos entran a la galería.
+  -->
+  <section class="portafolio" id="portafolio">
+    <div class="wrap">
+      <div class="port-header">
+        <h2>Experiencias que<br>hablan por sí solas</h2>
+        <p class="port-sub">Activaciones reales. Marcas reales. Resultados en terreno.</p>
+      </div>
+      <div class="port-carousel" id="portCarousel">
+        <div class="port-track" id="portTrack">
+          <figure class="port-slide" data-type="BTL"><img src="assets/portfolio/btl_1xbet.jpg" alt="Activación 1XBET en estadio" loading="lazy" /><figcaption>BTL</figcaption></figure>
+          <figure class="port-slide" data-type="BTL"><img src="assets/portfolio/btl_1xbet_grupo.jpg" alt="Equipo 1XBET" loading="lazy" /><figcaption>BTL</figcaption></figure>
+          <figure class="port-slide" data-type="Retail"><img src="assets/portfolio/acalis_mall.jpg" alt="Roadshow Acalis en mall" loading="lazy" /><figcaption>Retail</figcaption></figure>
+          <figure class="port-slide" data-type="Retail"><img src="assets/portfolio/acalis_super.jpg" alt="Activación Acalis en supermercado" loading="lazy" /><figcaption>Retail</figcaption></figure>
+          <figure class="port-slide" data-type="Retail"><img src="assets/portfolio/cocacola_equipo.jpg" alt="Activación Coca-Cola equipo" loading="lazy" /><figcaption>Retail</figcaption></figure>
+          <figure class="port-slide" data-type="Retail"><img src="assets/portfolio/cocacola_jumbo.jpg" alt="Activación Coca-Cola Jumbo" loading="lazy" /><figcaption>Retail</figcaption></figure>
+          <figure class="port-slide" data-type="Retail"><img src="assets/portfolio/lacustodia_atencion.jpg" alt="Degustación La Custodia" loading="lazy" /><figcaption>Retail</figcaption></figure>
+          <figure class="port-slide" data-type="Retail"><img src="assets/portfolio/lacustodia_cliente.jpg" alt="La Custodia cliente" loading="lazy" /><figcaption>Retail</figcaption></figure>
+          <figure class="port-slide" data-type="Retail"><img src="assets/portfolio/naut_promotora.jpg" alt="Promotora Naut" loading="lazy" /><figcaption>Staff</figcaption></figure>
+          <figure class="port-slide" data-type="Retail"><img src="assets/portfolio/quokka_stand.jpg" alt="Stand Quokka" loading="lazy" /><figcaption>Retail</figcaption></figure>
+          <figure class="port-slide" data-type="Eventos"><img src="assets/portfolio/trama_playa.jpg" alt="Evento TRAMA playa" loading="lazy" /><figcaption>Eventos</figcaption></figure>
+          <figure class="port-slide" data-type="Eventos"><img src="assets/portfolio/clinica_biobio.jpg" alt="Stand Clínica Biobío" loading="lazy" /><figcaption>Eventos</figcaption></figure>
+          <figure class="port-slide" data-type="Retail">
+            <video autoplay muted loop playsinline preload="metadata" aria-label="Activación Mistro en supermercado">
+              <source src="assets/portfolio/mistro_video.mp4" type="video/mp4" />
+            </video>
+            <figcaption>Retail</figcaption>
+          </figure>
+        </div>
+        <button class="port-prev" aria-label="Foto anterior">&#8592;</button>
+        <button class="port-next" aria-label="Foto siguiente">&#8594;</button>
+        <div class="port-dots" id="portDots"></div>
+      </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="port-lightbox" id="portLightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada" hidden>
+      <button class="port-lb-close" id="portLbClose" aria-label="Cerrar">&#10005;</button>
+      <button class="port-lb-prev" id="portLbPrev" aria-label="Anterior">&#8592;</button>
+      <img class="port-lb-img" id="portLbImg" src="" alt="" />
+      <button class="port-lb-next" id="portLbNext" aria-label="Siguiente">&#8594;</button>
+    </div>
+  </section>
+
+  <!-- ============ CONTACTO ============ -->
+  <!--
+    El formulario arma un mailto: como fallback funcional sin
+    backend. El numero de WhatsApp ya es el real de la agencia.
+  -->
+  <section class="contact" id="contacto">
+    <div class="wrap contact-grid">
+      <div class="contact-intro">
+        <h2>¿Qué experiencia<br>vamos a crear juntos?</h2>
+        <p>Cuéntanos qué necesitas. Nosotros hacemos que suceda.</p>
+        <div class="contact-links">
+          <a href="mailto:contacto@agenciabaluna.cl">contacto@agenciabaluna.cl</a>
+          <a href="https://wa.me/56976797346" target="_blank" rel="noopener noreferrer">WhatsApp directo</a>
+          <a href="https://www.instagram.com/agenciabaluna.cl/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+      </div>
+      <form class="contact-form" id="contactForm">
+        <label class="field"><span class="label">Nombre <span class="req">*</span></span><input type="text" name="nombre" required /></label>
+        <label class="field"><span class="label">Empresa <span class="req">*</span></span><input type="text" name="empresa" required /></label>
+        <label class="field"><span class="label">Email <span class="req">*</span></span><input type="email" name="email" required /></label>
+        <label class="field"><span class="label">Teléfono</span><input type="tel" name="telefono" /></label>
+        <label class="field"><span class="label">Tipo de evento</span><input type="text" name="tipoEvento" /></label>
+        <label class="field"><span class="label">Ciudad</span><input type="text" name="ciudad" /></label>
+        <label class="field col-span-2"><span class="label">Fecha estimada</span><input type="date" name="fecha" /></label>
+        <label class="field col-span-2"><span class="label">Mensaje / requerimientos</span><textarea name="mensaje" rows="4"></textarea></label>
+        <button type="submit">Solicitar cotización</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ CTA FINAL ============ -->
+  <section class="final-cta">
+    <h2>Tu próxima experiencia empieza aquí</h2>
+    <a href="#contacto" class="btn-primary">Cotizar proyecto →</a>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <img src="assets/baluna-logo-navbar.png" alt="Baluna" class="footer-logo" />
+    <nav aria-label="Pie de página">
+      <a href="#servicios">Servicios</a>
+      <a href="#cobertura">Cobertura</a>
+      <a href="#portafolio">Portafolio</a>
+      <a href="#contacto">Contacto</a>
+      <a href="privacidad.html">Privacidad</a>
+      <a href="https://www.instagram.com/agenciabaluna.cl/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <button type="button" class="footer-link" data-consent="customize">Gestionar cookies</button>
+    </nav>
+    <span class="copy" id="copyYear">© 2026 Baluna. Todos los derechos reservados.</span>
+  </div>
+</footer>
+
+<!-- ============ CONSENTIMIENTO DE COOKIES (Ley N°21.719) ============ -->
+<!--
+  Banner de primera visita + panel de preferencias. Se apoya en
+  window.balunaConsent (script.js): guarda la elección en localStorage
+  bajo la clave baluna_cookie_consent y avisa a los callbacks registrados,
+  para que cualquier script de análisis o marketing que se agregue más
+  adelante se cargue solo si hay consentimiento.
+
+  Los toggles de análisis y marketing parten desactivados a propósito: la
+  ley pide consentimiento libre e inequívoco, no opt-out. Las necesarias
+  van fijas y deshabilitadas.
+
+  Si se agrega una página nueva, copiar este bloque completo y el footer:
+  el banner aparece solo cuando no hay una elección guardada.
+-->
+<div class="consent" id="cookieBanner" role="dialog" aria-modal="false" aria-labelledby="cookieBannerTitle" aria-describedby="cookieBannerText" hidden>
+  <div class="consent__card">
+    <div class="consent__text">
+      <h2 class="consent__title" id="cookieBannerTitle">Cookies y privacidad</h2>
+      <p id="cookieBannerText"><span class="consent__text-long">Hoy este sitio no carga cookies de análisis ni de marketing: guardamos tu elección en tu navegador para no volver a preguntarte en cada visita. Si más adelante sumamos herramientas de análisis o marketing, se activarán solo si nos das tu consentimiento, y podrás cambiarlo cuando quieras. Ver <a href="privacidad.html">política de privacidad</a>.</span><span class="consent__text-short">No usamos cookies de análisis ni de marketing. Si más adelante las sumamos, se activarán solo con tu consentimiento. Ver <a href="privacidad.html">política de privacidad</a>.</span></p>
+    </div>
+    <div class="consent__actions">
+      <button type="button" class="consent__btn" data-consent="reject">Rechazar no esenciales</button>
+      <button type="button" class="consent__btn" data-consent="customize">Personalizar</button>
+      <button type="button" class="consent__btn consent__btn--primary" data-consent="accept">Aceptar todas</button>
+    </div>
+  </div>
+</div>
+
+<!-- Panel de personalización por categoría: se abre con "Personalizar" del
+     banner o con el botón "Gestionar cookies" del pie del sitio. -->
+<div class="consent-panel" id="cookiePanel" role="dialog" aria-modal="true" aria-labelledby="cookiePanelTitle" hidden>
+  <div class="consent-panel__overlay" data-consent="close"></div>
+  <div class="consent-panel__dialog" tabindex="-1">
+    <div class="consent-panel__head">
+      <h2 class="consent-panel__title" id="cookiePanelTitle">Preferencias de cookies</h2>
+      <button type="button" class="consent-panel__close" data-consent="close" aria-label="Cerrar">&times;</button>
+    </div>
+    <p class="consent-panel__intro">Elige qué categorías autorizas. Las necesarias no se pueden desactivar porque el sitio no funcionaría sin ellas.</p>
+    <ul class="consent-cat-list">
+      <li class="consent-cat">
+        <div class="consent-cat__text">
+          <h3 id="cookieNecessaryTitle">Necesarias <span class="consent-cat__badge">Siempre activas</span></h3>
+          <p id="cookieNecessaryDesc">Permiten que el sitio cargue y recuerdan tu elección de cookies. No se usan para perfilarte ni para medir tu navegación.</p>
+        </div>
+        <label class="consent-switch">
+          <input type="checkbox" id="consentNecessary" checked disabled aria-labelledby="cookieNecessaryTitle" aria-describedby="cookieNecessaryDesc" />
+          <span class="consent-switch__track" aria-hidden="true"></span>
+        </label>
+      </li>
+      <li class="consent-cat">
+        <div class="consent-cat__text">
+          <h3 id="cookieAnalyticsTitle">Análisis</h3>
+          <p id="cookieAnalyticsDesc">Medición de uso del sitio (por ejemplo, Google Analytics). Hoy no hay ninguna herramienta de este tipo instalada. Desactivada por defecto.</p>
+        </div>
+        <label class="consent-switch">
+          <input type="checkbox" id="consentAnalytics" aria-labelledby="cookieAnalyticsTitle" aria-describedby="cookieAnalyticsDesc" />
+          <span class="consent-switch__track" aria-hidden="true"></span>
+        </label>
+      </li>
+      <li class="consent-cat">
+        <div class="consent-cat__text">
+          <h3 id="cookieMarketingTitle">Marketing</h3>
+          <p id="cookieMarketingDesc">Píxeles de redes sociales, publicidad y remarketing. Hoy no hay ninguno instalado. Desactivada por defecto.</p>
+        </div>
+        <label class="consent-switch">
+          <input type="checkbox" id="consentMarketing" aria-labelledby="cookieMarketingTitle" aria-describedby="cookieMarketingDesc" />
+          <span class="consent-switch__track" aria-hidden="true"></span>
+        </label>
+      </li>
+    </ul>
+    <p class="consent-panel__note">Análisis y marketing parten desactivadas: no se activan por visitar el sitio ni por seguir navegando, solo si las marcas y guardas.</p>
+    <div class="consent-panel__actions">
+      <button type="button" class="consent__btn" data-consent="reject">Rechazar no esenciales</button>
+      <button type="button" class="consent__btn consent__btn--primary" data-consent="save">Guardar preferencias</button>
+    </div>
+    <p class="consent-panel__legal">Puedes cambiar esta elección cuando quieras con el botón “Gestionar cookies” del pie del sitio. Más detalle en la <a href="privacidad.html">política de privacidad</a>.</p>
+  </div>
+</div>
+
+<!-- ============ WHATSAPP FLOTANTE ============ -->
+<!--
+  Ícono genérico de burbuja de chat: no se usa el logo oficial de
+  WhatsApp/Meta como asset propio. El número es el real de la agencia.
+  Cuando el banner de cookies está visible, script.js le pasa su altura en
+  la variable CSS --consent-offset para que el botón no quede debajo.
+  Va dentro de <aside aria-label="Contacto rápido"> porque, siendo un <a>
+  suelto al final del <body>, quedaba fuera de todo landmark (regla
+  `region` de axe). El <aside> no lleva estilos: el botón sigue siendo
+  position: fixed respecto de la ventana.
+-->
+<aside aria-label="Contacto rápido">
+  <a
+    href="https://wa.me/56976797346"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="whatsapp-float"
+    aria-label="Escríbenos por WhatsApp"
+  >
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="26" height="26" aria-hidden="true" focusable="false">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+    </svg>
+  </a>
+</aside>
+<!--
+  script.js va al final del <body>: el carrusel del portafolio (y su lightbox)
+  resuelve sus elementos al cargar el archivo, así que necesita que ese markup
+  ya esté en el DOM.
+-->
+<script src="script.js?v=716dbd3"></script>
+</body>
+</html>

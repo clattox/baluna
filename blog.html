@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Blog — Baluna</title>
+<meta name="description" content="Blog de Baluna: contenido sobre activaciones BTL, eventos y tendencias de marketing en terreno en Chile." />
+<!-- Temporal: la página todavía no tiene contenido real, así que no debe
+     indexarse. Quitar este meta cuando haya artículos publicados. -->
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
+<!-- ?v= = huella del archivo (ver el comentario en index.html): cambia la URL
+     cuando cambia el CSS o el JS, para no depender de purgas del CDN ni de
+     la caché. -->
+<link rel="stylesheet" href="styles.css?v=ef71d62" />
+<link rel="icon" href="favicon.ico" sizes="any" />
+<link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
+<link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<!-- Mismo navbar de index.html; los enlaces vuelven a la portada. -->
+<header class="navbar" id="navbar">
+  <div class="navbar__inner">
+    <a href="index.html" class="navbar__logo">
+      <img src="assets/baluna-logo-navbar.png" alt="Baluna" class="navbar__logo-scrolled" />
+      <img src="assets/baluna-logo-navbar.png" alt="Baluna" class="navbar__logo-top" />
+    </a>
+    <!-- Mismo aria-label que en index.html: los dos <nav> del sitio (navbar y
+         pie) necesitan nombre propio para no chocar como landmarks. -->
+    <nav class="navbar__links" aria-label="Principal">
+      <a href="index.html#servicios">Servicios</a>
+      <a href="index.html#cobertura">Cobertura</a>
+      <a href="index.html#portafolio">Portafolio</a>
+      <a href="index.html#contacto">Contacto</a>
+      <a href="blog.html">Blog</a>
+    </nav>
+    <a href="index.html#contacto" class="navbar__cta">Cotizar evento</a>
+    <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span><i></i><i></i></span>
+    </button>
+  </div>
+  <div class="navbar__mobile" id="navMobile">
+    <a href="index.html#servicios">Servicios</a>
+    <a href="index.html#cobertura">Cobertura</a>
+    <a href="index.html#portafolio">Portafolio</a>
+    <a href="index.html#contacto">Contacto</a>
+    <a href="blog.html">Blog</a>
+    <a href="index.html#contacto" class="navbar__cta">Cotizar evento</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ BLOG ============ -->
+  <section class="blog-placeholder">
+    <div class="wrap">
+      <h1>Blog</h1>
+      <p>Próximamente compartiremos contenido sobre activaciones, eventos y tendencias BTL.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <img src="assets/baluna-logo-navbar.png" alt="Baluna" class="footer-logo" />
+    <nav aria-label="Pie de página">
+      <a href="index.html#servicios">Servicios</a>
+      <a href="index.html#cobertura">Cobertura</a>
+      <a href="index.html#portafolio">Portafolio</a>
+      <a href="index.html#contacto">Contacto</a>
+      <a href="privacidad.html">Privacidad</a>
+      <a href="https://www.instagram.com/agenciabaluna.cl/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <button type="button" class="footer-link" data-consent="customize">Gestionar cookies</button>
+    </nav>
+    <span class="copy" id="copyYear">© 2026 Baluna. Todos los derechos reservados.</span>
+  </div>
+</footer>
+
+<!-- ============ CONSENTIMIENTO DE COOKIES (Ley N°21.719) ============ -->
+<!--
+  Mismo bloque que index.html y privacidad.html, para que la elección sea
+  consistente en todo el sitio (ver script.js, window.balunaConsent). Los
+  toggles de análisis y marketing parten desactivados a propósito.
+-->
+<div class="consent" id="cookieBanner" role="dialog" aria-modal="false" aria-labelledby="cookieBannerTitle" aria-describedby="cookieBannerText" hidden>
+  <div class="consent__card">
+    <div class="consent__text">
+      <h2 class="consent__title" id="cookieBannerTitle">Cookies y privacidad</h2>
+      <p id="cookieBannerText"><span class="consent__text-long">Hoy este sitio no carga cookies de análisis ni de marketing: guardamos tu elección en tu navegador para no volver a preguntarte en cada visita. Si más adelante sumamos herramientas de análisis o marketing, se activarán solo si nos das tu consentimiento, y podrás cambiarlo cuando quieras. Ver <a href="privacidad.html">política de privacidad</a>.</span><span class="consent__text-short">No usamos cookies de análisis ni de marketing. Si más adelante las sumamos, se activarán solo con tu consentimiento. Ver <a href="privacidad.html">política de privacidad</a>.</span></p>
+    </div>
+    <div class="consent__actions">
+      <button type="button" class="consent__btn" data-consent="reject">Rechazar no esenciales</button>
+      <button type="button" class="consent__btn" data-consent="customize">Personalizar</button>
+      <button type="button" class="consent__btn consent__btn--primary" data-consent="accept">Aceptar todas</button>
+    </div>
+  </div>
+</div>
+
+<!-- Panel de personalización por categoría: se abre con "Personalizar" del
+     banner o con el botón "Gestionar cookies" del pie del sitio. -->
+<div class="consent-panel" id="cookiePanel" role="dialog" aria-modal="true" aria-labelledby="cookiePanelTitle" hidden>
+  <div class="consent-panel__overlay" data-consent="close"></div>
+  <div class="consent-panel__dialog" tabindex="-1">
+    <div class="consent-panel__head">
+      <h2 class="consent-panel__title" id="cookiePanelTitle">Preferencias de cookies</h2>
+      <button type="button" class="consent-panel__close" data-consent="close" aria-label="Cerrar">&times;</button>
+    </div>
+    <p class="consent-panel__intro">Elige qué categorías autorizas. Las necesarias no se pueden desactivar porque el sitio no funcionaría sin ellas.</p>
+    <ul class="consent-cat-list">
+      <li class="consent-cat">
+        <div class="consent-cat__text">
+          <h3 id="cookieNecessaryTitle">Necesarias <span class="consent-cat__badge">Siempre activas</span></h3>
+          <p id="cookieNecessaryDesc">Permiten que el sitio cargue y recuerdan tu elección de cookies. No se usan para perfilarte ni para medir tu navegación.</p>
+        </div>
+        <label class="consent-switch">
+          <input type="checkbox" id="consentNecessary" checked disabled aria-labelledby="cookieNecessaryTitle" aria-describedby="cookieNecessaryDesc" />
+          <span class="consent-switch__track" aria-hidden="true"></span>
+        </label>
+      </li>
+      <li class="consent-cat">
+        <div class="consent-cat__text">
+          <h3 id="cookieAnalyticsTitle">Análisis</h3>
+          <p id="cookieAnalyticsDesc">Medición de uso del sitio (por ejemplo, Google Analytics). Hoy no hay ninguna herramienta de este tipo instalada. Desactivada por defecto.</p>
+        </div>
+        <label class="consent-switch">
+          <input type="checkbox" id="consentAnalytics" aria-labelledby="cookieAnalyticsTitle" aria-describedby="cookieAnalyticsDesc" />
+          <span class="consent-switch__track" aria-hidden="true"></span>
+        </label>
+      </li>
+      <li class="consent-cat">
+        <div class="consent-cat__text">
+          <h3 id="cookieMarketingTitle">Marketing</h3>
+          <p id="cookieMarketingDesc">Píxeles de redes sociales, publicidad y remarketing. Hoy no hay ninguno instalado. Desactivada por defecto.</p>
+        </div>
+        <label class="consent-switch">
+          <input type="checkbox" id="consentMarketing" aria-labelledby="cookieMarketingTitle" aria-describedby="cookieMarketingDesc" />
+          <span class="consent-switch__track" aria-hidden="true"></span>
+        </label>
+      </li>
+    </ul>
+    <p class="consent-panel__note">Análisis y marketing parten desactivadas: no se activan por visitar el sitio ni por seguir navegando, solo si las marcas y guardas.</p>
+    <div class="consent-panel__actions">
+      <button type="button" class="consent__btn" data-consent="reject">Rechazar no esenciales</button>
+      <button type="button" class="consent__btn consent__btn--primary" data-consent="save">Guardar preferencias</button>
+    </div>
+    <p class="consent-panel__legal">Puedes cambiar esta elección cuando quieras con el botón “Gestionar cookies” del pie del sitio. Más detalle en la <a href="privacidad.html">política de privacidad</a>.</p>
+  </div>
+</div>
+
+
+<script src="script.js?v=716dbd3"></script>
+</body>
+</html>
