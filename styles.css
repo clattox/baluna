@@ -1583,8 +1583,8 @@ body.consent-open { overflow: hidden; }
 .consultoria-hero {
   position: relative;
   color: var(--paper);
-  padding: 140px 0 96px;
-  min-height: 60vh;
+  padding: 160px 0 120px;
+  min-height: calc(88vh - 80px);
   display: flex;
   align-items: center;
   overflow: hidden;
