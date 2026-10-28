@@ -1064,8 +1064,8 @@ form.contact-form {
   el gap que va después de la última foto, de ahí el padding-right igual
   al gap: sin él el recorrido queda medio gap corto (32px) y el loop salta.
 */
-.marcas { background: var(--paper-warm); padding: 72px 0; border-bottom: 1px solid var(--line); }
-.marcas__titulo { max-width: 560px; }
+.marcas { background: var(--brand); padding: 72px 0; border-bottom: none; }
+.marcas__titulo { max-width: 560px; color: var(--paper); }
 /* El aire entre el título y la banda: el h2 va con margin 0, así que este
    margen es el único respiro que tienen (antes lo daba el grid).
    Los 8px de padding arriba y abajo son para que los logos cuadrados (72x72)
@@ -1099,37 +1099,18 @@ form.contact-form {
   width: 140px;
   height: 48px;
   object-fit: contain;
-  opacity: .65;
+  opacity: .7;
   flex-shrink: 0;
+  filter: brightness(0) invert(1);
   transition: opacity .25s;
 }
 .marca-logo:hover { opacity: 1; }
 
-/* Naut llega en blanco sobre fondo transparente, así que sobre el fondo claro
-   de la banda sería invisible: brightness(0) lo pasa a negro y el opacity del
-   filtro lo deja un pelo más tenue que el resto (que ya va al .65 de la clase
-   base). Al pasar el cursor el filtro vuelve a opacidad plena, como el resto
-   de los logos. Vale para las dos tandas porque va por src. */
-.marca-logo[src*="naut"] {
-  filter: brightness(0) opacity(.7);
-  transition: filter .25s, opacity .25s;
-}
-.marca-logo[src*="naut"]:hover {
-  filter: brightness(0) opacity(1);
-}
+/* Naut era blanco sobre fondo claro (invisible). Con fondo navy y el
+   brightness(0) invert(1) de la clase base queda blanco sin regla extra. */
 
-/* Frama llega en un tono claro también (lima rgb(201,245,101)): al .65 de la
-   clase base quedaba en 1.05:1 contra el fondo de la banda, o sea invisible
-   (todo su rango de luz caía entre 0.78 y 0.86, con el fondo en 0.84).
-   brightness(.3) lo oscurece y saturate(1.6) sostiene el verde de la marca
-   —aquí sí hay tono que conservar, así que no se va a gris como Naut—: el
-   contraste renderizado queda en 2.77:1, el mismo peso visual que Naut
-   (2.74:1). Sin opacity() en el filtro: al pasar el cursor basta el
-   .marca-logo:hover de la clase base (opacidad .65 → 1) y el verde se
-   oscurece solo, con la transición que ya trae .marca-logo. */
-.marca-logo[src*="frama"] {
-  filter: brightness(.3) saturate(1.6);
-}
+/* Frama era lima claro sobre fondo claro (invisible). Con fondo navy y el
+   filtro base queda blanco como el resto — sin regla extra. */
 
 /* La Custodia y Quelen son isotipos casi cuadrados (los dos archivos miden
    97x96), así que en la caja de 140x48 quedan diminutos: van en una caja
