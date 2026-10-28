@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=2c374b2" />
+<link rel="stylesheet" href="styles.css?v=d3221a7" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -56,19 +56,19 @@
   <!-- ============ HERO CONSULTORÍA ============ -->
   <section class="consultoria-hero">
     <div class="wrap consultoria-hero__inner">
-      <p class="consultoria__label">Nuevo servicio</p>
-      <h1>¿Tu negocio necesita<br>más clientes?</h1>
-      <p class="consultoria-hero__sub">Complementamos las experiencias de marca con estrategias de marketing y sistemas de adquisición de clientes, diseñados para generar nuevas oportunidades comerciales y potenciar las ventas de tu empresa.</p>
-      <a href="https://wa.me/56923915825?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20Consultor%C3%ADa%20y%20Adquisiciones" target="_blank" rel="noopener noreferrer" class="btn-primary">Conversemos por WhatsApp</a>
+      <p class="consultoria__label c-anim" data-delay="0">Nuevo servicio</p>
+      <h1 class="c-anim" data-delay="100">¿Tu negocio necesita<br>más clientes?</h1>
+      <p class="consultoria-hero__sub c-anim" data-delay="200">Complementamos las experiencias de marca con estrategias de marketing y sistemas de adquisición de clientes, diseñados para generar nuevas oportunidades comerciales y potenciar las ventas de tu empresa.</p>
+      <a href="https://wa.me/56923915825?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20Consultor%C3%ADa%20y%20Adquisiciones" target="_blank" rel="noopener noreferrer" class="btn-primary c-anim" data-delay="300">Conversemos por WhatsApp</a>
     </div>
   </section>
 
   <!-- ============ DETALLE SERVICIOS ============ -->
   <section class="consultoria-servicios">
     <div class="wrap">
-      <div class="consultoria-grid" id="consultoría-grid">
+      <div class="consultoria-grid">
 
-        <article class="consultoria-card c-card-anim">
+        <article class="consultoria-card c-anim" data-delay="0">
           <div class="consultoria-card__icon" aria-hidden="true">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
           </div>
@@ -76,7 +76,7 @@
           <p>Evaluamos el estado actual de tu marca: presencia digital, comunicación y posicionamiento frente a la competencia. Identificamos brechas y oportunidades concretas para mejorar tu imagen y atraer más clientes.</p>
         </article>
 
-        <article class="consultoria-card c-card-anim" style="transition-delay:.1s">
+        <article class="consultoria-card c-anim" data-delay="120">
           <div class="consultoria-card__icon" aria-hidden="true">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="m6 20-4-4 4-4"/><path d="m18 20 4-4-4-4"/><path d="M12 4v12"/></svg>
           </div>
@@ -84,7 +84,7 @@
           <p>Diseñamos una estrategia alineada con los objetivos de tu negocio: definición de público objetivo, propuesta de valor, canales prioritarios y plan de acción para los próximos meses.</p>
         </article>
 
-        <article class="consultoria-card c-card-anim" style="transition-delay:.2s">
+        <article class="consultoria-card c-anim" data-delay="240">
           <div class="consultoria-card__icon" aria-hidden="true">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></svg>
           </div>
@@ -99,9 +99,9 @@
   <!-- ============ CTA FINAL ============ -->
   <section class="consultoria-cta">
     <div class="wrap consultoria-cta__inner">
-      <h2>Da el primer paso</h2>
-      <p>Una conversación sin costo para entender tu negocio y ver cómo podemos ayudarte a crecer.</p>
-      <a href="https://wa.me/56923915825?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20Consultor%C3%ADa%20y%20Adquisiciones" target="_blank" rel="noopener noreferrer" class="btn-primary">Hablar con el equipo</a>
+      <h2 class="c-anim" data-delay="0">Da el primer paso</h2>
+      <p class="c-anim" data-delay="100">Una conversación sin costo para entender tu negocio y ver cómo podemos ayudarte a crecer.</p>
+      <a href="https://wa.me/56923915825?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20Consultor%C3%ADa%20y%20Adquisiciones" target="_blank" rel="noopener noreferrer" class="btn-primary c-anim" data-delay="200">Hablar con el equipo</a>
     </div>
   </section>
 
@@ -126,14 +126,20 @@
 
 <script src="script.js?v=f6fa946"></script>
 <script>
-/* Animación scroll tarjetas consultoría */
+/* Animación scroll — todos los elementos .c-anim de esta página */
 (function () {
-  const cards = document.querySelectorAll('.c-card-anim');
-  if (!cards.length) return;
+  const els = document.querySelectorAll('.c-anim');
+  if (!els.length) return;
+  els.forEach(el => {
+    const d = el.dataset.delay || 0;
+    el.style.transitionDelay = d + 'ms';
+  });
   const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('c-card-in'); obs.unobserve(e.target); } });
-  }, { threshold: 0.15 });
-  cards.forEach(c => obs.observe(c));
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('c-in'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(el => obs.observe(el));
 })();
 </script>
 </body>

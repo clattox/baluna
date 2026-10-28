@@ -1576,13 +1576,16 @@ body.consent-open { overflow: hidden; }
   line-height: 1.6;
 }
 
-/* --- Animación scroll tarjetas consultoría --- */
-.c-card-anim {
+/* --- Animación scroll genérica (consultoria.html) --- */
+.c-anim {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity .6s ease, transform .6s ease;
+  transform: translateY(22px);
+  transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1);
 }
-.c-card-anim.c-card-in {
+.c-anim.c-in {
   opacity: 1;
   transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .c-anim { opacity: 1; transform: none; transition: none; }
 }
