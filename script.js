@@ -490,3 +490,16 @@ if (contactForm) {
   }
   setInterval(next, 2800);
 })();
+
+/* ---------- Quiénes somos — animate on scroll ---------- */
+(function () {
+  const section = document.querySelector('.quienes');
+  if (!section) return;
+  const obs = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      section.classList.add('in-view');
+      obs.disconnect();
+    }
+  }, { threshold: 0.15 });
+  obs.observe(section);
+})();

@@ -382,35 +382,51 @@ img { max-width: 100%; display: block; }
 /* Va justo después del hero y antes de la banda de marcas: el texto explica
    cómo trabaja la agencia antes de mostrar clientes y servicios. */
 .quienes {
-  padding: 80px 0;
+  padding: 96px 0;
   background: var(--paper-warm);
+  overflow: hidden;
 }
 .quienes__inner {
   max-width: 720px;
-  border-left: 3px solid var(--blush);
-  padding-left: 32px;
 }
-/* Misma trampa de especificidad que en .credibility__title: el label es un
-   <p> y la regla general .quienes p (0,1,1) le ganaría a .quienes__label
-   (0,1,0), dejándolo en --ink-soft y con el interlineado de párrafo. Con las
-   dos clases (0,2,0) vuelve al --blush y conserva su ritmo. */
 .quienes .quienes__label {
-  font-size: 12px;
-  letter-spacing: .12em;
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: .18em;
   text-transform: uppercase;
-  color: var(--blush);
+  color: var(--paper);
+  background: var(--brand);
   font-family: var(--font-sans);
-  margin-bottom: 16px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 4px;
+  margin-bottom: 28px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .6s ease, transform .6s ease;
 }
 .quienes h2 {
-  font-size: clamp(28px, 3.5vw, 42px);
+  font-size: clamp(32px, 4vw, 52px);
   margin-bottom: 24px;
-  color: var(--ink);
+  color: var(--brand);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .7s ease .1s, transform .7s ease .1s;
 }
 .quienes p {
   color: var(--ink-soft);
   line-height: 1.7;
   margin-bottom: 16px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .6s ease .2s, transform .6s ease .2s;
+}
+/* Clase que activa la animación al entrar en viewport */
+.quienes.in-view .quienes__label,
+.quienes.in-view h2,
+.quienes.in-view p {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ---------- Credibility ---------- */
