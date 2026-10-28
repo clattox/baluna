@@ -1581,16 +1581,43 @@ body.consent-open { overflow: hidden; }
 
 /* --- Hero --- */
 .consultoria-hero {
-  background: var(--brand);
+  position: relative;
   color: var(--paper);
   padding: 140px 0 96px;
   min-height: 60vh;
   display: flex;
   align-items: center;
+  overflow: hidden;
+}
+.consultoria-hero__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+.consultoria-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(23,19,53,.82) 0%,
+    rgba(40,35,83,.65) 50%,
+    rgba(23,19,53,.30) 100%
+  );
+  z-index: 1;
+}
+.consultoria-hero__inner {
+  position: relative;
+  z-index: 2;
 }
 .consultoria-hero__inner {
   max-width: 720px;
 }
+/* override — el inner ya tiene z-index via la regla de arriba */
 .consultoria-hero h1 {
   font-family: var(--font-display);
   font-weight: 500;
