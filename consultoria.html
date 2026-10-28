@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=9755ba9" />
+<link rel="stylesheet" href="styles.css?v=2c374b2" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -66,9 +66,9 @@
   <!-- ============ DETALLE SERVICIOS ============ -->
   <section class="consultoria-servicios">
     <div class="wrap">
-      <div class="consultoria-grid">
+      <div class="consultoria-grid" id="consultoría-grid">
 
-        <article class="consultoria-card">
+        <article class="consultoria-card c-card-anim">
           <div class="consultoria-card__icon" aria-hidden="true">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
           </div>
@@ -76,7 +76,7 @@
           <p>Evaluamos el estado actual de tu marca: presencia digital, comunicación y posicionamiento frente a la competencia. Identificamos brechas y oportunidades concretas para mejorar tu imagen y atraer más clientes.</p>
         </article>
 
-        <article class="consultoria-card">
+        <article class="consultoria-card c-card-anim" style="transition-delay:.1s">
           <div class="consultoria-card__icon" aria-hidden="true">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="m6 20-4-4 4-4"/><path d="m18 20 4-4-4-4"/><path d="M12 4v12"/></svg>
           </div>
@@ -84,7 +84,7 @@
           <p>Diseñamos una estrategia alineada con los objetivos de tu negocio: definición de público objetivo, propuesta de valor, canales prioritarios y plan de acción para los próximos meses.</p>
         </article>
 
-        <article class="consultoria-card">
+        <article class="consultoria-card c-card-anim" style="transition-delay:.2s">
           <div class="consultoria-card__icon" aria-hidden="true">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></svg>
           </div>
@@ -108,25 +108,33 @@
 </main>
 
 <!-- ============ FOOTER ============ -->
-<footer class="site-footer">
-  <div class="wrap footer__inner">
-    <div class="footer__brand">
-      <img src="assets/baluna-logo-footer.png" alt="Baluna" class="footer__logo" />
-      <p class="footer__tagline">Transformamos la presencia en eventos<br>en experiencias de marca memorables.</p>
-    </div>
-    <nav class="footer__nav" aria-label="Pie de página">
+<footer>
+  <div class="footer-inner">
+    <img src="assets/baluna-logo-navbar.png" alt="Baluna" class="footer-logo" />
+    <nav aria-label="Pie de página">
       <a href="index.html#servicios">Servicios</a>
+      <a href="index.html#cobertura">Cobertura</a>
       <a href="index.html#portafolio">Portafolio</a>
       <a href="index.html#contacto">Contacto</a>
-      <a href="blog.html">Blog</a>
       <a href="consultoria.html">Consultoría</a>
       <a href="privacidad.html">Privacidad</a>
+      <a href="https://www.instagram.com/agenciabaluna.cl/" target="_blank" rel="noopener noreferrer">Instagram</a>
     </nav>
-    <p class="footer__copy">&copy; <span id="year"></span> Agencia Baluna. Todos los derechos reservados.</p>
+    <span class="copy" id="copyYear">© 2026 Baluna. Todos los derechos reservados.</span>
   </div>
 </footer>
 
 <script src="script.js?v=f6fa946"></script>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+/* Animación scroll tarjetas consultoría */
+(function () {
+  const cards = document.querySelectorAll('.c-card-anim');
+  if (!cards.length) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('c-card-in'); obs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  cards.forEach(c => obs.observe(c));
+})();
+</script>
 </body>
 </html>

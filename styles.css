@@ -1575,3 +1575,14 @@ body.consent-open { overflow: hidden; }
   margin-bottom: 36px;
   line-height: 1.6;
 }
+
+/* --- Animación scroll tarjetas consultoría --- */
+.c-card-anim {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.c-card-anim.c-card-in {
+  opacity: 1;
+  transform: translateY(0);
+}
