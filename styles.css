@@ -116,9 +116,9 @@ img { max-width: 100%; display: block; }
   .navbar__inner, así que en el estado de arriba la barra mide 81px y al
   hacer scroll baja a 77px (el comentario del min-height lo tiene anotado).
 */
+/* Hero ahora claro: el logo-top se muestra igual que el scrolled, sin filtro */
 .navbar__logo-top {
-  height: 48px;
-  filter: brightness(0) invert(1);
+  height: 40px;
 }
 .navbar.scrolled .navbar__logo-scrolled, .navbar.open .navbar__logo-scrolled { display: block; }
 .navbar:not(.scrolled):not(.open) .navbar__logo-top { display: block; }
@@ -176,30 +176,10 @@ img { max-width: 100%; display: block; }
 .navbar.open .navbar__toggle span i:first-child { transform: translateY(5px) rotate(45deg); }
 .navbar.open .navbar__toggle span i:last-child { transform: translateY(-5px) rotate(-45deg); }
 
-/* Mientras el navbar está transparente sobre el hero oscuro, el borde y las
-   líneas necesitan un tono claro para tener contraste. Al pasar a .scrolled
-   o .open (fondo claro) vuelven los colores base (--line / --ink), porque
-   estas reglas solo aplican cuando el navbar no tiene ninguna de las dos. */
-.navbar:not(.scrolled):not(.open) .navbar__toggle { border-color: rgba(246, 244, 242, .4); }
-.navbar:not(.scrolled):not(.open) .navbar__toggle span i { background: var(--paper); }
-.navbar:not(.scrolled):not(.open) .navbar__toggle:hover { border-color: rgba(246, 244, 242, .7); }
-.navbar:not(.scrolled):not(.open) .navbar__toggle:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; }
-
-/* Los enlaces del navbar también van claros mientras la barra está
-   transparente: sobre el hero oscuro (index.html) y sobre el encabezado
-   oscuro de la página legal (privacidad.html) el --ink-soft de base daba
-   2,02:1, bajo el 4,5:1 de WCAG AA. Con --paper queda 16,21:1.
-   La regla lleva dos :not(), así que su especificidad (0,4,1) le gana a
-   .navbar__links a:hover (0,2,1): sin la regla de hover de abajo el enlace
-   no tendría respuesta al pasar el cursor, y el --ink del hover tampoco se
-   vería sobre el fondo oscuro (1,00:1). El tono elegido es el mismo
-   rgba(246,244,242,.7) del toggle (8,32:1). */
-.navbar:not(.scrolled):not(.open) .navbar__links a {
-  color: var(--paper);
-}
-.navbar:not(.scrolled):not(.open) .navbar__links a:hover {
-  color: rgba(246, 244, 242, .7);
-}
+/* El hero ahora es claro (fondo marfil), así que el navbar transparente
+   ya tiene contraste suficiente con sus colores base (--line / --ink).
+   No se necesitan overrides de color claro: las reglas base de .navbar__links a
+   y .navbar__toggle son las que aplican en el estado transparente. */
 
 .navbar__mobile {
   display: none;
@@ -233,54 +213,78 @@ img { max-width: 100%; display: block; }
 
 /* ---------- Hero ---------- */
 /* ============================================================
-   HERO — composición split (texto navy izq / foto evento der)
-   Inspirado en la imagen de referencia: fondo navy oscuro a la
-   izquierda con copy en blanco/terracota y fotografía real del
-   evento a la derecha recortada con un arco decorativo.
+   HERO — composición split clara
+   Fondo marfil (--paper). Texto navy. Foto del evento a la
+   derecha que sangra hasta el borde. Círculos decorativos
+   terracota/navy en las cuatro esquinas como en la referencia.
    ============================================================ */
 .hero {
-  background: var(--brand-deep);
+  background: var(--paper);
   overflow: hidden;
   padding-top: 80px; /* altura navbar */
+  position: relative;
 }
 
-/* Contenedor split: dos columnas en desktop, apiladas en mobile */
+/* Círculos decorativos — esquinas, igual que la referencia */
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+/* Esquina inferior izquierda: círculo navy grande */
+.hero::before {
+  width: 320px;
+  height: 320px;
+  bottom: -80px;
+  left: -80px;
+  background: var(--brand-deep);
+  opacity: .9;
+}
+/* Esquina superior derecha: media luna terracota — se aplica en .hero__right */
+
+/* Contenedor split: dos columnas en desktop */
 .hero__split {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: calc(92vh - 80px);
-  max-width: 1440px;
-  margin: 0 auto;
-}
-
-/* ---- Panel izquierdo — copy ---- */
-.hero__left {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 72px 56px 80px 48px;
+  grid-template-columns: 46% 54%;
+  min-height: calc(88vh - 80px);
   position: relative;
   z-index: 1;
 }
 
-/* Línea decorativa terracota que sube por la izquierda (imita el arco de la ref) */
-.hero__left::before {
+/* ---- Panel izquierdo — copy sobre marfil ---- */
+.hero__left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 72px 48px 80px 7vw;
+  position: relative;
+}
+
+/* Círculo terracota pequeño en esquina inferior izquierda (encima del navy) */
+.hero__left::after {
   content: '';
   position: absolute;
-  left: 0;
-  top: 10%;
-  width: 3px;
-  height: 55%;
-  background: linear-gradient(to bottom, transparent, var(--blush) 40%, var(--blush) 60%, transparent);
-  border-radius: 2px;
+  width: 200px;
+  height: 200px;
+  bottom: -40px;
+  left: -40px;
+  border-radius: 50%;
+  background: var(--blush);
+  opacity: .7;
+  z-index: 0;
 }
 
 .hero__eyebrow {
+  position: relative;
+  z-index: 1;
   max-width: 420px;
-  margin: 0 0 24px;
-  font-size: 13px;
+  margin: 0 0 20px;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: .1em;
+  letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--blush);
 }
@@ -293,27 +297,35 @@ img { max-width: 100%; display: block; }
 .hero__rotating.fade-in  { opacity: 1; transform: translateY(0); }
 
 .hero h1 {
-  max-width: 560px;
+  position: relative;
+  z-index: 1;
+  max-width: 540px;
   margin: 0;
   font-family: var(--font-display);
   font-weight: 500;
   line-height: 1.08;
-  font-size: clamp(32px, 3.8vw, 56px);
-  color: var(--paper);
+  font-size: clamp(32px, 4vw, 58px);
+  color: var(--ink);        /* navy oscuro sobre marfil */
 }
+/* La palabra rotante va en terracota, igual que en la referencia */
+.hero h1 .hero__rotating { color: var(--blush); }
 
 .hero__sub {
-  max-width: 460px;
-  margin: 28px 0 0;
-  font-size: 17px;
-  line-height: 1.65;
-  color: rgba(246,244,242,.75);
+  position: relative;
+  z-index: 1;
+  max-width: 440px;
+  margin: 24px 0 0;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-soft);
 }
 .hero__ctas {
-  margin-top: 44px;
+  position: relative;
+  z-index: 1;
+  margin-top: 40px;
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 14px;
   align-items: center;
 }
 
@@ -321,38 +333,55 @@ img { max-width: 100%; display: block; }
 .hero__right {
   position: relative;
   overflow: hidden;
-  /* En desktop la foto ocupa toda la altura del grid */
-  min-height: 100%;
 }
 
-/* Arco decorativo terracota/navy detrás de la foto (capa visual de profundidad) */
-.hero__arc {
+/* Círculo terracota en esquina superior derecha */
+.hero__right::before {
+  content: '';
   position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 20% 50%, var(--blush) 0%, transparent 55%),
-              radial-gradient(circle at 80% 90%, var(--brand) 0%, transparent 50%);
-  opacity: .45;
-  z-index: 0;
+  width: 260px;
+  height: 260px;
+  top: -60px;
+  right: -60px;
+  border-radius: 50%;
+  background: var(--blush);
+  opacity: .55;
+  z-index: 2;
+}
+/* Círculo navy pequeño esquina inferior derecha */
+.hero__right::after {
+  content: '';
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  bottom: -40px;
+  right: -30px;
+  border-radius: 50%;
+  background: var(--brand-deep);
+  opacity: .25;
+  z-index: 2;
 }
 
-/* Foto del evento — ocupa todo el panel, recortada con clip-path elíptico
-   que redondea el borde izquierdo (imita el arco de la imagen de referencia) */
+/* Arco terracota grande detrás de la foto (capa de profundidad) */
+.hero__arc {
+  display: none; /* los arcos ahora van en ::before/::after */
+}
+
+/* Foto del evento — funde hacia la izquierda sobre el fondo marfil */
 .hero__photo {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 30%;
-  /* Borde izquierdo curvo: el punto de control del clip va al 18% del ancho */
-  clip-path: ellipse(100% 55% at 60% 50%);
+  object-position: center 28%;
   z-index: 1;
-  /* Viñeta lateral izquierda para que empalme con el panel navy */
-  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.6) 8%, black 22%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.6) 8%, black 22%);
+  /* Funde el borde izquierdo con el marfil del panel de texto */
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.5) 12%, black 30%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.5) 12%, black 30%);
 }
 
-/* ---- Botones (reutilizados fuera del hero también) ---- */
+/* ---- Botones ---- */
 .btn-primary {
   border-radius: 999px;
   background: var(--blush);
@@ -365,27 +394,25 @@ img { max-width: 100%; display: block; }
   cursor: pointer;
   transition: transform .2s, box-shadow .2s;
 }
-.btn-primary:hover { transform: scale(1.03); box-shadow: 0 6px 20px rgba(215,165,166,.35); }
+.btn-primary:hover { transform: scale(1.03); box-shadow: 0 6px 20px rgba(215,165,166,.4); }
 .btn-outline {
   border-radius: 999px;
-  border: 1.5px solid rgba(246,244,242,.45);
-  color: var(--paper);
+  border: 1.5px solid var(--brand);
+  color: var(--brand);
   padding: 15px 32px;
   font-size: 15px;
   font-weight: 600;
   text-decoration: none;
   transition: background-color .2s, border-color .2s;
 }
-.btn-outline:hover { background: rgba(246,244,242,.1); border-color: rgba(246,244,242,.7); }
+.btn-outline:hover { background: rgba(40,35,83,.07); }
 
 /* ---- Responsive ---- */
-/* Tablet: panel izquierdo más estrecho */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .hero__split { grid-template-columns: 55% 45%; }
-  .hero__left { padding: 64px 40px 72px 36px; }
+@media (min-width: 768px) and (max-width: 1100px) {
+  .hero__split { grid-template-columns: 50% 50%; }
+  .hero__left { padding: 60px 36px 72px 36px; }
 }
 
-/* Mobile: apila foto arriba, texto abajo */
 @media (max-width: 767px) {
   .hero__split {
     grid-template-columns: 1fr;
@@ -393,22 +420,20 @@ img { max-width: 100%; display: block; }
   }
   .hero__right {
     order: -1;
-    height: 52vw;
+    height: 55vw;
     min-height: 220px;
-    max-height: 340px;
+    max-height: 360px;
   }
   .hero__photo {
-    clip-path: none;
-    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
     object-position: center 25%;
   }
-  .hero__left {
-    padding: 40px 24px 64px;
-  }
-  .hero__left::before { display: none; }
-  .hero h1 { font-size: clamp(28px, 8vw, 40px); }
-  .hero__sub { font-size: 16px; }
+  .hero__left { padding: 36px 20px 64px; }
+  .hero__left::after { width: 130px; height: 130px; bottom: -20px; left: -20px; }
+  .hero::before { width: 180px; height: 180px; bottom: -50px; left: -50px; }
+  .hero h1 { font-size: clamp(28px, 8.5vw, 42px); }
+  .hero__sub { font-size: 15px; }
 }
 
 /* ---------- Quiénes somos ---------- */
