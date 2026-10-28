@@ -445,10 +445,9 @@ img { max-width: 100%; display: block; }
    clase propia y con más especificidad que la regla de los <p> de abajo,
    para que el título no herede el tamaño del texto de apoyo. */
 .credibility__item {
-  /* --paper-bright sobre --sand: la tarjeta sigue luminosa y el borde
-     --line (1,23:1 contra el relleno) apenas la separa, sin competir. */
   background: var(--paper-bright);
   border: 1px solid var(--line);
+  border-left: 3px solid var(--blush);
   border-radius: 10px;
   padding: 28px 24px;
 }
