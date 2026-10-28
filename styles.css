@@ -320,6 +320,13 @@ img { max-width: 100%; display: block; }
   padding: 0 24px 80px;
 }
 .hero__eyebrow { max-width: 420px; margin: 0 0 24px; font-size: 15px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--blush-soft); }
+.hero__rotating {
+  display: inline-block;
+  color: var(--blush);
+  transition: opacity .4s ease, transform .4s ease;
+}
+.hero__rotating.fade-out { opacity: 0; transform: translateY(8px); }
+.hero__rotating.fade-in  { opacity: 1; transform: translateY(0); }
 .hero h1 {
   max-width: 800px;
   margin: 0;

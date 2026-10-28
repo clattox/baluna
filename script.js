@@ -473,3 +473,20 @@ if (contactForm) {
     window.location.href = `mailto:contacto@agenciabaluna.cl?subject=${subject}&body=${body}`;
   });
 }
+
+/* ---------- Hero rotating text ---------- */
+(function () {
+  const phrases = ['activaciones BTL', 'eventos de marca', 'staff promocional', 'experiencias en terreno'];
+  const el = document.querySelector('.hero__rotating');
+  if (!el) return;
+  let i = 0;
+  function next() {
+    el.classList.add('fade-out');
+    setTimeout(() => {
+      i = (i + 1) % phrases.length;
+      el.textContent = phrases[i];
+      el.classList.remove('fade-out');
+    }, 420);
+  }
+  setInterval(next, 2800);
+})();
