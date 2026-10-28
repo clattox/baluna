@@ -778,7 +778,14 @@ h2 {
 /* Banda de tono más profundo (--sand-deep) entre la cobertura (--paper) y el
    contacto (--paper-warm): corta el tramo claro y enmarca el carrusel oscuro.
    Texto sobre este fondo: --ink 11,69:1 y --ink-soft 5,79:1 (AA). */
-.portafolio { padding: 72px 0 88px; background: var(--sand-deep); }
+.portafolio {
+  padding: 72px 0 88px;
+  background-color: var(--sand-deep);
+  background-image: url('assets/credibility-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 .port-header { margin-bottom: 40px; }
 .port-header h2 { font-size: clamp(32px, 4vw, 48px); }
 .port-sub { color: var(--ink-soft); margin-top: 8px; }
