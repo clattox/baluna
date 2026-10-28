@@ -358,7 +358,7 @@ img { max-width: 100%; display: block; }
 .btn-primary:hover { transform: scale(1.02); }
 .btn-outline {
   border-radius: 999px;
-  border: 1px solid rgba(246,244,242,.3);
+  border: 1.5px solid rgba(246,244,242,.55);
   color: var(--paper);
   padding: 15px 32px;
   font-size: 15px;
@@ -492,7 +492,7 @@ h2 {
   font-size: 12px;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--blush);
+  color: var(--brand);
   font-weight: 600;
   margin: 0 0 14px;
 }
