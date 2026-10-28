@@ -1550,9 +1550,15 @@ body.consent-open { overflow: hidden; }
 }
 .consultoria-card {
   background: var(--paper-bright);
-  border: 1px solid var(--line);
+  border: 1px solid transparent;
   border-radius: 14px;
   padding: 36px 28px;
+  transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s, border-color .3s;
+}
+.consultoria-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(23,19,53,.08);
+  border-color: var(--blush);
 }
 .consultoria-card__icon {
   color: var(--brand);
