@@ -19,7 +19,7 @@
      max-age de 7 días). Recalcular las dos huellas cada vez que se toquen.
      Antes se usaba el hash del commit, que obligaba a conocerlo antes de
      subir; la huella del archivo se calcula en local y cambia sola. -->
-<link rel="stylesheet" href="styles.css?v=d3221a7" />
+<link rel="stylesheet" href="styles.css?v=506ccb9" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -152,9 +152,31 @@
   <!-- ============ CREDIBILIDAD ============ -->
   <section class="credibility">
     <div class="credibility__grid">
-      <div class="credibility__item c-anim" data-delay="0"><p class="credibility__title">Operación nacional</p><p>Cobertura en todo Chile.</p></div>
-      <div class="credibility__item c-anim" data-delay="120"><p class="credibility__title">Cotizaciones &lt; 24 h</p><p>Respuesta rápida a proyectos.</p></div>
-      <div class="credibility__item c-anim" data-delay="240"><p class="credibility__title">Staff capacitado</p><p>Equipos preparados y supervisados.</p></div>
+
+      <div class="credibility__item c-anim" data-delay="0">
+        <div class="credibility__icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        </div>
+        <p class="credibility__title">Operación nacional</p>
+        <p>Presencia activa en las principales ciudades del norte, centro y sur de Chile.</p>
+      </div>
+
+      <div class="credibility__item c-anim" data-delay="120">
+        <div class="credibility__icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <p class="credibility__title">Cotizaciones en menos de 24 h</p>
+        <p>Respondemos rápido para que tu proyecto no espere.</p>
+      </div>
+
+      <div class="credibility__item c-anim" data-delay="240">
+        <div class="credibility__icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <p class="credibility__title">Staff capacitado</p>
+        <p>Equipos entrenados, supervisados y alineados con cada marca.</p>
+      </div>
+
     </div>
   </section>
 

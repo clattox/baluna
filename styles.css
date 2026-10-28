@@ -466,11 +466,28 @@ img { max-width: 100%; display: block; }
 .credibility__item {
   background: var(--paper-bright);
   border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 28px 24px;
+  border-radius: 14px;
+  padding: 36px 28px;
+  transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s, border-color .3s;
 }
-.credibility__grid .credibility__title { margin: 0; font-family: var(--font-display); font-size: 20px; color: var(--ink); font-weight: 500; }
-.credibility__grid p { margin: 4px 0 0; font-size: 15px; color: var(--ink-soft); }
+.credibility__item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(23,19,53,.08);
+  border-color: var(--blush);
+}
+.credibility__icon {
+  color: var(--brand);
+  margin-bottom: 20px;
+  display: flex;
+}
+.credibility__grid .credibility__title {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--ink);
+  font-weight: 500;
+}
+.credibility__grid p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--ink-soft); }
 @media (min-width: 640px) { .credibility__grid { padding: 96px 24px; } }
 
 /* ---------- Section shared ---------- */
