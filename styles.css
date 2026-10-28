@@ -176,10 +176,17 @@ img { max-width: 100%; display: block; }
 .navbar.open .navbar__toggle span i:first-child { transform: translateY(5px) rotate(45deg); }
 .navbar.open .navbar__toggle span i:last-child { transform: translateY(-5px) rotate(-45deg); }
 
-/* El hero ahora es claro (fondo marfil), así que el navbar transparente
-   ya tiene contraste suficiente con sus colores base (--line / --ink).
-   No se necesitan overrides de color claro: las reglas base de .navbar__links a
-   y .navbar__toggle son las que aplican en el estado transparente. */
+/* El hero de index.html es claro: el navbar transparente usa colores base.
+   En páginas con hero oscuro (blog, consultoria, privacidad) se agrega
+   .navbar--dark al <header> para que los links y el toggle sean blancos
+   mientras el navbar está transparente. Al hacer scroll pasan a .scrolled
+   y estas reglas dejan de aplicar (fondo claro, colores base). */
+.navbar--dark:not(.scrolled):not(.open) .navbar__toggle { border-color: rgba(246,244,242,.4); }
+.navbar--dark:not(.scrolled):not(.open) .navbar__toggle span i { background: var(--paper); }
+.navbar--dark:not(.scrolled):not(.open) .navbar__toggle:hover { border-color: rgba(246,244,242,.7); }
+.navbar--dark:not(.scrolled):not(.open) .navbar__toggle:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; }
+.navbar--dark:not(.scrolled):not(.open) .navbar__links a { color: var(--paper); }
+.navbar--dark:not(.scrolled):not(.open) .navbar__links a:hover { color: rgba(246,244,242,.7); }
 
 .navbar__mobile {
   display: none;
