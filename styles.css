@@ -1149,11 +1149,11 @@ form.contact-form {
 }
 .marca-logo:hover { opacity: 1; }
 
-/* Naut es blanco sobre transparente: sobre fondo navy es invisible.
-   brightness(0) invert(0) → negro no funciona; usamos hue-rotate para
-   dejarlo visible. Más simple: brightness(10) lo satura a blanco puro. */
+/* Naut viene en blanco sobre PNG transparente: sobre fondo claro es invisible.
+   brightness(0) lo convierte a negro puro manteniendo el alfa del PNG. */
 .marca-logo[src*="naut"] {
-  opacity: .7;
+  filter: brightness(0);
+  opacity: .6;
 }
 .marca-logo[src*="naut"]:hover { opacity: 1; }
 
