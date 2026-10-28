@@ -219,7 +219,7 @@ img { max-width: 100%; display: block; }
    terracota/navy en las cuatro esquinas como en la referencia.
    ============================================================ */
 .hero {
-  background: var(--paper);
+  background: var(--paper-warm);
   overflow: hidden;
   padding-top: 80px; /* altura navbar */
   position: relative;
@@ -241,7 +241,7 @@ img { max-width: 100%; display: block; }
   bottom: -80px;
   left: -80px;
   background: var(--brand-deep);
-  opacity: .9;
+  opacity: 1;
 }
 /* Esquina superior derecha: media luna terracota — se aplica en .hero__right */
 
@@ -273,7 +273,7 @@ img { max-width: 100%; display: block; }
   left: -40px;
   border-radius: 50%;
   background: var(--blush);
-  opacity: .7;
+  opacity: .92;
   z-index: 0;
 }
 
@@ -286,11 +286,11 @@ img { max-width: 100%; display: block; }
   font-weight: 600;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--blush);
+  color: #b87879;
 }
 .hero__rotating {
   display: inline-block;
-  color: var(--blush);
+  color: #b87879;
   transition: opacity .4s ease, transform .4s ease;
 }
 .hero__rotating.fade-out { opacity: 0; transform: translateY(8px); }
@@ -307,8 +307,8 @@ img { max-width: 100%; display: block; }
   font-size: clamp(32px, 4vw, 58px);
   color: var(--ink);        /* navy oscuro sobre marfil */
 }
-/* La palabra rotante va en terracota, igual que en la referencia */
-.hero h1 .hero__rotating { color: var(--blush); }
+/* La palabra rotante va en terracota intensificada sobre fondo cálido */
+.hero h1 .hero__rotating { color: #b87879; }
 
 .hero__sub {
   position: relative;
@@ -317,7 +317,7 @@ img { max-width: 100%; display: block; }
   margin: 24px 0 0;
   font-size: 16px;
   line-height: 1.7;
-  color: var(--ink-soft);
+  color: var(--ink);
 }
 .hero__ctas {
   position: relative;
@@ -345,7 +345,7 @@ img { max-width: 100%; display: block; }
   right: -60px;
   border-radius: 50%;
   background: var(--blush);
-  opacity: .55;
+  opacity: .85;
   z-index: 2;
 }
 /* Círculo navy pequeño esquina inferior derecha */
