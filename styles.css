@@ -1071,7 +1071,7 @@ form.contact-form {
   el gap que va después de la última foto, de ahí el padding-right igual
   al gap: sin él el recorrido queda medio gap corto (32px) y el loop salta.
 */
-.marcas { background: var(--brand-deep); padding: 72px 0; border-bottom: none; }
+.marcas { background: var(--brand-deep); padding: 40px 0; border-bottom: none; }
 .marcas__titulo { max-width: 560px; color: var(--paper); font-size: 20px; font-weight: 400; letter-spacing: .01em; }
 /* El aire entre el título y la banda: el h2 va con margin 0, así que este
    margen es el único respiro que tienen (antes lo daba el grid).
@@ -1156,7 +1156,7 @@ form.contact-form {
 }
 /* Paddings distintos a los de section (96/128px): .marcas los sobreescribe
    por especificidad, así que el corte necesita su propio media query. */
-@media (min-width: 768px) { .marcas { padding: 96px 0; } }
+@media (min-width: 768px) { .marcas { padding: 56px 0; } }
 
 /* ---------- Footer ---------- */
 footer { background: var(--ink); color: rgba(246,244,242,.7); padding: 48px 24px; }
