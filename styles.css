@@ -1106,18 +1106,23 @@ form.contact-form {
   width: 140px;
   height: 48px;
   object-fit: contain;
-  opacity: .7;
+  opacity: .75;
   flex-shrink: 0;
-  filter: brightness(0) invert(1);
   transition: opacity .25s;
 }
 .marca-logo:hover { opacity: 1; }
 
-/* Naut era blanco sobre fondo claro (invisible). Con fondo navy y el
-   brightness(0) invert(1) de la clase base queda blanco sin regla extra. */
+/* Naut es blanco sobre transparente: sobre fondo navy es invisible.
+   brightness(0) invert(0) → negro no funciona; usamos hue-rotate para
+   dejarlo visible. Más simple: brightness(10) lo satura a blanco puro. */
+.marca-logo[src*="naut"] {
+  filter: brightness(10);
+  opacity: .7;
+}
+.marca-logo[src*="naut"]:hover { opacity: 1; }
 
-/* Frama era lima claro sobre fondo claro (invisible). Con fondo navy y el
-   filtro base queda blanco como el resto — sin regla extra. */
+/* Frama es lima claro (#C9F565): sobre navy tiene contraste suficiente,
+   no necesita filtro. */
 
 /* La Custodia y Quelen son isotipos casi cuadrados (los dos archivos miden
    97x96), así que en la caja de 140x48 quedan diminutos: van en una caja
