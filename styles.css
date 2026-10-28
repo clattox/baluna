@@ -236,7 +236,7 @@ img { max-width: 100%; display: block; }
   position: relative;
   min-height: 92vh;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   overflow: hidden;
   background: var(--brand-deep);
   padding-top: 80px;
@@ -325,8 +325,8 @@ img { max-width: 100%; display: block; }
   margin: 0;
   font-family: var(--font-display);
   font-weight: 500;
-  line-height: .95;
-  font-size: clamp(36px, 9vw, 56px);
+  line-height: 1.05;
+  font-size: clamp(32px, 7vw, 44px);
   color: var(--paper);
   text-wrap: balance;
 }
@@ -368,8 +368,8 @@ img { max-width: 100%; display: block; }
 }
 .btn-outline:hover { background: rgba(246,244,242,.1); }
 
-@media (min-width: 640px) { .hero h1 { font-size: 52px; } }
-@media (min-width: 768px) { .hero h1 { font-size: 68px; } }
+@media (min-width: 640px) { .hero h1 { font-size: 44px; } }
+@media (min-width: 768px) { .hero h1 { font-size: 52px; } }
 
 /* ---------- Quiénes somos ---------- */
 /* Va justo después del hero y antes de la banda de marcas: el texto explica
@@ -447,7 +447,6 @@ img { max-width: 100%; display: block; }
 .credibility__item {
   background: var(--paper-bright);
   border: 1px solid var(--line);
-  border-left: 3px solid var(--blush);
   border-radius: 10px;
   padding: 28px 24px;
 }
@@ -526,88 +525,40 @@ h2 {
   position: relative;
   border-radius: 14px;
   overflow: hidden;
-  min-height: 340px;
+  border: 1px solid var(--line);
   display: flex;
-  align-items: flex-end;
-  transition: transform .35s cubic-bezier(.22,1,.36,1);
+  align-items: flex-start;
+  transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s;
 }
-.svc-item:hover { transform: translateY(-3px); }
+.svc-item:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(23,21,43,.08); }
+.svc-item--dark  { background: var(--brand); }
+.svc-item--light { background: var(--paper-bright); }
 
-/* Foto de fondo (via CSS custom property --svc-photo del inline style) */
-.svc-item__photo {
-  position: absolute;
-  inset: 0;
-  background-image: var(--svc-photo);
-  background-size: cover;
-  background-position: center;
-  transition: transform .5s cubic-bezier(.22,1,.36,1);
-}
-.svc-item:hover .svc-item__photo { transform: scale(1.04); }
-
-/* Velo oscuro: tarjeta --dark */
-.svc-item--dark .svc-item__photo::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(40,35,83,.88) 18%,
-    rgba(40,35,83,.25) 50%,
-    rgba(40,35,83,.0) 100%
-  );
-}
-
-/* Velo claro: tarjeta --light */
-.svc-item--light .svc-item__photo::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to right,
-    rgba(246,244,242,.92) 22%,
-    rgba(246,244,242,.42) 50%,
-    rgba(246,244,242,.0) 100%
-  );
-}
+/* Foto oculta (se mantiene en HTML para no cambiar estructura) */
+.svc-item__photo { display: none; }
 
 /* Cuerpo del texto */
 .svc-item__body {
-  position: relative;
-  z-index: 1;
   padding: 32px 28px;
   width: 100%;
 }
 
-/* Número editorial */
-.svc-num {
-  display: block;
-  font-size: 11px;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  font-weight: 600;
-}
-.svc-item--dark .svc-num  { color: var(--blush); }
-.svc-item--light .svc-num { color: var(--brand); opacity: .7; }
-
 /* Título */
 .svc-item__body h3 {
   font-family: var(--font-display);
-  font-size: clamp(22px, 2.4vw, 30px);
+  font-size: clamp(22px, 2.4vw, 28px);
   font-weight: 500;
   margin: 0 0 10px;
   line-height: 1.15;
-  max-width: 260px;
 }
 .svc-item--dark  .svc-item__body h3 { color: var(--paper); }
 .svc-item--light .svc-item__body h3 { color: var(--ink); }
 
 /* Descripción */
 .svc-item__body p {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.6;
   margin: 0 0 18px;
-  max-width: 240px;
 }
 .svc-item--dark  .svc-item__body p { color: rgba(246,244,242,.72); }
 .svc-item--light .svc-item__body p { color: var(--ink-soft); }
@@ -640,13 +591,7 @@ h2 {
   border: 1px solid rgba(40,35,83,.14);
 }
 
-/* En desktop la tarjeta claro muestra texto solo en la mitad izquierda */
-@media (min-width: 640px) {
-  .svc-item--light .svc-item__body { max-width: 55%; }
-  .svc-item { min-height: 380px; }
-}
 @media (min-width: 1024px) {
-  .svc-item { min-height: 420px; }
   .svc-item__body { padding: 36px 32px; }
 }
 
@@ -780,11 +725,7 @@ h2 {
    Texto sobre este fondo: --ink 11,69:1 y --ink-soft 5,79:1 (AA). */
 .portafolio {
   padding: 72px 0 88px;
-  background-color: var(--sand-deep);
-  background-image: url('assets/credibility-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background: var(--sand-deep);
 }
 .port-header { margin-bottom: 40px; }
 .port-header h2 { font-size: clamp(32px, 4vw, 48px); }
@@ -1071,8 +1012,8 @@ form.contact-form {
   el gap que va después de la última foto, de ahí el padding-right igual
   al gap: sin él el recorrido queda medio gap corto (32px) y el loop salta.
 */
-.marcas { background: var(--brand-deep); padding: 40px 0; border-bottom: none; }
-.marcas__titulo { max-width: 560px; color: var(--paper); font-size: 20px; font-weight: 400; letter-spacing: .01em; }
+.marcas { background: var(--paper); padding: 40px 0; border-bottom: 1px solid var(--line); }
+.marcas__titulo { max-width: 560px; color: var(--ink); font-size: 20px; font-weight: 400; letter-spacing: .01em; }
 /* El aire entre el título y la banda: el h2 va con margin 0, así que este
    margen es el único respiro que tienen (antes lo daba el grid).
    Los 8px de padding arriba y abajo son para que los logos cuadrados (72x72)
@@ -1116,7 +1057,6 @@ form.contact-form {
    brightness(0) invert(0) → negro no funciona; usamos hue-rotate para
    dejarlo visible. Más simple: brightness(10) lo satura a blanco puro. */
 .marca-logo[src*="naut"] {
-  filter: brightness(10);
   opacity: .7;
 }
 .marca-logo[src*="naut"]:hover { opacity: 1; }
@@ -1157,6 +1097,7 @@ form.contact-form {
 /* Paddings distintos a los de section (96/128px): .marcas los sobreescribe
    por especificidad, así que el corte necesita su propio media query. */
 @media (min-width: 768px) { .marcas { padding: 56px 0; } }
+
 
 /* ---------- Footer ---------- */
 footer { background: var(--ink); color: rgba(246,244,242,.7); padding: 48px 24px; }
