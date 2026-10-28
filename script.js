@@ -275,8 +275,11 @@ const navToggle = document.getElementById("navToggle");
 const navMobile = document.getElementById("navMobile");
 
 if (navbar && navToggle && navMobile) {
+  const isDarkPage = navbar.classList.contains("navbar--dark");
   function updateNavbar() {
-    const scrolled = window.scrollY > 24;
+    /* En páginas con hero oscuro el navbar arranca siempre claro (scrolled)
+       para que los links se lean sobre el fondo de la página al inicio. */
+    const scrolled = isDarkPage ? true : window.scrollY > 24;
     navbar.classList.toggle("scrolled", scrolled);
   }
   updateNavbar();
