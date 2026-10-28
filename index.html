@@ -19,7 +19,7 @@
      max-age de 7 días). Recalcular las dos huellas cada vez que se toquen.
      Antes se usaba el hash del commit, que obligaba a conocerlo antes de
      subir; la huella del archivo se calcula en local y cambia sola. -->
-<link rel="stylesheet" href="styles.css?v=542222f" />
+<link rel="stylesheet" href="styles.css?v=8db9bbc" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -64,21 +64,38 @@
 <main>
 
   <!-- ============ HERO ============ -->
+  <!-- Composición split: columna izquierda navy con el copy, columna derecha
+       con la foto real del evento recortada en forma de arco (clip-path).
+       En mobile la foto va arriba (order: -1) con altura fija y el texto
+       debajo sobre fondo navy. La imagen es un <img> real para que sea
+       indexable y no dependa de background-image. -->
   <section class="hero" id="inicio">
-    <!-- Fondo decorativo: imagen estática (assets/hero-bg.jpg), pintada por
-         CSS en .hero__bg. El encuadre y el porqué del scrim están comentados
-         en styles.css; antes acá iba un <video> que se descartó (su master era
-         vertical y en desktop se estiraba ~3x). -->
-    <div class="hero__bg" aria-hidden="true"></div>
-    <div class="hero__scrim" aria-hidden="true"></div>
-    <div class="hero__content">
-      <p class="hero__eyebrow c-anim" data-delay="0">Agencia BTL</p>
-      <h1 class="c-anim" data-delay="100">Expertos en<br><span class="hero__rotating" aria-live="polite">activaciones BTL</span></h1>
-      <p class="hero__sub c-anim" data-delay="200">Diseñamos y ejecutamos experiencias de marca, activaciones BTL y eventos con equipos preparados para operar en todo Chile.</p>
-      <div class="hero__ctas c-anim" data-delay="320">
-        <a href="#contacto" class="btn-primary">Hablemos de tu proyecto</a>
-        <a href="#portafolio" class="btn-outline">Explorar experiencias</a>
+    <div class="hero__split">
+
+      <!-- Panel izquierdo: copy -->
+      <div class="hero__left">
+        <p class="hero__eyebrow c-anim" data-delay="0">Agencia BTL</p>
+        <h1 class="c-anim" data-delay="100">Expertos en<br><span class="hero__rotating" aria-live="polite">activaciones BTL</span></h1>
+        <p class="hero__sub c-anim" data-delay="200">Diseñamos y ejecutamos experiencias de marca, activaciones BTL y eventos con equipos preparados para operar en todo Chile.</p>
+        <div class="hero__ctas c-anim" data-delay="320">
+          <a href="#contacto" class="btn-primary">Hablemos de tu proyecto</a>
+          <a href="#portafolio" class="btn-outline">Explorar experiencias</a>
+        </div>
       </div>
+
+      <!-- Panel derecho: foto del evento -->
+      <div class="hero__right" aria-hidden="true">
+        <!-- Arco decorativo terracota detrás de la foto -->
+        <div class="hero__arc"></div>
+        <img
+          src="assets/hero-evento.jpg"
+          alt="Montaje de evento corporativo producido por Baluna"
+          class="hero__photo"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+
     </div>
   </section>
 

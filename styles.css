@@ -232,94 +232,58 @@ img { max-width: 100%; display: block; }
 }
 
 /* ---------- Hero ---------- */
+/* ============================================================
+   HERO — composición split (texto navy izq / foto evento der)
+   Inspirado en la imagen de referencia: fondo navy oscuro a la
+   izquierda con copy en blanco/terracota y fotografía real del
+   evento a la derecha recortada con un arco decorativo.
+   ============================================================ */
 .hero {
-  position: relative;
-  min-height: 92vh;
-  display: flex;
-  align-items: flex-end;
-  overflow: hidden;
   background: var(--brand-deep);
-  padding-top: 80px;
+  overflow: hidden;
+  padding-top: 80px; /* altura navbar */
 }
-/*
-  Fondo del hero: la imagen estática assets/hero-bg.jpg (1672x941, 1,78:1).
-  Antes iba acá un <video> que ya no está en el repo (assets/hero.mp4): el
-  master de ese video era vertical (480x854) y en desktop se estiraba ~3x, así
-  que se veía blando. Esta imagen es horizontal y en el hero de 1280px entra
-  casi 1:1, así que se ve nítida.
-  Va antes que .hero__scrim en el DOM y los dos son position: absolute sin
-  z-index, así que el scrim se sigue pintando encima y mantiene el contraste
-  del texto y del navbar. El fondo de .hero (--brand-deep) queda de respaldo
-  si la imagen no carga o mientras llega.
-  background-size: cover llena el hero sin deformar: la imagen conserva su
-  relación 1,78:1 y lo que sobra se recorta (nunca se estira ni deja franjas).
-  background-position: center right ancla el encuadre al borde derecho porque
-  el resaltado salmón de la imagen vive ahí; en desktop casi no se recorta
-  nada y en mobile el recorte es fuerte (el hero queda alto y angosto), así
-  que la franja que se ve es la derecha de la imagen. La legibilidad del texto
-  no depende de eso, sino del scrim: va abajo, donde el degradado es más
-  opaco. Números medidos en Chrome a 375 y 1280px en el comentario del scrim.
-  Medición de la cobertura (Playwright/Chrome, dsf 1): la caja de .hero__bg
-  coincide con la de .hero (1280x723,8 y 375x805,8), cover aplica una sola
-  escala en los dos ejes (0,769 y 0,856), y al comparar el fondo ya renderizado
-  contra la imagen fuente reescalada y recortada con esa misma cuenta la
-  diferencia media de píxeles es 0,56 (1280) y 1,02 (375): sin franjas, sin
-  deformación y con el recorte donde dice background-position.
-  El `background-repeat` queda en su valor inicial (repeat) y es inerte:
-  cubriendo la caja, no hay mosaico posible.
-*/
-.hero__bg {
-  position: absolute;
-  inset: 0;
-  background-image: url('assets/hero-bg.jpg');
-  background-size: cover;
-  background-position: center right;
-}
-/*
-  En mobile el hero queda alto y angosto (375x805,8), así que cover recorta
-  ~74% del ancho de la imagen y el anclaje a la derecha deja ver la franja
-  clara: medido con center right, la fila de arriba detrás del navbar daba
-  [127,87,116] y ahí el tope del scrim sólo llega a .65, o sea el wordmark y
-  el icono quedaban sobre la zona más clara de la foto. Anclando a la
-  izquierda se ve la zona oscura de la imagen y el scrim vuelve a tener poco
-  que tapar. Desde 640px el hero es menos angosto y la franja visible ya
-  incluye la zona clara de la derecha, que es lo que se quiere en desktop.
-*/
-@media (max-width: 639px) {
-  .hero__bg { background-position: left center; }
-}
-/*
-  El scrim oscurece el fondo (hoy la imagen .hero__bg) para que el texto y el
-  navbar se lean. Sus alfas son los que se eligieron cuando el hero tenía el
-  video provisional, midiendo sobre sus fotogramas más claros en la franja del
-  navbar (tope .45 → 3,38:1; .55 → 4,50:1; .65 → 6,45:1; se dejó el .65), con
-  el umbral 4,5:1 de los enlaces, que son texto. Con la imagen estática se
-  volvieron a medir en Chrome y no hubo que tocarlos: el texto del hero pasa
-  con margen en los dos anchos (peor caso el eyebrow y el párrafo a 375px,
-  6,37:1 sobre el píxel más claro que les toca; el h1 a 375px, 8,98:1), y en
-  la franja del navbar el enlace más justo a 1280px da 12,83:1, el wordmark a
-  375px 13,26:1 y el icono hamburguesa 9,30:1.
-  En 375px el recorte de la imagen deja la zona clara justo arriba (la franja
-  del navbar: [127,87,116]), así que ahí el scrim es lo único que separa el
-  wordmark del fondo. De ahí que el tope llegue a .65.
-  Con ese .65 el fondo aporta 35% y sigue viéndose: conserva luminancia propia
-  (medido en 1280px, fila de arriba: [62,45,85] contra el --brand-deep
-  [23,19,53] del respaldo) y no es un rectángulo plano. El resto de la rampa
-  es el mismo degradado suave de siempre.
-*/
-.hero__scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, var(--brand-deep), rgba(23,19,53,.8) 55%, rgba(23,19,53,.75) 85%, rgba(23,19,53,.65));
-}
-.hero__content {
-  position: relative;
-  width: 100%;
-  max-width: 1152px;
+
+/* Contenedor split: dos columnas en desktop, apiladas en mobile */
+.hero__split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(92vh - 80px);
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0 24px 80px;
 }
-.hero__eyebrow { max-width: 420px; margin: 0 0 24px; font-size: 15px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--blush-soft); }
+
+/* ---- Panel izquierdo — copy ---- */
+.hero__left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 72px 56px 80px 48px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Línea decorativa terracota que sube por la izquierda (imita el arco de la ref) */
+.hero__left::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10%;
+  width: 3px;
+  height: 55%;
+  background: linear-gradient(to bottom, transparent, var(--blush) 40%, var(--blush) 60%, transparent);
+  border-radius: 2px;
+}
+
+.hero__eyebrow {
+  max-width: 420px;
+  margin: 0 0 24px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--blush);
+}
 .hero__rotating {
   display: inline-block;
   color: var(--blush);
@@ -327,29 +291,68 @@ img { max-width: 100%; display: block; }
 }
 .hero__rotating.fade-out { opacity: 0; transform: translateY(8px); }
 .hero__rotating.fade-in  { opacity: 1; transform: translateY(0); }
+
 .hero h1 {
-  max-width: 800px;
+  max-width: 560px;
   margin: 0;
   font-family: var(--font-display);
   font-weight: 500;
-  line-height: 1.05;
-  font-size: clamp(32px, 7vw, 44px);
+  line-height: 1.08;
+  font-size: clamp(32px, 3.8vw, 56px);
   color: var(--paper);
-  text-wrap: balance;
 }
-/* El párrafo de apoyo. El selector es de clase y no ".hero p" porque el
-   hero tiene dos párrafos con roles distintos (eyebrow y sub) y ".hero p"
-   (0,1,1) les ganaba a sus clases (0,1,0): les imponía el 18px, el margen de
-   24px y el .8 de opacidad a los dos, incluido el eyebrow. */
+
 .hero__sub {
-  max-width: 520px;
+  max-width: 460px;
   margin: 28px 0 0;
-  font-size: 19px;
-  line-height: 1.6;
-  color: rgba(246,244,242,.82);
-  text-wrap: balance;
+  font-size: 17px;
+  line-height: 1.65;
+  color: rgba(246,244,242,.75);
 }
-.hero__ctas { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+.hero__ctas {
+  margin-top: 44px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+/* ---- Panel derecho — foto del evento ---- */
+.hero__right {
+  position: relative;
+  overflow: hidden;
+  /* En desktop la foto ocupa toda la altura del grid */
+  min-height: 100%;
+}
+
+/* Arco decorativo terracota/navy detrás de la foto (capa visual de profundidad) */
+.hero__arc {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 50%, var(--blush) 0%, transparent 55%),
+              radial-gradient(circle at 80% 90%, var(--brand) 0%, transparent 50%);
+  opacity: .45;
+  z-index: 0;
+}
+
+/* Foto del evento — ocupa todo el panel, recortada con clip-path elíptico
+   que redondea el borde izquierdo (imita el arco de la imagen de referencia) */
+.hero__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  /* Borde izquierdo curvo: el punto de control del clip va al 18% del ancho */
+  clip-path: ellipse(100% 55% at 60% 50%);
+  z-index: 1;
+  /* Viñeta lateral izquierda para que empalme con el panel navy */
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.6) 8%, black 22%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.6) 8%, black 22%);
+}
+
+/* ---- Botones (reutilizados fuera del hero también) ---- */
 .btn-primary {
   border-radius: 999px;
   background: var(--blush);
@@ -360,23 +363,53 @@ img { max-width: 100%; display: block; }
   text-decoration: none;
   border: none;
   cursor: pointer;
-  transition: transform .2s;
+  transition: transform .2s, box-shadow .2s;
 }
-.btn-primary:hover { transform: scale(1.02); }
+.btn-primary:hover { transform: scale(1.03); box-shadow: 0 6px 20px rgba(215,165,166,.35); }
 .btn-outline {
   border-radius: 999px;
-  border: 1.5px solid rgba(246,244,242,.55);
+  border: 1.5px solid rgba(246,244,242,.45);
   color: var(--paper);
   padding: 15px 32px;
   font-size: 15px;
   font-weight: 600;
   text-decoration: none;
-  transition: background-color .2s;
+  transition: background-color .2s, border-color .2s;
 }
-.btn-outline:hover { background: rgba(246,244,242,.1); }
+.btn-outline:hover { background: rgba(246,244,242,.1); border-color: rgba(246,244,242,.7); }
 
-@media (min-width: 640px) { .hero h1 { font-size: 44px; } }
-@media (min-width: 768px) { .hero h1 { font-size: 52px; } }
+/* ---- Responsive ---- */
+/* Tablet: panel izquierdo más estrecho */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero__split { grid-template-columns: 55% 45%; }
+  .hero__left { padding: 64px 40px 72px 36px; }
+}
+
+/* Mobile: apila foto arriba, texto abajo */
+@media (max-width: 767px) {
+  .hero__split {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .hero__right {
+    order: -1;
+    height: 52vw;
+    min-height: 220px;
+    max-height: 340px;
+  }
+  .hero__photo {
+    clip-path: none;
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    object-position: center 25%;
+  }
+  .hero__left {
+    padding: 40px 24px 64px;
+  }
+  .hero__left::before { display: none; }
+  .hero h1 { font-size: clamp(28px, 8vw, 40px); }
+  .hero__sub { font-size: 16px; }
+}
 
 /* ---------- Quiénes somos ---------- */
 /* Va justo después del hero y antes de la banda de marcas: el texto explica
