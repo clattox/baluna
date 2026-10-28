@@ -1072,7 +1072,7 @@ form.contact-form {
   al gap: sin él el recorrido queda medio gap corto (32px) y el loop salta.
 */
 .marcas { background: var(--brand-deep); padding: 72px 0; border-bottom: none; }
-.marcas__titulo { max-width: 560px; color: var(--paper); font-size: 16px; font-weight: 400; letter-spacing: .04em; text-transform: uppercase; }
+.marcas__titulo { max-width: 560px; color: var(--paper); font-size: 19px; font-weight: 400; letter-spacing: .01em; }
 /* El aire entre el título y la banda: el h2 va con margin 0, así que este
    margen es el único respiro que tienen (antes lo daba el grid).
    Los 8px de padding arriba y abajo son para que los logos cuadrados (72x72)
