@@ -19,7 +19,7 @@
      max-age de 7 días). Recalcular las dos huellas cada vez que se toquen.
      Antes se usaba el hash del commit, que obligaba a conocerlo antes de
      subir; la huella del archivo se calcula en local y cambia sola. -->
-<link rel="stylesheet" href="styles.css?v=1949495" />
+<link rel="stylesheet" href="styles.css?v=f2c6154" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -44,7 +44,7 @@
       <a href="#contacto">Contacto</a>
       <a href="consultoria.html">Consultoría</a>
     </nav>
-    <a href="#contacto" class="navbar__cta">Cotizar evento</a>
+    <button type="button" class="navbar__cta" data-modal-open>Cotizar evento</button>
     <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
       <span><i></i><i></i></span>
     </button>
@@ -55,7 +55,7 @@
     <a href="#portafolio">Portafolio</a>
     <a href="#contacto">Contacto</a>
     <a href="consultoria.html">Consultoría</a>
-    <a href="#contacto" class="navbar__cta">Cotizar evento</a>
+    <button type="button" class="navbar__cta" data-modal-open>Cotizar evento</button>
   </div>
 </header>
 
@@ -76,7 +76,7 @@
         <h1 class="c-anim" data-delay="100">Expertos en<br><span class="hero__rotating" aria-live="polite">activaciones BTL</span></h1>
         <p class="hero__sub c-anim" data-delay="200">Diseñamos y ejecutamos experiencias de marca, activaciones BTL y eventos con equipos preparados para operar en todo Chile.</p>
         <div class="hero__ctas c-anim" data-delay="320">
-          <a href="#contacto" class="btn-primary">Hablemos de tu proyecto</a>
+          <button type="button" class="btn-primary" data-modal-open>Hablemos de tu proyecto</button>
           <a href="#portafolio" class="btn-outline">Explorar experiencias</a>
         </div>
       </div>
@@ -215,8 +215,8 @@
         <div class="svc-item svc-item--dark c-anim" data-delay="0" style="--svc-photo: url('assets/portfolio/btl_1xbet.jpg')">
           <div class="svc-item__photo" aria-hidden="true"></div>
           <div class="svc-item__body">
-            <h3>BTL y activaciones</h3>
-            <p>Experiencias que conectan marcas con personas.</p>
+            <h3>Activaciones BTL</h3>
+            <p>Experiencias de marca en retail y espacios públicos que conectan marcas con personas.</p>
             <ul class="svc-tags">
               <li>Sampling</li><li>Roadshows</li><li>Retail</li><li>Brand experience</li>
             </ul>
@@ -227,10 +227,10 @@
         <div class="svc-item svc-item--light c-anim" data-delay="120" style="--svc-photo: url('assets/portfolio/clinica_biobio.jpg')">
           <div class="svc-item__photo" aria-hidden="true"></div>
           <div class="svc-item__body">
-            <h3>Eventos y<br>lanzamientos</h3>
-            <p>Planificación y ejecución de experiencias corporativas.</p>
+            <h3>Eventos corporativos</h3>
+            <p>Planificación, acreditación y ejecución de experiencias corporativas.</p>
             <ul class="svc-tags">
-              <li>Lanzamientos</li><li>Eventos corporativos</li><li>Ferias</li><li>Producción</li>
+              <li>Aniversarios</li><li>Cenas</li><li>Paseos</li><li>Fiestas de fin de año</li><li title="Lanzamientos de productos y reconocimientos">Lanzamientos y premiaciones</li>
             </ul>
           </div>
         </div>
@@ -376,37 +376,57 @@
     backend. El numero de WhatsApp ya es el real de la agencia.
   -->
   <section class="contact" id="contacto">
-    <div class="wrap contact-grid">
+    <div class="wrap contact-grid contact-grid--solo">
       <div class="contact-intro">
-        <h2 class="c-anim" data-delay="0">¿Qué experiencia<br>vamos a crear juntos?</h2>
+        <h2 class="c-anim" data-delay="0">Trabajemos juntos</h2>
         <p class="c-anim" data-delay="120">Cuéntanos qué necesitas. Nosotros hacemos que suceda.</p>
         <div class="contact-links">
-          <a href="mailto:contacto@agenciabaluna.cl">contacto@agenciabaluna.cl</a>
-          <a href="https://wa.me/56976797346" target="_blank" rel="noopener noreferrer">WhatsApp directo</a>
-          <a href="https://www.instagram.com/agenciabaluna.cl/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="mailto:contacto@agenciabaluna.cl"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>contacto@agenciabaluna.cl</a>
+          <a href="https://wa.me/56976797346" target="_blank" rel="noopener noreferrer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.65-4.95A8.5 8.5 0 1 1 9 19.35z"/><path d="M8.5 9.5c0 3 2.5 5.5 5.5 5.5"/></svg>WhatsApp directo</a>
+          <a href="https://www.instagram.com/agenciabaluna.cl/" target="_blank" rel="noopener noreferrer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Instagram</a>
         </div>
+        <button type="button" class="btn-primary c-anim" data-delay="200" data-modal-open>Solicitar cotización</button>
       </div>
-      <form class="contact-form" id="contactForm">
-        <label class="field"><span class="label">Nombre <span class="req">*</span></span><input type="text" name="nombre" required /></label>
-        <label class="field"><span class="label">Empresa <span class="req">*</span></span><input type="text" name="empresa" required /></label>
-        <label class="field"><span class="label">Email <span class="req">*</span></span><input type="email" name="email" required /></label>
-        <label class="field"><span class="label">Teléfono</span><input type="tel" name="telefono" /></label>
-        <label class="field"><span class="label">Tipo de evento</span><input type="text" name="tipoEvento" /></label>
-        <label class="field"><span class="label">Ciudad</span><input type="text" name="ciudad" /></label>
-        <label class="field col-span-2"><span class="label">Fecha estimada</span><input type="date" name="fecha" /></label>
-        <label class="field col-span-2"><span class="label">Mensaje / requerimientos</span><textarea name="mensaje" rows="4"></textarea></label>
-        <button type="submit">Solicitar cotización</button>
-      </form>
     </div>
   </section>
 
   <!-- ============ CTA FINAL ============ -->
   <section class="final-cta">
     <h2 class="c-anim" data-delay="0">Tu próxima experiencia empieza aquí</h2>
-    <a href="#contacto" class="btn-primary c-anim" data-delay="150">Cotizar proyecto →</a>
+    <button type="button" class="btn-primary c-anim" data-delay="150" data-modal-open>Cotizar proyecto →</button>
   </section>
 
 </main>
+
+<!-- ============ MODAL FORMULARIO DE CONTACTO ============ -->
+<!--
+  Pop-up con el formulario de cotización. Se abre: (a) al hacer clic en
+  "Cotizar evento" del navbar o "Solicitar cotización" en #contacto, o
+  (b) automáticamente una vez por sesión, pasados unos segundos de
+  navegación (script.js, guardado en sessionStorage para no insistir).
+  Tiene botón de cierre y se cierra también con Escape o clic en el fondo.
+-->
+<div class="contact-modal" id="contactModal" hidden>
+  <div class="contact-modal__backdrop" data-modal-close></div>
+  <div class="contact-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+    <button type="button" class="contact-modal__close" data-modal-close aria-label="Cerrar formulario">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <h2 id="contactModalTitle">Hablemos de tu proyecto</h2>
+    <p>Completa el siguiente formulario y nos pondremos en contacto contigo a la brevedad para asesorarte.</p>
+    <form class="contact-form" id="contactForm">
+      <label class="field"><span class="label">Nombre <span class="req">*</span></span><input type="text" name="nombre" required /></label>
+      <label class="field"><span class="label">Empresa <span class="req">*</span></span><input type="text" name="empresa" required /></label>
+      <label class="field"><span class="label">Email <span class="req">*</span></span><input type="email" name="email" required /></label>
+      <label class="field"><span class="label">Teléfono</span><input type="tel" name="telefono" /></label>
+      <label class="field"><span class="label">Tipo de evento</span><input type="text" name="tipoEvento" /></label>
+      <label class="field"><span class="label">Ciudad</span><input type="text" name="ciudad" /></label>
+      <label class="field col-span-2"><span class="label">Fecha estimada</span><input type="date" name="fecha" /></label>
+      <label class="field col-span-2"><span class="label">Mensaje / requerimientos</span><textarea name="mensaje" rows="4"></textarea></label>
+      <button type="submit">Solicitar cotización</button>
+    </form>
+  </div>
+</div>
 
 <footer>
   <div class="footer-inner">
@@ -533,7 +553,7 @@
   resuelve sus elementos al cargar el archivo, así que necesita que ese markup
   ya esté en el DOM.
 -->
-<script src="script.js?v=5ae065a"></script>
+<script src="script.js?v=b031c00"></script>
 <script>
 /* Animaciones scroll — index.html */
 (function () {

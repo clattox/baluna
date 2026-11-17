@@ -506,3 +506,55 @@ if (contactForm) {
   }, { threshold: 0.15 });
   obs.observe(section);
 })();
+
+/* ---------- Modal formulario de contacto ---------- */
+/*
+  Se abre: (a) clic en cualquier botón/enlace con [data-modal-open]
+  (navbar "Cotizar evento", CTAs del hero y del final, "Solicitar
+  cotización" en #contacto), o (b) automáticamente una vez por sesión,
+  pasados unos segundos, para que no interrumpa al cargar la página.
+  sessionStorage evita que se repita si el usuario navega entre páginas
+  o recarga dentro de la misma visita.
+*/
+(function () {
+  const modal = document.getElementById('contactModal');
+  if (!modal) return;
+  const AUTO_OPEN_DELAY = 8000;
+  const SESSION_KEY = 'baluna_contact_modal_shown';
+  let lastFocused = null;
+
+  function openModal() {
+    lastFocused = document.activeElement;
+    modal.hidden = false;
+    document.body.classList.add('modal-open');
+    const closeBtn = modal.querySelector('.contact-modal__close');
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeModal() {
+    modal.hidden = true;
+    document.body.classList.remove('modal-open');
+    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+  }
+
+  document.querySelectorAll('[data-modal-open]').forEach((el) => {
+    el.addEventListener('click', openModal);
+  });
+  modal.querySelectorAll('[data-modal-close]').forEach((el) => {
+    el.addEventListener('click', closeModal);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.hidden) closeModal();
+  });
+
+  try {
+    if (!window.sessionStorage.getItem(SESSION_KEY)) {
+      setTimeout(() => {
+        if (modal.hidden) openModal();
+        window.sessionStorage.setItem(SESSION_KEY, '1');
+      }, AUTO_OPEN_DELAY);
+    }
+  } catch (e) {
+    /* sessionStorage no disponible (navegación privada, etc.) — sin auto-apertura */
+  }
+})();

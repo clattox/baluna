@@ -232,25 +232,7 @@ img { max-width: 100%; display: block; }
   position: relative;
 }
 
-/* Círculos decorativos — esquinas, igual que la referencia */
-.hero::before,
-.hero::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-}
-/* Esquina inferior izquierda: círculo navy grande */
-.hero::before {
-  width: 320px;
-  height: 320px;
-  bottom: -80px;
-  left: -80px;
-  background: var(--brand-deep);
-  opacity: 1;
-}
-/* Esquina superior derecha: media luna terracota — se aplica en .hero__right */
+/* Círculos decorativos de esquina inferior izquierda retirados a pedido del cliente */
 
 /* Contenedor split: dos columnas en desktop */
 .hero__split {
@@ -268,20 +250,6 @@ img { max-width: 100%; display: block; }
   justify-content: center;
   padding: 72px 48px 80px 7vw;
   position: relative;
-}
-
-/* Círculo terracota pequeño en esquina inferior izquierda (encima del navy) */
-.hero__left::after {
-  content: '';
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  bottom: -40px;
-  left: -40px;
-  border-radius: 50%;
-  background: var(--blush);
-  opacity: .92;
-  z-index: 0;
 }
 
 .hero__eyebrow {
@@ -437,8 +405,6 @@ img { max-width: 100%; display: block; }
     object-position: center 25%;
   }
   .hero__left { padding: 36px 20px 64px; }
-  .hero__left::after { width: 130px; height: 130px; bottom: -20px; left: -20px; }
-  .hero::before { width: 180px; height: 180px; bottom: -50px; left: -50px; }
   .hero h1 { font-size: clamp(28px, 8.5vw, 42px); }
   .hero__sub { font-size: 15px; }
 }
@@ -621,21 +587,20 @@ h2 {
   .svc-grid { grid-template-columns: 1fr 1fr; }
 }
 
-/* Tarjeta base */
+/* Tarjeta base — el resalte (borde + sombra) queda visible siempre,
+   no solo al pasar el cursor; el hover solo agrega el levantamiento. */
 .svc-item {
   position: relative;
   border-radius: 14px;
   overflow: hidden;
-  border: 1px solid transparent;
+  border: 1px solid var(--blush);
   display: flex;
   align-items: flex-start;
   transition: transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s, border-color .4s;
 }
-.svc-item:hover { transform: translateY(-5px); border-color: var(--blush); }
-.svc-item--dark  { background: var(--brand); }
-.svc-item--dark:hover  { box-shadow: 0 16px 48px rgba(23,19,53,.28); }
-.svc-item--light { background: var(--paper-bright); }
-.svc-item--light:hover { box-shadow: 0 16px 48px rgba(23,19,53,.10); }
+.svc-item:hover { transform: translateY(-5px); }
+.svc-item--dark  { background: var(--brand); box-shadow: 0 16px 48px rgba(23,19,53,.28); }
+.svc-item--light { background: var(--paper-bright); box-shadow: 0 16px 48px rgba(23,19,53,.10); }
 
 /* Foto oculta (se mantiene en HTML para no cambiar estructura) */
 .svc-item__photo { display: none; }
@@ -992,10 +957,54 @@ h2 {
 /* ---------- Contact ---------- */
 .contact { background: var(--paper-warm); }
 .contact-grid { display: grid; gap: 56px; }
+.contact-grid--solo { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+.contact-grid--solo .contact-intro p { margin-left: auto; margin-right: auto; }
+.contact-grid--solo .contact-links { align-items: center; }
 .contact-intro p { max-width: 360px; color: var(--ink-soft); margin-top: 20px; text-wrap: balance; }
 .contact-links { margin-top: 40px; display: flex; flex-direction: column; gap: 12px; font-size: 15px; }
-.contact-links a { font-weight: 500; color: var(--ink); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 4px; }
+.contact-links a { display: inline-flex; align-items: center; gap: 10px; font-weight: 500; color: var(--ink); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 4px; }
+.contact-links a svg { flex-shrink: 0; color: var(--blush); }
 .contact-links a:hover { text-decoration-color: var(--blush); }
+.contact-intro .btn-primary { margin-top: 32px; }
+
+/* ---------- Modal formulario de contacto ---------- */
+.contact-modal { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.contact-modal[hidden] { display: none; }
+.contact-modal__backdrop { position: absolute; inset: 0; background: rgba(23,19,53,.55); backdrop-filter: blur(2px); }
+.contact-modal__dialog {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  width: 100%;
+  max-height: 88vh;
+  overflow-y: auto;
+  background: var(--paper);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 24px 64px rgba(23,19,53,.35);
+}
+.contact-modal__dialog h2 { margin: 0 0 8px; font-family: var(--font-display); font-weight: 500; font-size: clamp(24px, 3vw, 30px); color: var(--ink); }
+.contact-modal__dialog > p { margin: 0 0 24px; color: var(--ink-soft); }
+.contact-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background-color .2s, color .2s;
+}
+.contact-modal__close:hover { background: var(--paper-warm); color: var(--ink); }
+.contact-modal__dialog .contact-form { border: none; padding: 0; }
+body.modal-open { overflow: hidden; }
+@media (max-width: 640px) { .contact-modal__dialog { padding: 28px 20px; } }
 
 form.contact-form {
   display: grid;
@@ -1048,7 +1057,7 @@ form.contact-form {
 }
 .contact-form button:hover { background: var(--brand-deep); }
 @media (min-width: 640px) { form.contact-form { grid-template-columns: repeat(2, 1fr); padding: 32px; } .contact-form .col-span-2 { grid-column: span 2; } }
-@media (min-width: 768px) { .contact-grid { grid-template-columns: 1fr 1.2fr; } }
+@media (min-width: 768px) { .contact-grid:not(.contact-grid--solo) { grid-template-columns: 1fr 1.2fr; } }
 
 /* Por debajo de 1081px el formulario se apila a una columna: con dos columnas
    de inputs su ancho mínimo interior (dos controles ~198px + gap + padding)
