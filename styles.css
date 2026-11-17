@@ -1551,8 +1551,9 @@ body.consent-open { overflow: hidden; }
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
+  gap: 10px;
   height: 56px;
+  padding: 0 22px 0 18px;
   border-radius: 999px;
   background: var(--brand);
   color: var(--paper);
@@ -1561,6 +1562,11 @@ body.consent-open { overflow: hidden; }
      cargada, resize, banner que aparece) el botón debe saltar directo a su
      lugar y no quedar un instante debajo del banner. */
   transition: transform 0.2s, background-color 0.2s;
+}
+.whatsapp-float__label {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 .whatsapp-float:hover {
   background: var(--brand-deep);
@@ -1571,9 +1577,10 @@ body.consent-open { overflow: hidden; }
   .whatsapp-float {
     right: 16px;
     bottom: calc(16px + var(--consent-offset, 0px));
-    width: 52px;
     height: 52px;
+    padding: 0 18px 0 16px;
   }
+  .whatsapp-float__label { font-size: 14px; }
 }
 
 /* El hero ya no lleva video: quedó con la imagen estática .hero__bg, así que
