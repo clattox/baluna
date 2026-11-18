@@ -1183,6 +1183,14 @@ form.contact-form {
 }
 .marca-logo[src*="lacustodia"]:hover { opacity: 1; }
 
+/* San·Ría viene en marfil claro: prácticamente igual al fondo del sitio.
+   Mismo tratamiento que Naut y La Custodia. */
+.marca-logo[src*="sanria"] {
+  filter: brightness(0);
+  opacity: .6;
+}
+.marca-logo[src*="sanria"]:hover { opacity: 1; }
+
 /* Frama es verde lima (#C9F565): se deja con su color original. */
 
 /* La Custodia y Quelen son isotipos casi cuadrados (los dos archivos miden
