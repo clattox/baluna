@@ -835,17 +835,19 @@ h2 {
   object-fit: cover;
   display: block;
 }
+/* La etiqueta de categoría (BTL/Retail/Eventos/Staff) se retira
+   visualmente a pedido del cliente. El figcaption se mantiene en el
+   HTML oculto de forma accesible (sr-only) para lectores de pantalla. */
 .port-slide figcaption {
   position: absolute;
-  bottom: 16px;
-  left: 16px;
-  background: rgba(23,19,53,.7);
-  color: var(--paper);
-  font-size: 12px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 4px;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .port-prev, .port-next {
