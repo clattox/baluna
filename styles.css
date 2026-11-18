@@ -1194,7 +1194,7 @@ form.contact-form {
    última que llegó y el isotipo de La Custodia ya tenía esta regla): así una
    sola regla cubre cada logo en las dos tandas. La clase queda en el markup
    como marca legible de cuál de los dos isotipos es el cuadrado. */
-.marca-logo[src*="lacustodia"], .marca-logo[src*="quelen"] {
+.marca-logo[src*="lacustodia"], .marca-logo[src*="quelen"], .marca-logo[src*="yourgoal"] {
   width: 72px;
   height: 72px;
 }
