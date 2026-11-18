@@ -1720,9 +1720,7 @@ body.consent-open { overflow: hidden; }
   color: var(--ink-soft);
 }
 .consultoria-card__highlight {
-  margin-top: 16px;
-  font-weight: 600;
-  color: var(--ink);
+  color: var(--ink-soft);
 }
 
 /* --- CTA final --- */
