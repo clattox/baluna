@@ -1719,10 +1719,6 @@ body.consent-open { overflow: hidden; }
   line-height: 1.7;
   color: var(--ink-soft);
 }
-.consultoria-card__highlight {
-  color: var(--ink-soft);
-}
-
 /* --- CTA final --- */
 .consultoria-cta {
   background: var(--sand);
