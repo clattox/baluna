@@ -34,7 +34,7 @@
       <a href="index.html#contacto">Contacto</a>
       <a href="consultoria.html" aria-current="page">Consultoría</a>
     </nav>
-    <a href="index.html#contacto" class="navbar__cta">Cotizar evento</a>
+    <button type="button" class="navbar__cta" data-modal-open>Cotizar evento</button>
     <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
       <span><i></i><i></i></span>
     </button>
@@ -45,7 +45,7 @@
     <a href="index.html#portafolio">Portafolio</a>
     <a href="index.html#contacto">Contacto</a>
     <a href="consultoria.html">Consultoría</a>
-    <a href="index.html#contacto" class="navbar__cta">Cotizar evento</a>
+    <button type="button" class="navbar__cta" data-modal-open>Cotizar evento</button>
   </div>
 </header>
 
@@ -58,7 +58,7 @@
       <p class="consultoria__label c-anim" data-delay="0">Nuevo servicio</p>
       <h1 class="c-anim" data-delay="100">¿Tu negocio necesita<br>más clientes?</h1>
       <p class="consultoria-hero__sub c-anim" data-delay="200">Complementamos las experiencias de marca con estrategias de marketing y sistemas de adquisición de clientes, diseñados para generar nuevas oportunidades comerciales y potenciar las ventas de tu empresa.</p>
-      <a href="https://wa.me/56923915825?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20Consultor%C3%ADa%20y%20Adquisiciones" target="_blank" rel="noopener noreferrer" class="btn-primary c-anim" data-delay="300">Conversemos por WhatsApp</a>
+      <button type="button" class="btn-primary c-anim" data-delay="300" data-modal-open>Hablemos de tu proyecto</button>
     </div>
   </section>
 
@@ -105,6 +105,35 @@
   </section>
 
 </main>
+
+<!-- ============ MODAL FORMULARIO DE CONTACTO ============ -->
+<!--
+  Mismo modal que index.html. Se abre: (a) clic en "Cotizar evento" del
+  navbar o "Hablemos de tu proyecto" del hero, o (b) automáticamente una
+  vez por sesión (script.js, sessionStorage). Cierra con el botón, Escape
+  o clic en el fondo.
+-->
+<div class="contact-modal" id="contactModal" hidden>
+  <div class="contact-modal__backdrop" data-modal-close></div>
+  <div class="contact-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+    <button type="button" class="contact-modal__close" data-modal-close aria-label="Cerrar formulario">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <h2 id="contactModalTitle">Hablemos de tu proyecto</h2>
+    <p>Completa el siguiente formulario y nos pondremos en contacto contigo a la brevedad para asesorarte.</p>
+    <form class="contact-form" id="contactForm">
+      <label class="field"><span class="label">Nombre <span class="req">*</span></span><input type="text" name="nombre" required /></label>
+      <label class="field"><span class="label">Empresa <span class="req">*</span></span><input type="text" name="empresa" required /></label>
+      <label class="field"><span class="label">Email <span class="req">*</span></span><input type="email" name="email" required /></label>
+      <label class="field"><span class="label">Teléfono</span><input type="tel" name="telefono" /></label>
+      <label class="field"><span class="label">Tipo de evento</span><input type="text" name="tipoEvento" /></label>
+      <label class="field"><span class="label">Ciudad</span><input type="text" name="ciudad" /></label>
+      <label class="field col-span-2"><span class="label">Fecha estimada</span><input type="date" name="fecha" /></label>
+      <label class="field col-span-2"><span class="label">Mensaje / requerimientos</span><textarea name="mensaje" rows="4"></textarea></label>
+      <button type="submit">Solicitar cotización</button>
+    </form>
+  </div>
+</div>
 
 <!-- ============ FOOTER ============ -->
 <footer>
