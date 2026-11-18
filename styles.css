@@ -1183,13 +1183,26 @@ form.contact-form {
 }
 .marca-logo[src*="lacustodia"]:hover { opacity: 1; }
 
-/* San·Ría viene en marfil claro: prácticamente igual al fondo del sitio.
-   Mismo tratamiento que Naut y La Custodia. */
-.marca-logo[src*="sanria"] {
+/* San·Ría — wordmark suelto en marfil claro (sanria.png, no usado por ahora):
+   prácticamente igual al fondo del sitio. Mismo tratamiento que Naut y La
+   Custodia. El selector usa $= y no *= para no afectar a sanria_post.png
+   (la imagen del post, a color, que no debe oscurecerse). */
+.marca-logo[src$="sanria.png"] {
   filter: brightness(0);
   opacity: .6;
 }
-.marca-logo[src*="sanria"]:hover { opacity: 1; }
+.marca-logo[src$="sanria.png"]:hover { opacity: 1; }
+
+/* San·Ría — imagen de post a color (fondo degradado): va en su color
+   original, con su propia caja redondeada ya que no es transparente como
+   el resto de los logos. */
+.marca-logo[src*="sanria_post"] {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  opacity: 1;
+}
 
 /* Frama es verde lima (#C9F565): se deja con su color original. */
 
