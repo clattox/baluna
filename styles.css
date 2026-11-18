@@ -1578,9 +1578,14 @@ body.consent-open { overflow: hidden; }
     right: 16px;
     bottom: calc(16px + var(--consent-offset, 0px));
     height: 52px;
-    padding: 0 18px 0 16px;
+    padding: 0 16px 0 14px;
+    gap: 8px;
   }
-  .whatsapp-float__label { font-size: 14px; }
+  .whatsapp-float__label { font-size: 13px; }
+}
+@media (max-width: 360px) {
+  .whatsapp-float__label { display: none; }
+  .whatsapp-float { padding: 0; width: 52px; justify-content: center; }
 }
 
 /* El hero ya no lleva video: quedó con la imagen estática .hero__bg, así que
