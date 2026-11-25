@@ -8,13 +8,12 @@
 <!-- Temporal: el texto ya está completo, pero falta la revisión legal final.
      Mantener noindex hasta contar con esa revisión; luego quitar este meta. -->
 <meta name="robots" content="noindex" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="preload" href="assets/fonts/manrope-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/playfair-display-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin />
 <!-- ?v= = huella del archivo (ver el comentario en index.html): cambia la URL
      cuando cambia el CSS o el JS, para no depender de purgas del CDN ni de
      la caché. -->
-<link rel="stylesheet" href="styles.css?v=955239e" />
+<link rel="stylesheet" href="styles.css?v=d191382" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -67,7 +66,7 @@
   <!-- ============ CONTENIDO LEGAL ============ -->
   <!--
     Texto completado (24-nov-2026) según el comportamiento real del sitio:
-    formulario por mailto:, sin analítica ni píxeles, solo localStorage
+    formulario por mailto:, sin analítica ni píxeles, fuentes alojadas en el sitio, solo localStorage
     baluna_cookie_consent y sessionStorage baluna_contact_modal_shown.
     Si el sitio cambia (analítica, backend para el formulario, nuevos
     proveedores), actualizar esta política y la fecha. Pendiente revisión legal.
@@ -101,7 +100,7 @@
       <h3>Datos de navegación</h3>
       <p>Este sitio no utiliza herramientas de analítica, píxeles de seguimiento ni cookies de marketing, y Baluna no recopila por sí misma datos de navegación.</p>
       <p>Como ocurre en cualquier sitio web, el proveedor de alojamiento podría registrar datos técnicos necesarios para la seguridad, el funcionamiento y el diagnóstico del sitio, tales como la dirección IP, la fecha y hora de la visita, el navegador, el sistema operativo y los recursos solicitados. Baluna no ha verificado el detalle de esos registros, que dependen de la configuración del proveedor.</p>
-      <p>Además, para mostrar la tipografía del sitio, el navegador solicita las fuentes a los servidores de Google Fonts, por lo que Google puede recibir la dirección IP y datos técnicos del navegador en esa solicitud. Si la persona hace clic en los enlaces a WhatsApp o a Instagram, pasará a esos servicios, que se rigen por sus propias políticas de privacidad.</p>
+      <p>Las tipografías del sitio se sirven desde el propio sitio, sin solicitarlas a servicios de terceros. Si la persona hace clic en los enlaces a WhatsApp o a Instagram, pasará a esos servicios, que se rigen por sus propias políticas de privacidad.</p>
 
       <h2>3. Finalidad del tratamiento</h2>
       <p>Los datos entregados en el formulario se usan únicamente para responder la solicitud de cotización y para contactar a la persona o a la empresa en relación con ese proyecto. No se usan para otros fines —como el envío de publicidad o de comunicaciones comerciales, o su cesión a terceros— sin un consentimiento adicional de la persona titular.</p>
