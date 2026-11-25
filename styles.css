@@ -1204,6 +1204,19 @@ form.contact-form {
   opacity: 1;
 }
 
+/* Destilerías PROA, Pueblo y El Monte: logos anchos con detalle fino, así que
+   van en una caja un poco más alta (120x64) para que se lean. Pueblo viene en
+   blanco sobre alfa (se pasa a negro como Naut); PROA y El Monte van tal cual. */
+.marca-logo[src*="proa"], .marca-logo[src*="pueblo"], .marca-logo[src*="elmonte"] {
+  width: 120px;
+  height: 64px;
+}
+.marca-logo[src*="pueblo"] {
+  filter: brightness(0);
+  opacity: .6;
+}
+.marca-logo[src*="pueblo"]:hover { opacity: 1; }
+
 /* Frama es verde lima (#C9F565): se deja con su color original. */
 
 /* La Custodia y Quelen son isotipos casi cuadrados (los dos archivos miden
