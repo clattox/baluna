@@ -272,7 +272,9 @@ img { max-width: 100%; display: block; }
    WCAG AA). Con --paper queda 13:1. */
 .navbar__mobile .navbar__cta { color: var(--paper); }
 
-@media (min-width: 768px) {
+/* El menú completo aparece desde 1100px: con "Trabaja con nosotros" ya no cabe
+   en tablets sin tocar el logo ni el botón. Debajo se usa el menú hamburguesa. */
+@media (min-width: 1100px) {
   .navbar__links { display: flex; }
   .navbar__cta { display: inline-block; }
   .navbar__toggle { display: none; }
