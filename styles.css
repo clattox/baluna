@@ -460,6 +460,9 @@ img { max-width: 100%; display: block; }
     min-height: 220px;
     max-height: 360px;
   }
+  /* Sin los círculos decorativos en móvil: tapaban a las anfitrionas de la foto. */
+  .hero__right::before,
+  .hero__right::after { display: none; }
   .hero__photo {
     mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
     -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
